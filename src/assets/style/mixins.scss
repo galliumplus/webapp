@@ -1,0 +1,14 @@
+@mixin allcaps {
+
+text-transform: uppercase;
+font-weight: 600;
+	letter-spacing: .1ch;
+
+}
+
+@mixin flexbox($direction, $align, $justify) {
+	display: flex;
+	flex-direction: $direction;
+	align-items: $align;
+	justify-content: $justify;
+}

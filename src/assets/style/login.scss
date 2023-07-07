@@ -1,0 +1,90 @@
+@import "mixins.scss";
+
+	h1 {
+		font-size: 24pt;
+		text-align: center;
+		margin: 12pt 0;
+	}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+
+	@include allcaps;
+	font-size: 11pt;
+}
+
+input {
+	padding: 5px;
+
+	font-family: inherit;
+	color: inherit;
+	font-size: inherit;
+			outline: none;
+
+	&[type="text"], &[type="password"] {
+		background: none;
+		border: solid #eee;
+		border-width: 0 0 2px 0;
+
+		&:focus {
+			background-color: #ffffff22
+		}
+	}
+
+	&[type="password"] {
+		letter-spacing: .5ch;
+	}
+}
+
+.login-bg {
+	@include flexbox(column, center, center);
+	min-height: 100vh;
+	box-sizing: border-box;
+	padding: 30px;
+
+	background-image: url('src/assets/images/login-background.svg');
+	background-position: bottom right;
+}
+
+.login-box {
+	max-width: 500px;
+	padding: 30px;
+
+	color: #eee;
+	background-color: #222;
+	font-size: 14pt;
+
+	input {
+		width: 100%;
+		box-sizing: border-box;
+	}
+}
+
+.login-logos {
+	@include flexbox(row, center, center);
+	height: 60px;
+
+	img {
+		height: 100%;
+	}	
+}
+
+.login-submit-button {
+	margin-top: 20px;
+
+	@include allcaps;
+	background: none;
+	border: 2px solid #fd4719;
+	color: #fd4719;
+	
+	&:hover {
+		color: #222;
+		background-color: #fd4719;
+		cursor: pointer;
+	}
+}
+
+.input-group {
+	margin: 20px 0;
+}
