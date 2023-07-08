@@ -1,0 +1,173 @@
+@import 'mixins.scss';
+
+h1 {
+  font-size: 24pt;
+  text-align: center;
+  margin: 12pt 0 24pt 0;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+
+  @include allcaps;
+  font-size: 11pt;
+}
+
+input {
+  padding: 5px;
+
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  outline: none;
+
+  &[type='text'],
+  &[type='password'] {
+    background: none;
+    border: solid #eee;
+    border-width: 0 0 2px 0;
+
+    &:focus {
+      background-color: #ffffff22;
+    }
+  }
+
+  &[type='password'] {
+    letter-spacing: 0.5ch;
+  }
+}
+
+details {
+  padding: 10px 0;
+  margin-bottom: 10px;
+
+  border: solid #eee;
+  border-width: 0 0 2px 0;
+
+  text-align: justify;
+
+  summary {
+    outline: none;
+    cursor: pointer;
+    transition: margin 160ms ease-out;
+    position: relative;
+    padding-right: 30px;
+
+    text-align: left;
+    list-style: none;
+    @include allcaps;
+    font-size: 12pt;
+  }
+
+  summary::after {
+    content: '+';
+    color: #eee;
+    position: absolute;
+    top: 0;
+    right: 10px;
+  }
+
+  &[open] summary {
+    margin-bottom: 10px;
+
+    &::after {
+      content: '−';
+    }
+  }
+}
+
+ul.help-box {
+  margin-top: 30px;
+  padding: 0;
+  list-style: none;
+}
+
+a.back::before {
+  content: '←';
+  margin-right: 1ch;
+  display: inline-block;
+}
+
+a.fwd::before {
+  content: '→';
+  margin-right: 1ch;
+  display: inline-block;
+}
+
+.external-bg {
+  @include flexbox(row, center, center);
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 30px;
+
+  background-image: url('~assets/images/external-background.svg');
+  background-position: bottom right;
+  background-attachment: fixed;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.external-box {
+  padding: 30px;
+
+  color: #eee;
+  background-color: #222;
+  font-size: 14pt;
+
+  animation: 0.15s ease-out forwards popup;
+
+  &.small {
+    max-width: 500px;
+  }
+
+  &.large {
+    max-width: 800px;
+    flex-grow: 1;
+  }
+
+  input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.login-logos {
+  @include flexbox(row, center, center);
+  height: 60px;
+
+  img {
+    height: 100%;
+  }
+}
+
+.login-submit-button {
+  margin-top: 20px;
+
+  @include allcaps;
+  background: none;
+  border: 2px solid #fd4719;
+  color: #fd4719;
+
+  &:hover,
+  &:focus {
+    color: #222;
+    background-color: #fd4719;
+    cursor: pointer;
+  }
+}
+
+.input-group {
+  margin: 20px 0;
+}
+
+.redirect-404 {
+  text-align: center;
+}
