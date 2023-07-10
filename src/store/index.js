@@ -10,7 +10,7 @@ class SessionStorage {
   get previous() {
     return this.storage.getItem('previous')
   }
-  
+
   set previous(url) {
     this.storage.setItem('previous', url)
   }

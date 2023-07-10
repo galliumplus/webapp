@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
-import store from "../store"
+import store from '../store'
 
 import LoginLogo from '../components/LoginLogo.vue'
 import FormInput from '../components/FormInput.vue'
@@ -11,7 +11,6 @@ import NavLink from '../components/NavLink.vue'
 import '../assets/style/external.scss'
 
 const username = ref('')
-
 </script>
 
 <template>
@@ -33,8 +32,8 @@ const username = ref('')
           identifiants au bureau ou à un administrateur.
         </p>
         <p>
-          Si vous étiez adhérent avant 2022 ou si vous n'avez jamais été adhérent, vous pouvez
-          faire une demande spéciale d'ouverture de compte auprès du bureau de l'ETIQ.
+          Si vous étiez adhérent avant 2022 ou si vous n'avez jamais été adhérent, vous pouvez faire
+          une demande spéciale d'ouverture de compte auprès du bureau de l'ETIQ.
         </p>
       </details>
 
@@ -59,7 +58,11 @@ const username = ref('')
 
       <ul class="help-box">
         <li><NavLink to="/login" target="login">la page de connexion</NavLink></li>
-        <li><NavLink to="/login/reset-password" target="reset-password">la réinitialisation de mot de passe</NavLink></li>
+        <li>
+          <NavLink to="/login/reset-password" target="reset-password"
+            >la réinitialisation de mot de passe</NavLink
+          >
+        </li>
       </ul>
     </div>
   </div>

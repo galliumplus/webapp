@@ -45,6 +45,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/about',
+      name: 'about',
+      component: () => import('../views/AboutView.vue'),
+      meta: {
+        requiresAuth: false,
+        title: 'À propos'
+      }
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('../views/NotFoundView.vue'),
@@ -57,7 +66,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  store.previous = from.name;
+  store.previous = from.name
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.loggedIn) {
       next({ name: 'login' })

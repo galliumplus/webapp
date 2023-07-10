@@ -1,9 +1,10 @@
-@import 'mixins.scss';
+@import '_constants.scss';
+@import '_mixins.scss';
 
 h1 {
-  font-size: 24pt;
+  font-size: 2rem;
   text-align: center;
-  margin: 12pt 0 24pt 0;
+  margin: 1rem 0 2rem 0;
 }
 
 label {
@@ -11,7 +12,7 @@ label {
   margin-bottom: 5px;
 
   @include allcaps;
-  font-size: 11pt;
+  font-size: 0.9rem;
 }
 
 input {
@@ -25,11 +26,11 @@ input {
   &[type='text'],
   &[type='password'] {
     background: none;
-    border: solid #eee;
+    border: solid $light;
     border-width: 0 0 2px 0;
 
     &:focus {
-      background-color: #ffffff22;
+      background-color: $light-overlay;
     }
   }
 
@@ -42,27 +43,25 @@ details {
   padding: 10px 0;
   margin-bottom: 10px;
 
-  border: solid #eee;
+  border: solid $light;
   border-width: 0 0 2px 0;
-
-  text-align: justify;
 
   summary {
     outline: none;
     cursor: pointer;
     transition: margin 160ms ease-out;
     position: relative;
-    padding-right: 30px;
+    padding-right: 26px;
 
     text-align: left;
     list-style: none;
     @include allcaps;
-    font-size: 12pt;
+    font-size: 0.9rem;
   }
 
   summary::after {
     content: '+';
-    color: #eee;
+    color: $light;
     position: absolute;
     top: 0;
     right: 10px;
@@ -77,8 +76,12 @@ details {
   }
 }
 
+p {
+  text-align: justify;
+}
+
 ul.help-box {
-  margin-top: 30px;
+  margin-top: 26px;
   padding: 0;
   list-style: none;
 }
@@ -99,9 +102,9 @@ a.fwd::before {
   @include flexbox(row, center, center);
   min-height: 100vh;
   box-sizing: border-box;
-  padding: 30px;
+  padding: 26px;
 
-  background-image: url('~assets/images/external-background.svg');
+  background-image: url('/public/external-background.svg');
   background-position: bottom right;
   background-attachment: fixed;
 }
@@ -116,11 +119,11 @@ a.fwd::before {
 }
 
 .external-box {
-  padding: 30px;
+  padding: 26px;
 
-  color: #eee;
-  background-color: #222;
-  font-size: 14pt;
+  color: $light;
+  background-color: $dark;
+  font-size: 1.1rem;
 
   animation: 0.15s ease-out forwards popup;
 
@@ -153,13 +156,13 @@ a.fwd::before {
 
   @include allcaps;
   background: none;
-  border: 2px solid #fd4719;
-  color: #fd4719;
+  border: 2px solid $orange;
+  color: $orange;
 
   &:hover,
   &:focus {
-    color: #222;
-    background-color: #fd4719;
+    color: $dark;
+    background-color: $orange;
     cursor: pointer;
   }
 }
@@ -170,4 +173,60 @@ a.fwd::before {
 
 .redirect-404 {
   text-align: center;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.spinner {
+  stroke: $light;
+  position: absolute;
+  left: calc(50% - 23px);
+  top: calc(50% - 23px);
+}
+
+$offset: 120;
+$duration: 1.4s;
+
+.spinner {
+  animation: rotation $duration linear infinite;
+
+  .path {
+    stroke-dasharray: $offset;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash $duration ease-in-out infinite;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: $offset;
+  }
+  50% {
+    stroke-dashoffset: $offset/4;
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: $offset;
+    transform: rotate(450deg);
+  }
+}
+
+.no-display {
+  display: none;
+}
+
+.about-box {
+  @include flexbox(row, stretch, center);
 }

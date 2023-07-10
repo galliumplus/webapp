@@ -12,7 +12,7 @@ const username = ref('')
 
 <template>
   <div class="external-bg">
-    <div class="external-box large">
+    <div class="external-box small">
       <h1>Réinitialisation du mot de passe</h1>
       <FormInput
         label="identifiant"
