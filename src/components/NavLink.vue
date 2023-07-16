@@ -1,29 +1,27 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import store from '../store'
 
-let props = defineProps({
-  to: {
-    type: String,
-    required: true
-  },
-  target: {
-    type: String,
-    required: true
-  }
-})
+interface Props {
+  to: string
+  target: string
+}
+
+let props = defineProps<Props>()
 
 let prefix = ref('Aller à')
 let cls = ref('fwd')
+let realHref = ref(props.to)
 
 onMounted(() => {
-  if (props.target == store.previous) {
+  if (props.target == store.previousRouteName) {
     prefix.value = 'Retour à'
     cls.value = 'back'
+    realHref.value = store.previousRouteUrl
   }
 })
 </script>
 
 <template>
-  <RouterLink :to="to" :class="cls">{{ prefix }} <slot /></RouterLink>
+  <RouterLink :to="realHref" :class="cls">{{ prefix }} <slot /></RouterLink>
 </template>

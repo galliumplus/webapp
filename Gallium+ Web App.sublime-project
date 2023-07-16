@@ -1,8 +1,8 @@
 {
     "folders": [
         {
-            "name": "",
+            "name": "Application web",
             "path": ".",
-        }
-    ]
+        },
+	],
 }

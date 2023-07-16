@@ -1,10 +1,37 @@
 @import '_constants.scss';
 @import '_mixins.scss';
 
+body {
+  background-color: $dark;
+
+  @include media-desktop {
+    background-color: white;
+    background-image: url('/external-background.svg');
+    background-position: bottom right;
+    background-attachment: fixed;
+  }
+}
+
+#app {
+  @include flexbox(row, center, center);
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  @include media-desktop {
+    padding: 26px;
+  }
+}
+
 h1 {
   font-size: 2rem;
   text-align: center;
   margin: 1rem 0 2rem 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  text-align: left;
+  margin: 0.5rem 0 1rem 0;
 }
 
 label {
@@ -98,17 +125,6 @@ a.fwd::before {
   display: inline-block;
 }
 
-.external-bg {
-  @include flexbox(row, center, center);
-  min-height: 100vh;
-  box-sizing: border-box;
-  padding: 26px;
-
-  background-image: url('/public/external-background.svg');
-  background-position: bottom right;
-  background-attachment: fixed;
-}
-
 @keyframes popup {
   from {
     transform: scale(0.9);
@@ -132,7 +148,7 @@ a.fwd::before {
   }
 
   &.large {
-    max-width: 800px;
+    max-width: 700px;
     flex-grow: 1;
   }
 
@@ -168,6 +184,7 @@ a.fwd::before {
 }
 
 .input-group {
+  max-width: 500px;
   margin: 20px 0;
 }
 
@@ -214,7 +231,7 @@ $duration: 1.4s;
     stroke-dashoffset: $offset;
   }
   50% {
-    stroke-dashoffset: $offset/4;
+    stroke-dashoffset: calc($offset / 4);
     transform: rotate(135deg);
   }
   100% {
@@ -229,4 +246,5 @@ $duration: 1.4s;
 
 .about-box {
   @include flexbox(row, stretch, center);
+  margin-top: 30px;
 }

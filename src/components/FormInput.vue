@@ -1,30 +1,21 @@
-<script setup>
-defineProps({
-  type: {
-    type: String,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  label: {
-    type: String
-  },
-  placeholder: {
-    type: String
-  },
-  autocomplete: {
-    type: String,
-    default: 'off'
-  },
-  modelValue: String
+<script setup lang="ts">
+interface Props {
+  type: string
+  name: string
+  label?: string
+  placeholder?: string
+  autocomplete?: string
+  modelValue?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  autocomplete: 'off'
 })
 
 const emit = defineEmits(['update:modelValue'])
 
-function updateModelValue(ev) {
-  emit('update:modelValue', ev.target.value)
+function updateModelValue(ev: Event) {
+  emit('update:modelValue', (ev.target as HTMLInputElement).value)
 }
 </script>
 

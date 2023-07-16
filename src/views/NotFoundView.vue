@@ -1,9 +1,5 @@
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
 import { RouterLink } from 'vue-router'
-
-import LoginLogo from '../components/LoginLogo.vue'
-import FormInput from '../components/FormInput.vue'
 
 import '../assets/style/external.scss'
 </script>

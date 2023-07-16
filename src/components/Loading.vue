@@ -1,12 +1,9 @@
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+interface Props {
+  active: boolean
+}
 
-defineProps({
-  active: {
-    type: Boolean,
-    required: true
-  }
-})
+defineProps<Props>()
 </script>
 
 <template>

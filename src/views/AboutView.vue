@@ -1,16 +1,7 @@
-<script setup>
-import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
-
-import store from '../store'
-
-import LoginLogo from '../components/LoginLogo.vue'
-import FormInput from '../components/FormInput.vue'
+<script setup lang="ts">
 import NavLink from '../components/NavLink.vue'
 
 import '../assets/style/external.scss'
-
-const username = ref('')
 </script>
 
 <template>
@@ -25,6 +16,10 @@ const username = ref('')
         destinée à tous les adhérents afin de leur permettre de consulter et gérer leurs
         informations.
       </p>
+
+      <h2>Confidentialité</h2>
+
+      <p>[WIP]</p>
 
       <ul class="help-box">
         <li><NavLink to="/login" target="login">la page de connexion</NavLink></li>

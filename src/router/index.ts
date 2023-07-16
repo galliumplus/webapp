@@ -66,7 +66,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  store.previous = from.name
+  if (from.name != null) store.previousRouteName = from.name
+  store.previousRouteUrl = from.fullPath
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.loggedIn) {
       next({ name: 'login' })
