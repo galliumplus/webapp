@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import store from '../store'
+import store from '@/store'
 
 interface Props {
   to: string

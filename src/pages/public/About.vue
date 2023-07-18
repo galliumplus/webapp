@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import NavLink from '../components/NavLink.vue'
-
-import '../assets/style/external.scss'
+import NavLink from '@/components/NavLink.vue'
 </script>
 
 <template>
   <div class="external-bg">
-    <div class="external-box large">
+    <main class="large">
       <h1>À propos de Gallium+</h1>
 
       <p>
@@ -24,6 +22,6 @@ import '../assets/style/external.scss'
       <ul class="help-box">
         <li><NavLink to="/login" target="login">la page de connexion</NavLink></li>
       </ul>
-    </div>
+    </main>
   </div>
 </template>

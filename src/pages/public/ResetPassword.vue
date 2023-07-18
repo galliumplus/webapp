@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
-import FormInput from '../components/FormInput.vue'
+import FormInput from '@/components/FormInput.vue'
 
 import '../assets/style/external.scss'
 

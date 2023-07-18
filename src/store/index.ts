@@ -1,3 +1,4 @@
+import { Permissions, Session } from '@/logic'
 import type { RouteRecordName } from 'vue-router'
 
 class SessionStorage {
@@ -7,9 +8,26 @@ class SessionStorage {
     this._storage = window.sessionStorage
   }
 
+  // Sessions ==================================================================
+
   public get loggedIn(): boolean {
-    return this._storage.getItem('loggedin') === 'yes'
+    return Boolean(this._storage.getItem('session-token'))
   }
+
+  public get sessionToken(): string {
+    return this._storage.getItem('session-token') ?? ''
+  }
+
+  public get sessionPermissions(): Permissions {
+    return Permissions.parse(this._storage.getItem('session-permissions'))
+  }
+
+  public set session(session: Session) {
+    this._storage.setItem('session-token', session.token)
+    this._storage.setItem('session-permissions', session.permissions.toString())
+  }
+
+  // Routing ===================================================================
 
   public get previousRouteName(): RouteRecordName {
     return this._storage.getItem('previous-name') ?? 'unknown'

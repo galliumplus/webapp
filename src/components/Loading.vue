@@ -1,16 +1,15 @@
 <script setup lang="ts">
 interface Props {
-  active: boolean
+  when: boolean
 }
 
 defineProps<Props>()
 </script>
 
 <template>
-  <div :class="{ invisible: active }"><slot /></div>
+  <div :class="{ invisible: when }"><slot /></div>
   <svg
-    :class="{ 'no-display': !active }"
-    class="spinner"
+    :class="{ 'no-display': !when }"
     width="45px"
     height="45px"
     viewBox="0 0 46 46"
@@ -27,3 +26,59 @@ defineProps<Props>()
     ></circle>
   </svg>
 </template>
+
+<style scoped lang="scss">
+@import "~assets/style/constants.scss";
+
+svg {
+  stroke: $light;
+  position: absolute;
+  left: calc(50% - 23px);
+  top: calc(50% - 23px);
+}
+
+$offset: 120;
+$duration: 1.4s;
+
+svg {
+  animation: rotation $duration linear infinite;
+
+  .path {
+    stroke-dasharray: $offset;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash $duration ease-in-out infinite;
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(270deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: $offset;
+  }
+  50% {
+    stroke-dashoffset: calc($offset / 4);
+    transform: rotate(135deg);
+  }
+  100% {
+    stroke-dashoffset: $offset;
+    transform: rotate(450deg);
+  }
+}
+
+.no-display {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+</style>

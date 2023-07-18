@@ -5,11 +5,13 @@ interface Props {
   label?: string
   placeholder?: string
   autocomplete?: string
+  disabled?: boolean
   modelValue?: string
 }
 
 withDefaults(defineProps<Props>(), {
-  autocomplete: 'off'
+  autocomplete: 'off',
+  disabled: false
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -20,7 +22,7 @@ function updateModelValue(ev: Event) {
 </script>
 
 <template>
-  <div :class="type + ' input-group'">
+  <div>
     <label :for="name + '-input'">{{ label }}</label>
     <input
       :type="type"
@@ -28,8 +30,47 @@ function updateModelValue(ev: Event) {
       :id="name + '-input'"
       :placeholder="placeholder"
       :autocomplete="autocomplete"
+      :disabled="disabled"
       :value="modelValue"
       @input="updateModelValue"
     />
   </div>
 </template>
+
+<style lang="scss" scoped>
+@import '~assets/style/constants.scss';
+@import '~assets/style/mixins.scss';
+
+div {
+  max-width: 500px;
+  margin: 20px 0;
+}
+  
+label {
+  display: block;
+  margin-bottom: 5px;
+
+  @include allcaps;
+  font-size: 0.9rem;
+}
+
+input {
+  outline: none;
+
+  &[type='text'],
+  &[type='password'] {
+    background: none;
+    border: solid $light;
+    border-width: 0 0 2px 0;
+
+    &:focus {
+      background-color: $light-overlay;
+    }
+  }
+
+  &[type='password'] {
+    letter-spacing: 0.5ch;
+  }
+}
+
+</style>

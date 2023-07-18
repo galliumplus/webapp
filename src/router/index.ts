@@ -1,6 +1,16 @@
 import { nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import store from '../store'
+import store from '@/store'
+import dashboardRoutes from './dashboard'
+import publicRoutes from './public'
+
+declare module 'vue-router' {
+  interface RouteMeta {
+    title: string
+    requiresAuth?: boolean
+    visitorsOnly?: boolean
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -11,54 +21,26 @@ const router = createRouter({
     },
     {
       path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('../views/DashboardView.vue'),
+      component: () => import('@/pages/Dashboard.vue'),
       meta: {
+        title: 'Dashboard',
         requiresAuth: true
-      }
+      },
+      children: dashboardRoutes
     },
     {
       path: '/login',
-      name: 'login',
-      component: () => import('../views/LoginView.vue'),
+      component: () => import('@/pages/Public.vue'),
       meta: {
-        requiresAuth: false,
-        title: 'Connexion'
-      }
-    },
-    {
-      path: '/login/reset-password',
-      name: 'reset-password',
-      component: () => import('../views/ResetPasswordView.vue'),
-      meta: {
-        requiresAuth: false,
-        title: 'Réinitialisation du mot de passe'
-      }
-    },
-    {
-      path: '/login/help',
-      name: 'login-help',
-      component: () => import('../views/LoginHelpView.vue'),
-      meta: {
-        requiresAuth: false,
-        title: 'Aide à la connexion'
-      }
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('../views/AboutView.vue'),
-      meta: {
-        requiresAuth: false,
-        title: 'À propos'
-      }
+        title: 'Page publique'
+      },
+      children: publicRoutes
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
-      component: () => import('../views/NotFoundView.vue'),
+      component: () => import('@/pages/NotFound.vue'),
       meta: {
-        requiresAuth: false,
         title: 'Page introuvable'
       }
     }
@@ -68,24 +50,25 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (from.name != null) store.previousRouteName = from.name
   store.previousRouteUrl = from.fullPath
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.loggedIn) {
       next({ name: 'login' })
-    } else {
-      next()
+      return
     }
-  } else {
-    next()
+  } else if (to.matched.some((record) => record.meta.visitorsOnly)) {
+    if (store.loggedIn && to.query.service === undefined) {
+      next({ name: 'dashboard' })
+      return
+    }
   }
+
+  next()
 })
 
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   nextTick(() => {
-    if (to.meta.title === undefined) {
-      document.title = 'Sans titre – Gallium+'
-    } else {
-      document.title = to.meta.title + ' – Gallium+'
-    }
+    document.title = to.meta.title + ' – Gallium+'
   })
 })
 

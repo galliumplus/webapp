@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 
-import NavLink from '../components/NavLink.vue'
-
-import '../assets/style/external.scss'
+import NavLink from '@/components/NavLink.vue'
 </script>
 
 <template>

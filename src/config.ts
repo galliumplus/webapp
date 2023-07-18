@@ -1,7 +1,7 @@
-const CONFIG = {
+const Config = {
   TESTING: true,
   API_HOST: '...',
-  API_KEY: '...',
-}
+  API_KEY: '...'
+} as const
 
-export default CONFIG
+export default Config

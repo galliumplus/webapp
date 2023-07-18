@@ -20,4 +20,19 @@ export default class Permissions {
   public includes(other: Permissions): boolean {
     return (this._code & other._code) == other._code
   }
+
+  public toString(): string {
+    return this._code.toString()
+  }
+
+  /**
+   * Crée des permissions depuis une forme de texte.
+   *
+   * @param value La valeur à convertir.
+   * 
+   * @returns Une instance de la classe {@link Permissions}.
+   */
+  public static parse(value: string | null | undefined): Permissions {
+    return new Permissions(parseInt(value ?? '0'));
+  }
 }
