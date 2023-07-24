@@ -42,8 +42,8 @@ function submit() {
 </template>
 
 <style lang="scss">
-@import "~assets/style/constants.scss";
-@import "~assets/style/mixins.scss";
+@import "@/assets/style/colors.scss";
+@import "@/assets/style/mixins.scss";
 
 input[type="submit"] {
   margin: 10px 0;

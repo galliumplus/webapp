@@ -1,20 +1,26 @@
 import dayjs from 'dayjs'
-import type { Api } from '.'
+import type { Api, UserApi } from '.'
 import { Session, User, Role, Permissions, Problem, ErrorCode } from '@/logic'
 
-export default class FakeApi implements Api {
-  private delay(millis: number = 500): Promise<void> {
+class Fake {
+  public static delay(millis: number = 500): Promise<void> {
     return new Promise((resolve, reject) => setTimeout(() => resolve(), millis))
   }
 
+  public static user(): User {
+    return new User('bob', 'Bob Bolman', new Role(0, 'Adhérent', Permissions.NONE), '1A', true)
+  }
+}
+
+export default class FakeApi implements Api {
   public async login(userId: string, password: string): Promise<Session> {
-    await this.delay()
+    await Fake.delay()
 
     if (userId === 'bob' && password === 'motdepasse') {
       return new Session(
         'fake-session-token',
         dayjs().add(24, 'hour'),
-        new User('bob', 'Bob Bolman', new Role(0, 'Adhérent', Permissions.NONE), '1A', true),
+        Fake.user(),
         Permissions.NONE
       )
     } else {
@@ -24,4 +30,13 @@ export default class FakeApi implements Api {
       )
     }
   }
+
+  public get users(): FakeUserApi { return new FakeUserApi() }
+}
+
+class FakeUserApi implements UserApi {
+    public async self(): Promise<User> {
+      await Fake.delay()
+      return Fake.user()
+    }
 }

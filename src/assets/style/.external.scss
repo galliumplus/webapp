@@ -5,7 +5,7 @@ details {
   padding: 10px 0;
   margin-bottom: 10px;
 
-  border: solid $light;
+  border: solid $bright;
   border-width: 0 0 2px 0;
 
   summary {
@@ -23,7 +23,7 @@ details {
 
   summary::after {
     content: '+';
-    color: $light;
+    color: $bright;
     position: absolute;
     top: 0;
     right: 10px;
@@ -47,7 +47,7 @@ p {
 }
 
 .spinner {
-  stroke: $light;
+  stroke: $bright;
   position: absolute;
   left: calc(50% - 23px);
   top: calc(50% - 23px);

@@ -1,6 +1,30 @@
 {
     "folders": [
         {
+            "name": "Logic",
+            "path": "src/logic",
+        },
+        {
+            "name": "Pages",
+            "path": "src/pages",
+        },
+        {
+            "name": "Components",
+            "path": "src/components",
+        },
+        {
+            "name": "Services",
+            "path": "src/services",
+        },
+        {
+            "name": "Composables",
+            "path": "src/composables",
+        },
+        {
+            "name": "Assets",
+            "path": "src/assets",
+        },
+        {
             "name": "Application web",
             "path": ".",
         },

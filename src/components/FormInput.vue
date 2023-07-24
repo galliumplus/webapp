@@ -38,8 +38,8 @@ function updateModelValue(ev: Event) {
 </template>
 
 <style lang="scss" scoped>
-@import '~assets/style/constants.scss';
-@import '~assets/style/mixins.scss';
+@import '@/assets/style/constants.scss';
+@import '@/assets/style/mixins.scss';
 
 div {
   max-width: 500px;
@@ -60,11 +60,11 @@ input {
   &[type='text'],
   &[type='password'] {
     background: none;
-    border: solid $light;
+    border: solid $bright;
     border-width: 0 0 2px 0;
 
     &:focus {
-      background-color: $light-overlay;
+      background-color: $bright-overlay;
     }
   }
 

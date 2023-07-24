@@ -10,6 +10,13 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: 'my-account',
+    component: () => import('@/pages/dashboard/MyAccount.vue'),
+    meta: {
+      title: 'Mon compte'
+    }
+  },
+  {
     path: 'details',
     component: () => import('@/pages/dashboard/Details.vue')
   }

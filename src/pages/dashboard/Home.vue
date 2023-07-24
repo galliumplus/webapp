@@ -1,7 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import HeaderLogo from "@/components/HeaderLogo.vue"
+</script>
 
 <template>
-  <h1>Maître</h1>
+  <HeaderLogo />
+  <h1>PABLO</h1>
 </template>
 
 <style type="text/scss"></style>

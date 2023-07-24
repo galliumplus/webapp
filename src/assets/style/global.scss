@@ -1,4 +1,4 @@
-@import './constants.scss';
+@import './colors.scss';
 @import './mixins.scss';
 
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&display=swap');
@@ -23,6 +23,22 @@ body {
     #app {
       @include flexbox(row, center, center);
       min-height: 100vh;
+      min-height: 100dvh;
+      box-sizing: border-box;
+
+      @include media-desktop {
+        padding: 26px;
+      }
+    }
+  }
+
+  &.dashboard {
+    background-color: white;
+
+    #app {
+      @include flexbox(column, stretch, center);
+      height: 100vh;
+      height: 100dvh;
       box-sizing: border-box;
 
       @include media-desktop {
@@ -65,8 +81,22 @@ input {
   }
 }
 
-ul.no-bullet {
-  padding: 0;
-  display: block;
-  list-style: none;
+ul{
+  &.no-bullet {
+    padding-left: 0;
+    display: block;
+    list-style: none;
+  }
+
+  > li {
+    margin: 10px 0;
+  }
+}
+
+.no-display {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
 }

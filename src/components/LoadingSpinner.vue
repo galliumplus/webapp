@@ -28,10 +28,10 @@ defineProps<Props>()
 </template>
 
 <style scoped lang="scss">
-@import "~assets/style/constants.scss";
+@import "@/assets/style/colors.scss";
 
 svg {
-  stroke: $light;
+  stroke: $bright;
   position: absolute;
   left: calc(50% - 23px);
   top: calc(50% - 23px);
@@ -72,13 +72,5 @@ svg {
     stroke-dashoffset: $offset;
     transform: rotate(450deg);
   }
-}
-
-.no-display {
-  display: none;
-}
-
-.invisible {
-  visibility: hidden;
 }
 </style>

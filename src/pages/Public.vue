@@ -12,13 +12,13 @@ onBeforeMount(() => {
 </template>
 
 <style lang="scss">
-@import '~assets/style/constants.scss';
-@import '~assets/style/mixins.scss';
+@import '@/assets/style/constants.scss';
+@import '@/assets/style/mixins.scss';
 
 main.public {
   padding: 26px;
 
-  color: $light;
+  color: $bright;
   background-color: $dark;
   font-size: 1.1rem;
 
