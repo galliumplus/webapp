@@ -3,15 +3,14 @@ import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import FormInput from '@/components/FormInput.vue'
-
-import '../assets/style/external.scss'
+import NavLink from '@/components/NavLink.vue'
 
 const username = ref('')
 </script>
 
 <template>
-  <div class="external-box small">
-    <h1>Réinitialisation du mot de passe</h1>
+  <main class="public small">
+    <h1>Réinitialisation du mot de passe</h1>
     <FormInput
       label="identifiant"
       name="username"
@@ -22,9 +21,9 @@ const username = ref('')
 
     <p v-if="!username">Saisissez votre nom d'utilisateur Gallium+.</p>
 
-    <ul class="help-box">
-      <li><RouterLink to="/login" class="back">Retour à la page de connexion</RouterLink></li>
+    <ul class="no-bullet">
+      <li><NavLink to="/login" target="login">la page de connexion</NavLink></li>
       <li><RouterLink to="/login/help" class="fwd">Besoin d'aide ?</RouterLink></li>
     </ul>
-  </div>
+  </main>
 </template>

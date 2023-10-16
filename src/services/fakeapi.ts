@@ -3,7 +3,7 @@ import type { Api, UserApi } from '.'
 import { Session, User, Role, Permissions, Problem, ErrorCode } from '@/logic'
 
 class Fake {
-  public static delay(millis: number = 500): Promise<void> {
+  public static delay(millis: number = 1500): Promise<void> {
     return new Promise((resolve, reject) => setTimeout(() => resolve(), millis))
   }
 

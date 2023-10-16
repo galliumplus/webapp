@@ -5,21 +5,20 @@ import NavLink from '@/components/NavLink.vue'
 </script>
 
 <template>
-  <div class="external-box large">
+  <main class="public large">
     <h1>Aide à la connexion</h1>
 
     <details>
       <summary>Je n'ai pas de compte</summary>
-      <p>
+      <!-- TODO: À rajouter à la rentrée 2024 ! --p>
         Si vous êtes adhérent à l'ETIQ, ou si vous avez été adhérent depuis 2023, vous possédez un
         compte Gallium+ et vos identifiants vous ont été remis après votre inscription. Si c'est la
         première fois que vous vous connectez et que vous ne vous souvenez plus de vos identifiants,
         adressez-vous au bureau de l'ETIQ ou à un administrateur.
-      </p>
+      </p-->
       <p>
-        Si vous étiez adhérent durant l'année universitaire 2022-2023 et que vous n'avez pas
-        renouvelé votre inscription, votre compte existe quand même et vous pouvez demander vos
-        identifiants au bureau ou à un administrateur.
+        Si vous avez été adhérent à partir de l'année universitaire 2022-2023, votre compte existe
+        et vous pouvez demander vos identifiants au bureau ou à un administrateur.
       </p>
       <p>
         Si vous étiez adhérent avant 2022 ou si vous n'avez jamais été adhérent, vous pouvez faire
@@ -46,7 +45,7 @@ import NavLink from '@/components/NavLink.vue'
       </p>
     </details>
 
-    <ul class="help-box">
+    <ul class="no-bullet">
       <li><NavLink to="/login" target="login">la page de connexion</NavLink></li>
       <li>
         <NavLink to="/login/reset-password" target="reset-password"
@@ -54,5 +53,52 @@ import NavLink from '@/components/NavLink.vue'
         >
       </li>
     </ul>
-  </div>
+  </main>
 </template>
+
+<style scoped lang="scss">
+@import '@/assets/style/colors.scss';
+@import '@/assets/style/mixins.scss';
+
+  details {
+  padding: 10px 0;
+  margin-bottom: 10px;
+
+  border: solid $bright;
+  border-width: 0 0 2px 0;
+
+  summary {
+    outline: none;
+    cursor: pointer;
+    transition: margin 160ms ease-out;
+    position: relative;
+    padding-right: 26px;
+
+    text-align: left;
+    list-style: none;
+    @include allcaps;
+    font-size: 0.9rem;
+  }
+
+  summary::after {
+    content: '+';
+    color: $bright;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: larger;
+  }
+
+  p {
+    margin: 10px 0 16px 0;
+  }
+
+  &[open] summary {
+    margin-bottom: 20px;
+
+    &::after {
+      content: '−';
+    }
+  }
+}
+</style>

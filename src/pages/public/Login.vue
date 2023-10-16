@@ -8,7 +8,7 @@ import Problem from '@/logic/problem'
 
 import LoginLogo from '@/components/LoginLogo.vue'
 import LoginForm from '@/components/LoginForm.vue'
-import Loading from '@/components/Loading.vue'
+import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import ErrorBox from '@/components/ErrorBox.vue'
 
 const route = useRoute()
@@ -66,7 +66,7 @@ async function logIn(username: string, password: string) {
 
 <template>
   <main class="public small">
-    <Loading :when="fetchingServiceInfo">
+    <LoadingSpinner :when="fetchingServiceInfo">
       <LoginLogo />
       <h1>Connectez-vous à {{ serviceName }}</h1>
 
@@ -75,10 +75,10 @@ async function logIn(username: string, password: string) {
       <LoginForm @submit="logIn" :disabled="loggingIn"/>
 
       <ul class="no-bullet">
-        <li>        <RouterLink to="/login/reset-password" class="fwd">Mot de passe oublié ?</RouterLink></li>
+        <li><RouterLink to="/login/reset-password" class="fwd">Mot de passe oublié ?</RouterLink></li>
         <li><RouterLink to="/login/help" class="fwd">Besoin d'aide ?</RouterLink></li>
       </ul>
-    </Loading>
+    </LoadingSpinner>
 
     <div id="about">
       <RouterLink to="/about">À propos</RouterLink>

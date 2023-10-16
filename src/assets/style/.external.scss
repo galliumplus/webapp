@@ -1,50 +1,6 @@
 @import '_constants.scss';
 @import '_mixins.scss';
 
-details {
-  padding: 10px 0;
-  margin-bottom: 10px;
-
-  border: solid $bright;
-  border-width: 0 0 2px 0;
-
-  summary {
-    outline: none;
-    cursor: pointer;
-    transition: margin 160ms ease-out;
-    position: relative;
-    padding-right: 26px;
-
-    text-align: left;
-    list-style: none;
-    @include allcaps;
-    font-size: 0.9rem;
-  }
-
-  summary::after {
-    content: '+';
-    color: $bright;
-    position: absolute;
-    top: 0;
-    right: 10px;
-  }
-
-  &[open] summary {
-    margin-bottom: 10px;
-
-    &::after {
-      content: '−';
-    }
-  }
-}
-
-p {
-  text-align: justify;
-}
-
-.redirect-404 {
-  text-align: center;
-}
 
 .spinner {
   stroke: $bright;

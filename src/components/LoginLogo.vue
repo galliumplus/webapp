@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="@/assets/images/gallium-plus-logo-compact.min.svg" />
+    <img src="@/assets/images/gallium-plus-logo-compact-light.min.svg" />
   </div>
 </template>
 

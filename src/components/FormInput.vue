@@ -38,7 +38,7 @@ function updateModelValue(ev: Event) {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/style/constants.scss';
+@import '@/assets/style/colors.scss';
 @import '@/assets/style/mixins.scss';
 
 div {

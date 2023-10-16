@@ -12,7 +12,7 @@ onBeforeMount(() => {
 </template>
 
 <style lang="scss">
-@import '@/assets/style/constants.scss';
+@import '@/assets/style/colors.scss';
 @import '@/assets/style/mixins.scss';
 
 main.public {
@@ -25,12 +25,11 @@ main.public {
   animation: 0.15s ease-out forwards popup;
 
   &.small {
-    width: 450px;
+    width: 400px;
   }
 
   &.large {
-    width: 700px;
-    flex-grow: 1;
+    width: 750px;
   }
 
   input {

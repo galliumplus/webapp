@@ -3,8 +3,7 @@ import NavLink from '@/components/NavLink.vue'
 </script>
 
 <template>
-  <div class="external-bg">
-    <main class="large">
+    <main class="public large">
       <h1>À propos de Gallium+</h1>
 
       <p>
@@ -19,9 +18,15 @@ import NavLink from '@/components/NavLink.vue'
 
       <p>[WIP]</p>
 
-      <ul class="help-box">
+      <h2>Crédits</h2>
+
+      <p>
+        Louis DEVIE (<a href="mailto:louisdevie.contact@gmail.com">louisdevie.contact@gmail.com</a>),
+        Ashot MANUKYAN, Lucas PIRES
+      </p>
+
+      <ul class="no-bullet">
         <li><NavLink to="/login" target="login">la page de connexion</NavLink></li>
       </ul>
     </main>
-  </div>
 </template>
