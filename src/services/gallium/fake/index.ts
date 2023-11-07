@@ -1,8 +1,10 @@
 import dayjs from 'dayjs'
-import type { Api, UserApi } from '.'
-import { Session, User, Role, Permissions, Problem, ErrorCode } from '@/logic'
+import type { GalliumApi, GalliumUserApi } from '..'
+import {Problem, ErrorCode} from '@/logic'
+import { Session, User, Role, Permissions } from '@/logic/users'
+import FakeGalliumUserService from './users'
 
-class Fake {
+export class Fake {
   public static delay(millis: number = 1500): Promise<void> {
     return new Promise((resolve, reject) => setTimeout(() => resolve(), millis))
   }
@@ -12,7 +14,7 @@ class Fake {
   }
 }
 
-export default class FakeApi implements Api {
+export class FakeGalliumService implements GalliumApi {
   public async login(userId: string, password: string): Promise<Session> {
     await Fake.delay()
 
@@ -31,12 +33,7 @@ export default class FakeApi implements Api {
     }
   }
 
-  public get users(): FakeUserApi { return new FakeUserApi() }
-}
-
-class FakeUserApi implements UserApi {
-    public async self(): Promise<User> {
-      await Fake.delay()
-      return Fake.user()
-    }
+  public get users(): GalliumUserApi {
+    return new FakeGalliumUserService()
+  }
 }

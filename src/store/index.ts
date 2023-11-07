@@ -1,4 +1,4 @@
-import { Permissions, Session } from '@/logic'
+import { Permissions, Session } from '@/logic/users'
 import type { RouteRecordName } from 'vue-router'
 
 class SessionStorage {

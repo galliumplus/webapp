@@ -1,5 +1,5 @@
 import { nextTick } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteLocationRaw } from 'vue-router'
 import store from '@/store'
 import dashboardRoutes from './dashboard'
 import publicRoutes from './public'
@@ -37,6 +37,10 @@ const router = createRouter({
       children: publicRoutes
     },
     {
+      path: '/password/reset',
+      redirect: { name: 'password-reset' }
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: () => import('@/pages/NotFound.vue'),
@@ -53,7 +57,11 @@ router.beforeEach((to, from, next) => {
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.loggedIn) {
-      next({ name: 'login' })
+      let loginLocation: RouteLocationRaw = { name : 'login' }
+      if (to.name != null && typeof to.name !== 'symbol') {
+        loginLocation.query = { to: to.name }
+      }
+      next(loginLocation)
       return
     }
   } else if (to.matched.some((record) => record.meta.visitorsOnly)) {

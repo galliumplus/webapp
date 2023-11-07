@@ -1,13 +1,14 @@
 import Config from "@/config"
-import type { Api } from "@/services"
-import FakeApi from "@/services/fakeapi"
+import type { GalliumApi } from "@/services/gallium"
+import { FakeGalliumService } from "@/services/gallium/fake"
+import { GalliumService } from "@/services/gallium/webservice"
 
-function useApi(): Api {
-	// if (Config.TESTING) {
-		return new FakeApi()
-	// } else {
-		// return new Api() 
-	// }
+function useApi(): GalliumApi {
+	if (Config.TESTING) {
+		return new FakeGalliumService()
+	} else {
+		return new GalliumService(Config.API_URL, Config.API_KEY)
+	}
 }
 
 export default useApi
