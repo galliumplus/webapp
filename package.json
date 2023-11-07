@@ -12,7 +12,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "type-watch": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false --watch",
-    "build-netlify": "echo -e \"VUE_APP_API_KEY=$GALLIUM_API_KEY\\n\" > .env.local && run-p type-check build-only"
+    "build-netlify": "echo \"VUE_APP_API_KEY=$GALLIUM_API_KEY\" > .env.local && run-p type-check build-only"
   },
   "dependencies": {
     "dayjs": "^1.11.9",

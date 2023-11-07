@@ -2,13 +2,13 @@
   import {ref, onMounted} from 'vue'
 import LoadingBlock from "@/components/LoadingBlock.vue"
 import { useApi } from '@/composables'
-import {User} from "@/logic"
+import {User} from "@/logic/users"
 
 const api = useApi()
 const userInfo = ref<User|null>(null)
 
 onMounted(async () => {
-  userInfo.value = await api.users.self()
+  userInfo.value = await api.users.getSelf()
 })
 </script>
 

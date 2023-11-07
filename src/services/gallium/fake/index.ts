@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
-import type { GalliumApi, GalliumUserApi } from '..'
+import type { GalliumApi } from '..'
+import type { GalliumUserApi } from '../users'
 import {Problem, ErrorCode} from '@/logic'
 import { Session, User, Role, Permissions } from '@/logic/users'
 import FakeGalliumUserService from './users'
