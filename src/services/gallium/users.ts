@@ -1,9 +1,9 @@
-import { User } from '@/logic/users'
+import type { User } from '@/logic/users'
 
 export interface PasswordModification {
   newPassword: string
   currentPassword?: string
-  resetToken?: string 
+  resetToken?: string
 }
 
 export interface GalliumUserApi {

@@ -1,6 +1,6 @@
 import { nextTick } from 'vue'
 import { createRouter, createWebHistory, type RouteLocationRaw } from 'vue-router'
-import store from '@/store'
+import { SessionStorage } from '@/store'
 import dashboardRoutes from './dashboard'
 import publicRoutes from './public'
 
@@ -52,12 +52,14 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  let store = new SessionStorage()
+
   if (from.name != null) store.previousRouteName = from.name
   store.previousRouteUrl = from.fullPath
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.loggedIn) {
-      let loginLocation: RouteLocationRaw = { name : 'login' }
+      let loginLocation: RouteLocationRaw = { name: 'login' }
       if (to.name != null && typeof to.name !== 'symbol') {
         loginLocation.query = { to: to.name }
       }

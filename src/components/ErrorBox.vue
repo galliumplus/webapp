@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import Problem from "@/logic/problem"
+import Problem from '@/logic/problem'
 
 interface Props {
-  modelValue: Problem|undefined
+  modelValue: Problem | undefined
 }
 
 defineProps<Props>()
@@ -15,7 +15,7 @@ function updateModelValue(ev: Event) {
 </script>
 
 <template>
-	<div v-if="modelValue">{{modelValue.message}}</div>
+  <div v-if="modelValue">{{ modelValue.message }}</div>
 </template>
 
 <style scoped lang="scss">

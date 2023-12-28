@@ -17,6 +17,7 @@
   "dependencies": {
     "dayjs": "^1.11.9",
     "lodash": "^4.17.21",
+    "multiflag": "^1.0.2",
     "vue": "^3.3.4",
     "vue-router": "^4.2.2"
   },

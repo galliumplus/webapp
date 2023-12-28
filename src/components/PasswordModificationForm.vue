@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue"
-import FormInput from './FormInput.vue'
+import { ref } from 'vue'
+import FormInput from './basic/FormInput.vue'
 
 interface Props {
   currentPasswordNeeded: boolean
@@ -10,7 +10,7 @@ interface Props {
 withDefaults(defineProps<Props>(), { disabled: false })
 
 const emit = defineEmits<{
-  submit: [{newPassword: string, currentPassword: string}]
+  submit: [{ newPassword: string; currentPassword: string }]
 }>()
 
 const currentPassword = ref('')
@@ -19,10 +19,10 @@ const newPasswordAgain = ref('')
 
 function submit() {
   if (newPassword.value !== newPasswordAgain.value) {
-    alert("Les mots de passe ne correspondent pas")
-    return;
+    alert('Les mots de passe ne correspondent pas')
+    return
   }
-  emit('submit', {newPassword: newPassword.value, currentPassword: currentPassword.value})
+  emit('submit', { newPassword: newPassword.value, currentPassword: currentPassword.value })
 }
 </script>
 
@@ -60,10 +60,10 @@ function submit() {
 </template>
 
 <style lang="scss">
-@import "@/assets/style/colors.scss";
-@import "@/assets/style/mixins.scss";
+@import '@/assets/style/colors.scss';
+@import '@/assets/style/mixins.scss';
 
-input[type="submit"] {
+input[type='submit'] {
   margin: 10px 0;
 
   @include allcaps;

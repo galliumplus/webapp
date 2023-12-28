@@ -4,6 +4,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans&text=%E2%86%90%E2%86%92&display=swap');
 
+
+@keyframes popup {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: none;
+  }
+}
+
 body {
   font-family: 'Hanken Grotesk', 'Fira Sans', sans-serif;
   font-weight: 400;
@@ -55,33 +65,35 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
 
+a, button {
   &.back::before {
-  content: '←';
-  margin-right: 1ch;
-  display: inline-block;
+    content: '←';
+    margin-right: 1ch;
+    display: inline-block;
+  }
+
+  &.fwd::before {
+    content: '→';
+    margin-right: 1ch;
+    display: inline-block;
+  }
 }
 
-&.fwd::before {
-  content: '→';
-  margin-right: 1ch;
-  display: inline-block;
-}
-}
+input, button {
+  padding: 8px;
 
-input {
-  padding: 5px;
-  
   font-family: inherit;
   color: inherit;
   font-size: inherit;
 
   &[disabled] {
-    opacity: .6;
+    opacity: 0.6;
   }
 }
 
-ul{
+ul {
   &.no-bullet {
     padding-left: 0;
     display: block;
@@ -95,6 +107,10 @@ ul{
 
 p {
   text-align: justify;
+}
+
+.centered {
+  text-align: center;
 }
 
 .no-display {

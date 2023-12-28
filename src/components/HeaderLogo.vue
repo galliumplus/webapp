@@ -1,5 +1,5 @@
 <template>
-    <img src="@/assets/images/gallium-plus-logo-full-dark.min.svg" />
+  <img src="@/assets/images/gallium-plus-logo-full-dark.min.svg" />
 </template>
 
 <style lang="scss" scoped>

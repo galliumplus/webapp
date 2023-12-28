@@ -1,7 +1,7 @@
-import { Permissions, Session } from '@/logic/users'
+import { GalliumPermissions, type Session } from '@/logic/users'
 import type { RouteRecordName } from 'vue-router'
 
-class SessionStorage {
+export class SessionStorage {
   private _storage: Storage
 
   public constructor() {
@@ -18,13 +18,18 @@ class SessionStorage {
     return this._storage.getItem('session-token') ?? ''
   }
 
-  public get sessionPermissions(): Permissions {
-    return Permissions.parse(this._storage.getItem('session-permissions'))
+  public get sessionPermissions(): GalliumPermissions {
+    return GalliumPermissions.parse(this._storage.getItem('session-permissions'))
   }
 
   public set session(session: Session) {
     this._storage.setItem('session-token', session.token)
     this._storage.setItem('session-permissions', session.permissions.toString())
+  }
+
+  public clearSession() {
+    this._storage.removeItem('session-token')
+    this._storage.removeItem('session-permissions')
   }
 
   // Routing ===================================================================
@@ -45,7 +50,3 @@ class SessionStorage {
     this._storage.setItem('previous-url', url)
   }
 }
-
-const store = new SessionStorage()
-
-export default store
