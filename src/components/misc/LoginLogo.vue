@@ -12,7 +12,7 @@ const props = defineProps<Props>()
 const otherIcon = computed(() => props.client == null || !props.client.isGallium)
 const error = computed(() => props.client == null)
 
-function failedToLoadLogo(ev: ErrorEvent) {
+function failedToLoadLogo(ev: Event) {
   ;(ev.target as HTMLImageElement).src = crossImage
 }
 </script>

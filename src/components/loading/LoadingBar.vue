@@ -33,7 +33,7 @@ defineProps<Props>()
 
 .foreground {
   position: absolute;
-  background: $orange;
+  background: $accent;
   height: 6px;
 }
 .increment {

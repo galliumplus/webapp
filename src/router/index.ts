@@ -1,8 +1,14 @@
 import { nextTick } from 'vue'
-import { createRouter, createWebHistory, type RouteLocationRaw } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory,
+  type RouteLocationRaw,
+  type RouteRecordRaw
+} from 'vue-router'
 import { SessionStorage } from '@/store'
-import dashboardRoutes from './dashboard'
+import protectedRoutes from './protected'
 import publicRoutes from './public'
+import dashboardRoutes from '@/router/protected'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -15,19 +21,7 @@ declare module 'vue-router' {
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      redirect: { name: 'dashboard' }
-    },
-    {
-      path: '/dashboard',
-      component: () => import('@/pages/Dashboard.vue'),
-      meta: {
-        title: 'Dashboard',
-        requiresAuth: true
-      },
-      children: dashboardRoutes
-    },
+    // pages publiques
     {
       path: '/login',
       component: () => import('@/pages/Public.vue'),
@@ -36,10 +30,27 @@ const router = createRouter({
       },
       children: publicRoutes
     },
+    // redirections
     {
+      path: '/',
+      redirect: { name: 'dashboard' }
+    },
+    {
+      // ancienne url
       path: '/password/reset',
       redirect: { name: 'password-reset' }
     },
+    // pages protégées
+    {
+      path: '',
+      component: () => import('@/pages/Protected.vue'),
+      meta: {
+        title: 'Dashboard',
+        requiresAuth: true
+      },
+      children: dashboardRoutes
+    },
+    // page non trouvée
     {
       path: '/:pathMatch(.*)*',
       name: 'not-found',

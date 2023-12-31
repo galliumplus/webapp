@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import HeaderLogo from '@/components/HeaderLogo.vue'
+import HeaderLogo from '@/components/misc/SideBarLogo.vue'
 import { useRouter } from 'vue-router'
 import { useStore } from '@/composables'
 
@@ -13,7 +13,6 @@ function logout() {
 </script>
 
 <template>
-  <HeaderLogo />
   <h1>PABLO</h1>
   <button @click="logout">logout</button>
 </template>

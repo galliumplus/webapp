@@ -15,7 +15,7 @@ import LoadingBar from '@/components/loading/LoadingBar.vue'
 import { LoginCredentials } from '@/logic/users'
 import { Done, Indeterminate, type Progress } from '@/logic/components'
 import type { LoginClient } from '@/logic/clients'
-import GButton from '@/components/basic/GButton.vue'
+import GButton from '@/components/basic/StyledButton.vue'
 
 const router = useRouter()
 const api = useApi()

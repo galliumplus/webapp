@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import FormInput from './basic/FormInput.vue'
+import FormInput from '../basic/FormInput.vue'
+import { TextInputValue } from '@/logic/components'
 
 interface Props {
   currentPasswordNeeded: boolean
@@ -13,9 +14,9 @@ const emit = defineEmits<{
   submit: [{ newPassword: string; currentPassword: string }]
 }>()
 
-const currentPassword = ref('')
-const newPassword = ref('')
-const newPasswordAgain = ref('')
+const currentPassword = new TextInputValue('')
+const newPassword = new TextInputValue('')
+const newPasswordAgain = new TextInputValue('')
 
 function submit() {
   if (newPassword.value !== newPasswordAgain.value) {
@@ -32,7 +33,7 @@ function submit() {
       v-if="currentPasswordNeeded"
       label="votre mot de passe actuel"
       name="current-password"
-      v-model="currentPassword"
+      :value="currentPassword"
       type="password"
       autocomplete="current-password"
       :disabled="disabled"
@@ -41,7 +42,7 @@ function submit() {
     <FormInput
       label="nouveau mot de passe"
       name="new-password"
-      v-model="newPassword"
+      :value="newPassword"
       type="password"
       autocomplete="new-password"
       :disabled="disabled"
@@ -49,7 +50,7 @@ function submit() {
     <FormInput
       label="répétez le mot de passe"
       name="new-password"
-      v-model="newPasswordAgain"
+      :value="newPasswordAgain"
       type="password"
       autocomplete="new-password"
       :disabled="disabled"
@@ -60,21 +61,21 @@ function submit() {
 </template>
 
 <style lang="scss">
-@import '@/assets/style/colors.scss';
-@import '@/assets/style/mixins.scss';
+@import '@/assets/style/colors';
+@import '@/assets/style/mixins';
 
 input[type='submit'] {
   margin: 10px 0;
 
   @include allcaps;
   background: none;
-  border: 2px solid $orange;
-  color: $orange;
+  border: 2px solid $accent;
+  color: $accent;
 
   &:hover,
   &:focus {
     color: $dark;
-    background-color: $orange;
+    background-color: $accent;
     cursor: pointer;
   }
 }

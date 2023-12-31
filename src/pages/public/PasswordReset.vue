@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
-import PasswordModificationForm from '@/components/PasswordModificationForm.vue'
+import PasswordModificationForm from '@/components/forms/PasswordModificationForm.vue'
 import NavLink from '@/components/NavLink.vue'
 import { Query } from '@/helpers'
 import { useApi } from '@/composables'

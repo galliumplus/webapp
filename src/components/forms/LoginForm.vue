@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import FormInput from '../basic/FormInput.vue'
 import LoginCredentials from '@/logic/users/login-credentials'
-import GButton from '@/components/basic/GButton.vue'
+import GButton from '@/components/basic/StyledButton.vue'
 
 interface Props {
   disabled?: boolean
@@ -44,6 +44,6 @@ onMounted(() => {
       :disabled="disabled"
     />
 
-    <GButton kind="accented" :disabled="disabled" submit>connexion</GButton>
+    <GButton kind="raised-accented" :disabled="disabled" submit>connexion</GButton>
   </form>
 </template>
