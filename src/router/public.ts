@@ -19,6 +19,14 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: 'password/reset-success',
+    name: 'password-reset-success',
+    component: () => import('@/pages/public/PasswordResetSuccess.vue'),
+    meta: {
+      title: 'Réinitialiser votre mot de passe'
+    }
+  },
+  {
     path: '/about',
     name: 'about',
     component: () => import('@/pages/public/About.vue'),
