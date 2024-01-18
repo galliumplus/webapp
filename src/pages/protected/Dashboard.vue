@@ -1,20 +1,5 @@
-<script setup lang="ts">
-import HeaderLogo from '@/components/misc/SideBarLogo.vue'
-import { useRouter } from 'vue-router'
-import { useStore } from '@/composables'
+<script setup lang="ts"></script>
 
-const router = useRouter()
-const store = useStore()
+<template></template>
 
-function logout() {
-  store.clearSession()
-  router.push({ name: 'login' })
-}
-</script>
-
-<template>
-  <h1>PABLO</h1>
-  <button @click="logout">logout</button>
-</template>
-
-<style type="text/scss"></style>
+<style lang="scss"></style>

@@ -27,7 +27,8 @@ function logout() {
     <HeaderLogo />
 
     <TabNav class="grow">
-      <Tab link="/" label="Accueil" icon="home" />
+      <Tab link="/dashboard" label="Accueil" icon="home" />
+      <Tab link="/checkout" label="Caisse" icon="cart" />
     </TabNav>
 
     <SideBarFooter>

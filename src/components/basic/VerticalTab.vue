@@ -40,7 +40,7 @@ a {
   text-align: left;
   white-space: nowrap;
 
-  transition: $transition-duration color;
+  transition: $transition-duration color background-color;
 
   &:hover {
     background-color: $bright-overlay;

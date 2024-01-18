@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import CartIcon from './CartIcon.vue'
 import ExitIcon from './ExitIcon.vue'
 import HomeIcon from './HomeIcon.vue'
 import { computed } from 'vue'
 
 const icons = {
+  cart: CartIcon,
   exit: ExitIcon,
   home: HomeIcon
 }

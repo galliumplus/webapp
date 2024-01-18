@@ -32,10 +32,6 @@ const router = createRouter({
     },
     // redirections
     {
-      path: '/',
-      redirect: { name: 'dashboard' }
-    },
-    {
       // ancienne url
       path: '/password/reset',
       redirect: { name: 'password-reset' }
