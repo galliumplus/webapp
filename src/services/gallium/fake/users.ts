@@ -1,15 +1,30 @@
-import type { User } from "@/logic/users";
-import type { GalliumUserApi, PasswordModification } from "../users";
-import { Fake } from ".";
+import { type User } from '@/business/users'
+import type { GalliumUsersApi, PasswordModification } from '../users'
+import { Fake } from '.'
 
-export default class FakeGalliumUserService implements GalliumUserApi {
-    public async getSelf(): Promise<User> {
-        await Fake.delay()
-        return Fake.user()
-    }
+export class FakeGalliumUserService implements GalliumUsersApi {
+  public async getAll(): Promise<User[]> {
+    await Fake.delay()
+    return [Fake.user()]
+  }
 
-    public async changePassword(userId: string, passwordModification: PasswordModification): Promise<void> {
-        await Fake.delay()
-        return 
-    }
+  public async getSelf(): Promise<User> {
+    await Fake.delay()
+    return Fake.user()
+  }
+
+  public async changePassword(
+    userId: string,
+    passwordModification: PasswordModification
+  ): Promise<void> {
+    await Fake.delay()
+  }
+
+  public canResetPassword(userId: string): Promise<boolean> {
+    return Promise.resolve(false)
+  }
+
+  public askForPasswordReset(userId: string, retryInit?: boolean): Promise<void> {
+    return Promise.resolve(undefined)
+  }
 }

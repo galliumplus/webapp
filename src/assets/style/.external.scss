@@ -1,7 +1,6 @@
 @import '_constants.scss';
 @import '_mixins.scss';
 
-
 .spinner {
   stroke: $bright;
   position: absolute;
@@ -45,5 +44,3 @@ $duration: 1.4s;
     transform: rotate(450deg);
   }
 }
-
-

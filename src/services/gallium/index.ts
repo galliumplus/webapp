@@ -1,8 +1,14 @@
-import { Session } from '@/logic/users'
-import type { GalliumUserApi } from './users'
+import type { GalliumUsersApi } from './users'
+import type { GalliumClientsApi } from './clients'
+import type { LoginCredentials, LoggedIn } from '@/business/access'
+
+export type { GalliumUsersApi } from './users'
+export type { GalliumClientsApi } from './clients'
 
 export interface GalliumApi {
-  login(userId: string, password: string): Promise<Session>
+  logIn(credentials: LoginCredentials): Promise<LoggedIn>
+  ssoLogIn(apiKey: string, credentials: LoginCredentials): Promise<string>
 
-  readonly users: GalliumUserApi
+  readonly users: GalliumUsersApi
+  readonly clients: GalliumClientsApi
 }

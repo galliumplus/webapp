@@ -1,4 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+import dashboardRoutes from '@/router/protected'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -11,27 +12,19 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: 'password/reset',
-    name: 'password-reset',
-    component: () => import('@/pages/public/PasswordReset.vue'),
+    path: 'forgot-password',
+    name: 'forgot-password',
+    component: () => import('@/pages/public/ForgotPassword.vue'),
     meta: {
-      title: 'Réinitialiser votre mot de passe'
+      title: 'Mot de passe oublié'
     }
   },
   {
-    path: 'password/reset-success',
-    name: 'password-reset-success',
-    component: () => import('@/pages/public/PasswordResetSuccess.vue'),
+    path: 'reset-password',
+    name: 'reset-password',
+    component: () => import('@/pages/public/ResetPassword.vue'),
     meta: {
       title: 'Réinitialiser votre mot de passe'
-    }
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('@/pages/public/About.vue'),
-    meta: {
-      title: 'À propos'
     }
   }
 ]

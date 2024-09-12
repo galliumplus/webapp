@@ -1,9 +1,12 @@
 import dayjs from 'dayjs'
-import type { GalliumApi } from '..'
-import type { GalliumUserApi } from '../users'
-import {Problem, ErrorCode} from '@/logic'
-import { Session, User, Role, Permissions } from '@/logic/users'
-import FakeGalliumUserService from './users'
+import type { GalliumApi, GalliumClientsApi } from '..'
+import type { GalliumUsersApi } from '../users'
+import { GalliumPermissions, User } from '@/business/users'
+import { FakeGalliumUserService } from './users'
+import type { LoginCredentials, LoggedIn } from '@/business/access'
+import { Problem } from '@/business/problem'
+import type { SsoClientPublicInfo } from '@/business/clients'
+import { FakeGalliumClientsService } from './clients'
 
 export class Fake {
   public static delay(millis: number = 1500): Promise<void> {
@@ -11,30 +14,55 @@ export class Fake {
   }
 
   public static user(): User {
-    return new User('bob', 'Bob Bolman', new Role(0, 'Adhérent', Permissions.NONE), '1A', true)
+    return new User({
+      //id: 'bob',
+      firstName: 'bob',
+      lastName: 'bolman'
+      // role: { id: 0, name: 'Adhérent', permissions: new GalliumPermissions() },
+      // year: '1A',
+      // isMember: true
+    })
+  }
+
+  public static ssoClientPublicInfo(): SsoClientPublicInfo {
+    return {
+      displayName: 'Démo',
+      logoUrl: 'https://res.cloudinary.com/louisdevie/image/upload/demo-logo.png'
+    }
   }
 }
 
 export class FakeGalliumService implements GalliumApi {
-  public async login(userId: string, password: string): Promise<Session> {
+  public async logIn(credentials: LoginCredentials): Promise<LoggedIn> {
     await Fake.delay()
 
-    if (userId === 'bob' && password === 'motdepasse') {
-      return new Session(
-        'fake-session-token',
-        dayjs().add(24, 'hour'),
-        Fake.user(),
-        Permissions.NONE
-      )
+    if (credentials.username === 'bob' && credentials.password === 'motdepasse') {
+      return {
+        token: 'fake-session-token',
+        expiration: dayjs().add(24, 'hour'),
+        user: Fake.user(),
+        permissions: new GalliumPermissions()
+      }
     } else {
-      throw new Problem(
-        "L'identifiant et le mot de passe ne correspondent pas.",
-        ErrorCode.UNAUTHENTICATED
-      )
+      throw new Problem('Identifiant ou mot de passe invalide.')
     }
   }
 
-  public get users(): GalliumUserApi {
+  public async ssoLogIn(apiKey: string, credentials: LoginCredentials): Promise<string> {
+    await Fake.delay()
+
+    if (credentials.username === 'bob' && credentials.password === 'motdepasse') {
+      return 'https://ma-super-appli.fr/login?token=jwt-goes-here'
+    } else {
+      throw new Problem('Identifiant ou mot de passe invalide.')
+    }
+  }
+
+  public get users(): GalliumUsersApi {
     return new FakeGalliumUserService()
+  }
+
+  public get clients(): GalliumClientsApi {
+    return new FakeGalliumClientsService()
   }
 }

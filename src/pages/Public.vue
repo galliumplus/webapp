@@ -3,7 +3,7 @@ import { onBeforeMount } from 'vue'
 import { RouterView } from 'vue-router'
 
 onBeforeMount(() => {
-  document.body.className = 'public';
+  document.body.className = 'public'
 })
 </script>
 
@@ -16,23 +16,28 @@ onBeforeMount(() => {
 @import '@/assets/style/mixins.scss';
 
 main.public {
-  padding: 26px;
-
   color: $bright;
   background-color: $dark;
-  font-size: 1.1rem;
+  @include media-desktop {
+    box-shadow: $dark-shadow 0 0 16px;
+  }
 
-  animation: 0.15s ease-out forwards popup;
+  @include animation-popup;
 
   &.small {
-    width: 400px;
+    width: 452px;
   }
 
   &.large {
-    width: 750px;
+    width: 852px;
   }
 
-  input {
+  .content {
+    padding: 26px;
+  }
+
+  input,
+  button[type='submit'] {
     width: 100%;
     box-sizing: border-box;
   }
@@ -50,18 +55,8 @@ main.public {
   }
 
   #about {
-    margin-top: 30px;
-
+    padding-top: 0;
     text-align: center;
-  }
-}
-
-@keyframes popup {
-  from {
-    transform: scale(0.9);
-  }
-  to {
-    transform: none;
   }
 }
 </style>

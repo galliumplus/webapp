@@ -16,3 +16,7 @@
     @content;
   }
 }
+
+@mixin animation-popup {
+  animation: 0.15s ease-out forwards popup;
+}
