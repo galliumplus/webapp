@@ -7,7 +7,7 @@ const time = ref('')
 const date = ref('')
 let timer: number
 
-const updateTime = () => {
+function updateTime() {
   const now = dayjs()
   time.value = now.format('HH:mm')
   date.value = now.format('dddd D MMMM')
@@ -15,11 +15,11 @@ const updateTime = () => {
 
 onMounted(() => {
   updateTime()
-  timer = setInterval(updateTime, 1000)
+  timer = window.setInterval(updateTime, 1000)
 })
 
 onUnmounted(() => {
-  clearInterval(timer)
+  window.clearInterval(timer)
 })
 </script>
 

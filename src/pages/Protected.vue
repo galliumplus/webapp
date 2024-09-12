@@ -32,7 +32,7 @@ const userDisplayName = store.userShortDisplayName
     <TabNav class="g-grow">
       <Tab link="/dashboard" label="Accueil" icon="home" />
       <!--Tab link="/checkout" label="Caisse" icon="cart" /-->
-      <Tab link="/users" label="Utilisateurs" icon="userGroup" />
+      <Tab link="/users" label="Utilisateurs" icon="user-group" />
     </TabNav>
 
     <SideBarFooter class="footer">
