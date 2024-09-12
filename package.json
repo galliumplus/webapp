@@ -1,6 +1,6 @@
 {
   "name": "gallium-plus",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -15,7 +15,8 @@
     "build-netlify": "echo \"VUE_APP_API_KEY=$GALLIUM_API_KEY\" > .env.local && run-p type-check build-only"
   },
   "dependencies": {
-    "dayjs": "^1.11.9",
+    "@hokaze/core": "^0.1.2",
+    "@hokaze/dayjs": "^0.1.2",
     "lodash": "^4.17.21",
     "multiflag": "^1.0.2",
     "vue": "^3.3.4",

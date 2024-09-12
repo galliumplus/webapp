@@ -8,14 +8,14 @@ import {
   useRouter
 } from 'vue-router'
 import { useApi, useParams, useStore } from '@/composables'
-import Problem from '@/logic/problem'
+import { Problem } from '@/business/problem'
 import LoginLogo from '@/components/misc/LoginLogo.vue'
 import LoginForm from '@/components/forms/LoginForm.vue'
 import LoadingBar from '@/components/loading/LoadingBar.vue'
-import { LoginCredentials } from '@/logic/users'
-import { Done, Indeterminate, type Progress } from '@/logic/components'
-import type { LoginClient } from '@/logic/clients'
-import GButton from '@/components/basic/StyledButton.vue'
+import { Done, Indeterminate, type Progress } from '@/business/progress'
+import StyledButton from '@/components/basic/StyledButton.vue'
+import { type LoginClient, SelfLoginClient, SsoLoginClient } from '@/business/clients'
+import type { LoginCredentials } from '@/business/access'
 
 const router = useRouter()
 const api = useApi()
@@ -33,13 +33,13 @@ async function loadLoginClientInfo(route: RouteLocationNormalized) {
   ssoApiKey = params.service.asString
 
   if (ssoApiKey === null) {
-    client.value = { name: 'Gallium+', isGallium: true }
+    client.value = new SelfLoginClient()
   } else {
     client.value = null
     progress.value = Indeterminate
 
     try {
-      client.value = await api.clients.getSsoLoginClient(ssoApiKey)
+      client.value = new SsoLoginClient(await api.clients.getPublicInfoSso(ssoApiKey))
     } catch (err) {
       ssoError.value = Problem.handle(err)
     } finally {
@@ -52,22 +52,20 @@ onMounted(() => loadLoginClientInfo(useRoute()))
 onBeforeRouteUpdate(loadLoginClientInfo)
 
 async function logIn(credentials: LoginCredentials) {
-  if (credentials.areValid) {
-    progress.value = Indeterminate
+  progress.value = Indeterminate
 
-    try {
-      if (client.value?.isGallium) {
-        store.session = await api.logIn(credentials)
-        await router.push({ name: 'dashboard' })
-      } else if (ssoApiKey !== null) {
-        window.location.href = await api.ssoLogIn(ssoApiKey, credentials)
-      } else {
-        console.log("la clé d'api est nulle")
-      }
-    } catch (err) {
-      progress.value = Done
-      credentials.report(Problem.handle(err))
+  try {
+    if (client.value?.isSelf) {
+      store.session = await api.logIn(credentials)
+      await router.push({ name: 'dashboard' })
+    } else if (ssoApiKey !== null) {
+      window.location.href = await api.ssoLogIn(ssoApiKey, credentials)
+    } else {
+      console.error("la clé d'api est nulle")
     }
+  } catch (err) {
+    progress.value = Done
+    // credentials.report(Problem.handle(err))
   }
 }
 
@@ -102,8 +100,12 @@ function goBack() {
         </details>
 
         <ul class="no-bullet">
-          <li><GButton kind="link" class="back" @click="goBack">Retour</GButton></li>
-          <li><RouterLink to="/login" class="fwd">Se connecter à Gallium+</RouterLink></li>
+          <li>
+            <StyledButton kind="link" class="back" @click="goBack">Retour</StyledButton>
+          </li>
+          <li>
+            <RouterLink to="/login" class="fwd">Se connecter à Gallium+</RouterLink>
+          </li>
         </ul>
       </template>
       <template v-else>
@@ -113,15 +115,13 @@ function goBack() {
 
         <ul class="no-bullet">
           <li>
-            <RouterLink to="/login/reset-password" class="fwd">Mot de passe oublié ?</RouterLink>
+            <RouterLink to="/login/forgot-password" class="fwd"> Mot de passe oublié ? </RouterLink>
           </li>
-          <li><RouterLink to="/login/help" class="fwd">Besoin d'aide ?</RouterLink></li>
+          <li>
+            <RouterLink to="/login/help" class="fwd">Besoin d'aide ?</RouterLink>
+          </li>
         </ul>
       </template>
-    </div>
-
-    <div class="content" id="about">
-      <RouterLink to="/about">À propos</RouterLink>
     </div>
   </main>
 </template>

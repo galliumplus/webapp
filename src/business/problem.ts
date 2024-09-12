@@ -14,7 +14,7 @@ export enum ErrorCode {
   InvalidInput = 'InvalidInput'
 }
 
-export default class Problem {
+export class Problem {
   private readonly _errorCode: ErrorCode
   private readonly _message: string
 

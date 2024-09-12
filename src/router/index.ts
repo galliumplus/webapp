@@ -34,7 +34,7 @@ const router = createRouter({
     {
       // ancienne url
       path: '/password/reset',
-      redirect: { name: 'password-reset' }
+      redirect: { name: 'reset-password' }
     },
     // pages protégées
     {

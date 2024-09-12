@@ -1,12 +1,12 @@
 import dayjs from 'dayjs'
-import type { GalliumApi } from '..'
-import type { GalliumUserApi } from '../users'
-import { Problem } from '@/logic'
-import { type Session, type User, GalliumPermissions, LoginCredentials } from '@/logic/users'
-import FakeGalliumUserService from './users'
-import type { GalliumClientApi } from '@/services/gallium/clients'
-import FakeGalliumClientsService from '@/services/gallium/fake/clients'
-import type { LoginClient } from '@/logic/clients'
+import type { GalliumApi, GalliumClientsApi } from '..'
+import type { GalliumUsersApi } from '../users'
+import { GalliumPermissions, User } from '@/business/users'
+import { FakeGalliumUserService } from './users'
+import type { LoginCredentials, LoggedIn } from '@/business/access'
+import { Problem } from '@/business/problem'
+import type { SsoClientPublicInfo } from '@/business/clients'
+import { FakeGalliumClientsService } from './clients'
 
 export class Fake {
   public static delay(millis: number = 1500): Promise<void> {
@@ -14,26 +14,26 @@ export class Fake {
   }
 
   public static user(): User {
-    return {
-      id: 'bob',
-      name: 'Bob Bolman',
-      role: { id: 0, name: 'Adhérent', permissions: new GalliumPermissions() },
-      year: '1A',
-      isMember: true
-    }
+    return new User({
+      //id: 'bob',
+      firstName: 'bob',
+      lastName: 'bolman'
+      // role: { id: 0, name: 'Adhérent', permissions: new GalliumPermissions() },
+      // year: '1A',
+      // isMember: true
+    })
   }
 
-  public static ssoLoginClient(): LoginClient {
+  public static ssoClientPublicInfo(): SsoClientPublicInfo {
     return {
-      name: 'Démo',
-      logoUrl: 'https://res.cloudinary.com/louisdevie/image/upload/demo-logo.png',
-      isGallium: false
+      displayName: 'Démo',
+      logoUrl: 'https://res.cloudinary.com/louisdevie/image/upload/demo-logo.png'
     }
   }
 }
 
 export class FakeGalliumService implements GalliumApi {
-  public async logIn(credentials: LoginCredentials): Promise<Session> {
+  public async logIn(credentials: LoginCredentials): Promise<LoggedIn> {
     await Fake.delay()
 
     if (credentials.username === 'bob' && credentials.password === 'motdepasse') {
@@ -58,11 +58,11 @@ export class FakeGalliumService implements GalliumApi {
     }
   }
 
-  public get users(): GalliumUserApi {
+  public get users(): GalliumUsersApi {
     return new FakeGalliumUserService()
   }
 
-  public get clients(): GalliumClientApi {
+  public get clients(): GalliumClientsApi {
     return new FakeGalliumClientsService()
   }
 }

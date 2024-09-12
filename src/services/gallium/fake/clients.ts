@@ -1,13 +1,13 @@
-import type { GalliumClientApi } from '@/services/gallium/clients'
-import type { LoginClient } from '@/logic/clients'
+import type { GalliumClientsApi } from '@/services/gallium'
 import { Fake } from '@/services/gallium/fake/index'
-import { ErrorCode, Problem } from '@/logic'
+import { Problem, ErrorCode } from '@/business/problem'
+import type { SsoClientPublicInfo } from '@/business/clients'
 
-export default class FakeGalliumClientsService implements GalliumClientApi {
-  public async getSsoLoginClient(apiKey: string): Promise<LoginClient> {
+export class FakeGalliumClientsService implements GalliumClientsApi {
+  public async getPublicInfoSso(apiKey: string): Promise<SsoClientPublicInfo> {
     await Fake.delay()
     if (apiKey == 'demo') {
-      return Fake.ssoLoginClient()
+      return Fake.ssoClientPublicInfo()
     } else {
       throw new Problem(
         `Application SSO inconnue. La clé d'API ${apiKey} n'est pas valide.`,

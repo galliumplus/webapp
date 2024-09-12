@@ -12,19 +12,19 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: 'password/reset',
-    name: 'password-reset',
-    component: () => import('@/pages/public/PasswordReset.vue'),
+    path: 'forgot-password',
+    name: 'forgot-password',
+    component: () => import('@/pages/public/ForgotPassword.vue'),
     meta: {
-      title: 'Réinitialiser votre mot de passe'
+      title: 'Mot de passe oublié'
     }
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import('@/pages/public/About.vue'),
+    path: 'reset-password',
+    name: 'reset-password',
+    component: () => import('@/pages/public/ResetPassword.vue'),
     meta: {
-      title: 'À propos'
+      title: 'Réinitialiser votre mot de passe'
     }
   }
 ]

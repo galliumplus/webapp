@@ -1,5 +1,5 @@
 <script setup lang="ts">
-export type ButtonStyle = 'raised-accented' | 'sinking-dark' | 'link'
+export type ButtonStyle = 'raised-accented' | 'raised-bright' | 'sinking-dark' | 'link'
 
 interface Props {
   kind: ButtonStyle
@@ -27,15 +27,13 @@ button {
     cursor: pointer;
   }
 
-  &.raised-accented-style {
+  &.raised-accented-style,
+  &.raised-bright-style {
     display: inline-block;
-    margin: 10px 0;
     height: 41px;
 
     @include allcaps;
-    background-color: $accent;
-    border-bottom: 4px solid $dark-accent;
-    color: $dark;
+    font-size: 11pt;
 
     transition: background-color 0.2s;
 
@@ -43,16 +41,28 @@ button {
     &:disabled {
       height: 39px;
       border-bottom-width: 2px;
-      margin-top: 12px;
+      margin-top: 2px;
     }
+  }
+
+  &.raised-accented-style {
+    background-color: $accent;
+    border-bottom: 4px solid $dark-accent;
+    color: $dark;
+  }
+
+  &.raised-bright-style {
+    background-color: $bright;
+    border-bottom: 4px solid $less-bright;
+    color: $dark;
   }
 
   &.sinking-dark-style {
     display: inline-block;
-    margin: 10px 0;
     height: 41px;
 
     @include allcaps;
+    font-size: 11pt;
     background: none;
     border-top: 0 solid $more-dark;
     color: $bright;
@@ -73,6 +83,7 @@ button {
 
     color: inherit;
     background: none;
+    display: inline-block;
 
     &:hover {
       text-decoration: underline;

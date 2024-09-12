@@ -1,8 +1,8 @@
 <template>
   <svg width="22mm" height="22mm" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
     <g style="fill: currentColor">
-      <path d="m6 4v14h8v-3h2v5h-12v-18h12v8h-2v-6z" />
-      <path d="m18 11h-7v-3h-1l-3 3v3l3 3h1v-3h7z" />
+      <path d="M 18,4 V 18 H 11 V 15 H 9 v 5 H 20 V 2 H 9 v 8 h 2 V 4 Z" />
+      <path d="M 15,14 H 6 v 3 H 5.5 L 1,12.5 5.5,8 H 6 v 3 h 9 z" />
     </g>
   </svg>
 </template>

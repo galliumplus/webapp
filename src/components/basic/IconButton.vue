@@ -14,7 +14,7 @@ withDefaults(defineProps<Props>(), { disabled: false })
 </script>
 
 <template>
-  <StyledButton :kind="kind" :disabled="disabled"><Icon :name="icon" /></StyledButton>
+  <StyledButton :kind="kind" :disabled="disabled"><Icon :of="icon" /></StyledButton>
 </template>
 
 <style scoped lang="scss">

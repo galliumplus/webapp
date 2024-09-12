@@ -21,6 +21,14 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: 'Caisse'
     }
+  },
+  {
+    path: 'users',
+    name: 'users',
+    component: () => import('@/pages/protected/Users.vue'),
+    meta: {
+      title: 'Utilisateurs'
+    }
   }
 ]
 

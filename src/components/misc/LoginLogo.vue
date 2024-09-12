@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { LoginClient } from '@/logic/clients'
+import type { LoginClient } from '@/business/clients'
 import { computed } from 'vue'
 import crossImage from '@/assets/images/cross-bright.min.svg'
 
@@ -9,7 +9,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const otherIcon = computed(() => props.client == null || !props.client.isGallium)
+const otherIcon = computed(() => props.client == null || !props.client.isSelf)
 const error = computed(() => props.client == null)
 
 function failedToLoadLogo(ev: Event) {

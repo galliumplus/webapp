@@ -8,5 +8,6 @@
 nav {
   align-self: end;
   margin-left: 48px;
+  min-width: 76%;
 }
 </style>

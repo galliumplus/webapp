@@ -4,18 +4,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans&text=%E2%86%90%E2%86%92&display=swap');
 
-@keyframes popup {
-  from {
-    transform: scale(0.9);
-  }
-  to {
-    transform: none;
-  }
-}
+//======= STYLES DE BASE POUR LES BALISES HTML ========================================================================/
 
 body {
   font-family: 'Hanken Grotesk', 'Fira Sans', sans-serif;
   font-weight: 400;
+  font-size: 12pt;
   margin: 0;
   padding: 0;
 
@@ -79,7 +73,7 @@ button {
 
 input,
 button {
-  padding: 8px;
+  padding: 8px 12px;
 
   font-family: inherit;
   color: inherit;
@@ -102,22 +96,75 @@ ul {
   }
 }
 
-p {
-  text-align: justify;
+thead tr {
+  border-bottom: 1px solid black;
 }
 
-.centered {
+tbody tr {
+  border-bottom: 1px solid $bright;
+}
+
+td, th {
+  padding: 8px 5px;
+}
+
+hr {
+  border: 0 solid black;
+  border-top-width: 1px;
+}
+
+//======= CLASSES GLOBALES ============================================================================================/
+
+.g-centered {
   text-align: center;
 }
 
-.no-display {
+.g-no-display {
   display: none;
 }
 
-.invisible {
+.g-invisible {
   visibility: hidden;
 }
 
-.grow {
+.g-grow {
   flex-grow: 1;
+}
+
+.g-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 20px;
+}
+
+.g-no-gap {
+  gap: unset;
+}
+
+.g-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 20px;
+}
+
+.g-em {
+  font-style: italic;
+  color: $less-dark;
+}
+
+.g-justify {
+  text-align: justify;
+}
+
+//======= ANIMATIONS ==================================================================================================/
+
+@keyframes popup {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: none;
+  }
 }

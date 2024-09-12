@@ -1,5 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import ClockCard from '@/components/cards/utilities/ClockCard.vue'
+</script>
 
-<template></template>
+<template>
+  <div class="layout"><ClockCard></ClockCard></div>
+</template>
 
-<style lang="scss"></style>
+<style scoped lang="scss">
+@import '@/assets/style/mixins';
+
+div.layout {
+  box-sizing: border-box;
+  @include flexbox(column, flex-end, flex-start);
+}
+</style>

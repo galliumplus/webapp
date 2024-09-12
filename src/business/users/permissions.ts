@@ -108,7 +108,7 @@ export class GalliumPermissions {
   }
 
   /**
-   * Retire un permission.
+   * Retire une permission.
    * @param permission
    */
   public revoke(permission: GalliumPermission) {

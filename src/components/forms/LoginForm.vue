@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import FormInput from '../basic/FormInput.vue'
-import LoginCredentials from '@/logic/users/login-credentials'
-import GButton from '@/components/basic/StyledButton.vue'
+import StyledButton from '@/components/basic/StyledButton.vue'
+import { LoginCredentials } from '@/business/access'
 
 interface Props {
   disabled?: boolean
@@ -30,7 +30,7 @@ onMounted(() => {
     <FormInput
       label="identifiant"
       name="username"
-      :value="credentials.usernameInputValue"
+      v-model="credentials.username"
       type="text"
       autocomplete="username"
       :disabled="disabled"
@@ -38,12 +38,12 @@ onMounted(() => {
     <FormInput
       label="mot de passe"
       name="password"
-      :value="credentials.passwordInputValue"
+      v-model="credentials.password"
       type="password"
       autocomplete="current-password"
       :disabled="disabled"
     />
 
-    <GButton kind="raised-accented" :disabled="disabled" submit>connexion</GButton>
+    <StyledButton kind="raised-accented" :disabled="disabled" submit>connexion</StyledButton>
   </form>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Done, type Progress } from '@/logic/components'
+import { Done, type Progress } from '@/business/progress'
 
 interface Props {
   progress: Progress
@@ -10,7 +10,7 @@ defineProps<Props>()
 
 <template>
   <div class="slider">
-    <template v-if="progress != Done">
+    <template v-if="progress !== Done">
       <div class="foreground increment"></div>
       <div class="foreground decrement"></div>
     </template>

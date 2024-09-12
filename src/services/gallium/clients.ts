@@ -1,5 +1,5 @@
-import type { LoginClient } from '@/logic/clients'
+import type { SsoClientPublicInfo } from '@/business/clients'
 
-export interface GalliumClientApi {
-  getSsoLoginClient(apiKey: string): Promise<LoginClient>
+export interface GalliumClientsApi {
+  getPublicInfoSso(apiKey: string): Promise<SsoClientPublicInfo>
 }

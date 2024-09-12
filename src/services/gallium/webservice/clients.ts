@@ -1,9 +1,8 @@
-import type { GalliumClientApi } from '@/services/gallium/clients'
-import type { LoginClient } from '@/logic/clients'
-import RestService from '@/services/rest'
+import type { GalliumClientsApi } from '@/services/gallium/clients'
+import type { LoginClient, SsoClientPublicInfo } from '@/business/clients'
 
-export default class GalliumClientsService extends RestService implements GalliumClientApi {
-  getSsoLoginClient(apiKey: string): Promise<LoginClient> {
+export class GalliumClientsService implements GalliumClientsApi {
+  public getPublicInfoSso(apiKey: string): Promise<SsoClientPublicInfo> {
     throw 'Not implemented'
   }
 }

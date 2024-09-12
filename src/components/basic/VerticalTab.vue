@@ -16,7 +16,7 @@ const iconUrl = computed(() => `@/assets/icons/${props.icon}.svg`)
 
 <template>
   <RouterLink :to="link">
-    <Icon :name="icon" />
+    <Icon :of="icon" />
     {{ label }}
   </RouterLink>
 </template>
@@ -29,7 +29,7 @@ $transition-duration: 0.2s;
 
 a {
   @include flexbox(row, center, flex-start);
-  padding: 6px 24px 6px 6px;
+  padding: 6px 24px 6px 10px;
   height: 29px;
   margin: 12px 0px;
   overflow: hidden;

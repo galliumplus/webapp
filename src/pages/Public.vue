@@ -18,7 +18,6 @@ onBeforeMount(() => {
 main.public {
   color: $bright;
   background-color: $dark;
-  font-size: 1.1rem;
   @include media-desktop {
     box-shadow: $dark-shadow 0 0 16px;
   }

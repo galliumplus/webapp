@@ -1,15 +1,17 @@
 <script setup lang="ts">
-import type { InputValue } from '@/logic/components/input-value'
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { LoginCredentials } from '@/business/access'
+import type { Problem } from '@/business/problem'
 
 interface Props {
   type: string
   name: string
   label?: string
+  problem?: Problem
   placeholder?: string
   autocomplete?: string
   disabled?: boolean
-  value: InputValue
+  modelValue: unknown
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -17,20 +19,28 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false
 })
 
-const formattedProblem = computed(() => {
-  let problem = null
-  if (props.value.problem.value !== null) {
-    problem = ' – ' + props.value.problem.value.message
+const emit = defineEmits(['update:modelValue'])
+
+const formattedProblem = ref<string>()
+
+watch(
+  () => props.problem,
+  (pb) => {
+    formattedProblem.value = pb === undefined ? undefined : ' – ' + pb.message
   }
-  return problem
-})
+)
 
 const labelId = computed(() => props.name + '-input')
+
+function modelValueChange(ev: Event): void {
+  formattedProblem.value = undefined
+  emit('update:modelValue', (ev.target as HTMLInputElement).value)
+}
 </script>
 
 <template>
   <div class="input-box">
-    <div class="input-label" :class="{ error: formattedProblem }">
+    <div class="input-label" :class="{ error: formattedProblem !== undefined }">
       <label :for="labelId">{{ label }}</label>
       <span>{{ formattedProblem }}</span>
     </div>
@@ -41,7 +51,8 @@ const labelId = computed(() => props.name + '-input')
       :placeholder="placeholder"
       :autocomplete="autocomplete"
       :disabled="disabled"
-      v-model="value.ref.value"
+      :value="modelValue"
+      @input="modelValueChange($event)"
     />
   </div>
 </template>
@@ -67,7 +78,7 @@ div {
 
 label {
   @include allcaps;
-  font-size: 0.9rem;
+  font-size: 11pt;
 }
 
 input {

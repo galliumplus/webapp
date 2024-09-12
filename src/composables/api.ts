@@ -3,7 +3,7 @@ import type { GalliumApi } from '@/services/gallium'
 import { FakeGalliumService } from '@/services/gallium/fake'
 import { GalliumService } from '@/services/gallium/webservice'
 
-export default function useApi(): GalliumApi {
+export function useApi(): GalliumApi {
   if (Config.TESTING) {
     return new FakeGalliumService()
   } else {

@@ -1,0 +1,3 @@
+[submodule "eiktobel"]
+	path = eiktobel
+	url = https://github.com/louisdevie/eiktobel.git

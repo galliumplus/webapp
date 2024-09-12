@@ -1,4 +1,4 @@
-import type { User } from '@/logic/users'
+import { type User } from '@/business/users'
 
 export interface PasswordModification {
   newPassword: string
@@ -6,8 +6,14 @@ export interface PasswordModification {
   resetToken?: string
 }
 
-export interface GalliumUserApi {
+export interface GalliumUsersApi {
   getSelf(): Promise<User>
 
   changePassword(userId: string, passwordModification: PasswordModification): Promise<void>
+
+  getAll(): Promise<User[]>
+
+  canResetPassword(userId: string): Promise<boolean>
+
+  askForPasswordReset(userId: string, retryInit?: boolean): Promise<void>
 }

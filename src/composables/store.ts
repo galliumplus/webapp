@@ -1,7 +1,5 @@
 import { SessionStorage } from '@/store'
 
-function useStore(): SessionStorage {
+export function useStore(): SessionStorage {
   return new SessionStorage()
 }
-
-export default useStore
