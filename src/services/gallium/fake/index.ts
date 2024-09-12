@@ -15,12 +15,14 @@ export class Fake {
 
   public static user(): User {
     return new User({
-      //id: 'bob',
+      id: 'bob',
       firstName: 'bob',
-      lastName: 'bolman'
-      // role: { id: 0, name: 'Adhérent', permissions: new GalliumPermissions() },
-      // year: '1A',
-      // isMember: true
+      lastName: 'bolman',
+      role: 0,
+      year: '1A',
+      isMember: true,
+      email: 'bob@example.com',
+      deposit: null
     })
   }
 

@@ -52,7 +52,7 @@ function selectUser(i: number): void {
           </td>
         </tr>
       </TableCard>
-      <UserCard :user="userList[activeUser]"></UserCard>
+      <UserCard :user="userList[activeUser] as User"></UserCard>
     </div>
   </div>
 </template>
