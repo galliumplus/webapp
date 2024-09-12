@@ -12,11 +12,12 @@ const api = useApi()
 
 const user = Query.firstOrDefault(route.query.user, '')
 const pprt = Query.firstOrDefault(route.query.pprt, '')
+const done = ref(false)
 
 async function resetPassword(passwords: { newPassword: string }) {
   console.log(api)
   await api.users.changePassword(user, { newPassword: passwords.newPassword, resetToken: pprt })
-  alert('OK')
+  done.value = true
 }
 </script>
 
@@ -25,7 +26,9 @@ async function resetPassword(passwords: { newPassword: string }) {
     <div class="content">
       <h1>Réinitialisation du mot de passe</h1>
 
-      <PasswordModificationForm :current-password-needed="false" @submit="resetPassword" />
+      <p v-if="done">Votre mot de passe a bien été réinitialisé !</p>
+
+      <PasswordModificationForm :current-password-needed="false" @submit="resetPassword" v-else />
 
       <ul class="no-bullet">
         <li>
