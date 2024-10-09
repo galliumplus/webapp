@@ -5,7 +5,7 @@ import { GalliumClientsService } from '@/services/gallium/webservice/clients'
 import { BasicAuth, BearerToken, number, object, type Service, service, string } from '@hokaze/core'
 import dayjs from '@hokaze/dayjs'
 import { GalliumPermissions, User } from '@/business/users'
-import { useStore } from '@/composables'
+import { useStore } from '@/composables/store'
 
 const loggedIn = object({
   token: string,
@@ -16,7 +16,7 @@ const loggedIn = object({
 
 export class GalliumService implements GalliumApi {
   private _loginService: Service
-  private _mainService: Service
+  private readonly _mainService: Service
   private _apiKey: string
 
   public constructor(baseUrl: string, apiKey: string) {
