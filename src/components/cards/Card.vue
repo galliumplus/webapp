@@ -12,12 +12,12 @@
 div {
   background-color: white;
   border-bottom: 4px solid #ccc;
-  padding: 20px;
-  margin: 10px 0 6px 0;
+  padding: 1rem;
+  margin: 0.5rem 0 6px 0;
 }
 
 :deep(h2) {
-  @include allcaps;
+  @include all-caps;
   font-size: 13pt;
   margin: 0 0 6px 0;
 }

@@ -25,11 +25,11 @@ main.public {
   flex-direction: column;
   justify-content: center;
 
-  color: $bright;
-  background-color: $dark;
+  color: $grey-90;
+  background-color: $grey-10;
   font-size: 1.1rem;
   @include media-desktop {
-    box-shadow: $dark-shadow 0 0 16px;
+    box-shadow: $shadow-dark 0 0 16px;
   }
 
   @include animation-popup;

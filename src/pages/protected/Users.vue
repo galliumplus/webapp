@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import Card from '@/components/cards/Card.vue'
-import ToolsCard from '@/components/cards/generic/ToolsCard.vue'
+import ToolsCard from '@/components/cards/ToolsCard.vue'
 import StyledButton from '@/components/basic/StyledButton.vue'
-import TableCard from '@/components/cards/generic/TableCard.vue'
+import TableCard from '@/components/cards/TableCard.vue'
+import UserCard from '@/components/modules/users/UserCard.vue'
 import { useApi } from '@/composables'
 import { onMounted, ref } from 'vue'
 import { User } from '@/business/users'
-import UserCard from '@/components/cards/users/UserCard.vue'
 
 const api = useApi()
 
@@ -16,7 +15,6 @@ const activeUser = ref(-1)
 onMounted(async () => {
   userList.value = await api.users.getAll()
   userList.value.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
-  console.log(userList.value)
 })
 
 function selectUser(i: number): void {

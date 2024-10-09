@@ -3,7 +3,7 @@ import { onBeforeMount } from 'vue'
 import { RouterView } from 'vue-router'
 
 onBeforeMount(() => {
-  document.body.className = 'public'
+  document.body.className = 'g-public'
 })
 </script>
 
@@ -16,10 +16,10 @@ onBeforeMount(() => {
 @import '@/assets/style/mixins.scss';
 
 main.public {
-  color: $bright;
-  background-color: $dark;
+  color: $grey-90;
+  background-color: $grey-10;
   @include media-desktop {
-    box-shadow: $dark-shadow 0 0 16px;
+    box-shadow: $shadow-dark 0 0 16px;
   }
 
   @include animation-popup;

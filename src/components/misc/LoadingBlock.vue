@@ -17,8 +17,8 @@ defineProps<Props>()
 
 .loading {
   animation: shine 1.2s infinite;
-  background-color: $dark-overlay;
-  background-image: linear-gradient(90deg, $dark-overlay 0%, $bright 20%, $dark-overlay 40%);
+  background-color: $overlay-dark;
+  background-image: linear-gradient(90deg, $overlay-dark 0%, $grey-90 20%, $overlay-dark 40%);
   background-size: 200%;
 }
 

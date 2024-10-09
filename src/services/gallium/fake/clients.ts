@@ -2,6 +2,7 @@ import type { GalliumClientsApi } from '@/services/gallium'
 import { Fake } from '@/services/gallium/fake/index'
 import { Problem, ErrorCode } from '@/business/problem'
 import type { SsoClientPublicInfo } from '@/business/clients'
+import type { ClientSummary } from '@/business/clients/client'
 
 export class FakeGalliumClientsService implements GalliumClientsApi {
   public async getPublicInfoSso(apiKey: string): Promise<SsoClientPublicInfo> {
@@ -14,5 +15,20 @@ export class FakeGalliumClientsService implements GalliumClientsApi {
         ErrorCode.ItemNotFound
       )
     }
+  }
+
+  public async getAll(): Promise<ClientSummary[]> {
+    return [
+      {
+        id: 1,
+        name: 'Client 1',
+        isEnabled: true
+      },
+      {
+        id: 2,
+        name: 'Client 2',
+        isEnabled: false
+      }
+    ]
   }
 }

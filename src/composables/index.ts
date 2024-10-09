@@ -1,4 +1,5 @@
 export { useApi } from './api'
+export { usePopUp } from './popups'
 export { useStore } from './store'
 export { useParams } from './params'
 export { useCurrentSchoolYear } from './utils'

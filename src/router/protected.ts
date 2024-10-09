@@ -29,6 +29,22 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: 'Utilisateurs'
     }
+  },
+  {
+    path: 'admin',
+    name: 'admin',
+    component: () => import('@/pages/protected/Administration.vue'),
+    meta: {
+      title: 'Administration'
+    }
+  },
+  {
+    path: 'dev',
+    name: 'dev',
+    component: () => import('@/pages/protected/Developers.vue'),
+    meta: {
+      title: 'Espace développeurs'
+    }
   }
 ]
 

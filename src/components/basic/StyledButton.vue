@@ -1,5 +1,10 @@
 <script setup lang="ts">
-export type ButtonStyle = 'raised-accented' | 'raised-bright' | 'sinking-dark' | 'link'
+export type ButtonStyle =
+  | 'raised-accented'
+  | 'raised-bright'
+  | 'sinking-dark'
+  | 'flat-dark'
+  | 'link'
 
 interface Props {
   kind: ButtonStyle
@@ -32,7 +37,7 @@ button {
     display: inline-block;
     height: 41px;
 
-    @include allcaps;
+    @include all-caps;
     font-size: 11pt;
 
     transition: background-color 0.2s;
@@ -47,34 +52,50 @@ button {
 
   &.raised-accented-style {
     background-color: $accent;
-    border-bottom: 4px solid $dark-accent;
-    color: $dark;
+    border-bottom: 4px solid $accent-dark;
+    color: $grey-10;
   }
 
   &.raised-bright-style {
-    background-color: $bright;
-    border-bottom: 4px solid $less-bright;
-    color: $dark;
+    background-color: $grey-90;
+    border-bottom: 4px solid $grey-70;
+    color: $grey-10;
   }
 
   &.sinking-dark-style {
     display: inline-block;
     height: 41px;
 
-    @include allcaps;
+    @include all-caps;
     font-size: 11pt;
     background: none;
-    border-top: 0 solid $more-dark;
-    color: $bright;
+    border-top: 0 solid $grey-05;
+    color: $grey-90;
 
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: $bright-overlay;
+      background-color: $overlay-bright;
     }
 
     &:active {
       border-top-width: 4px;
+    }
+  }
+
+  &.flat-dark-style {
+    display: inline-block;
+    height: 41px;
+
+    @include all-caps;
+    font-size: 11pt;
+    background: none;
+    color: $grey-90;
+
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: $overlay-bright;
     }
   }
 

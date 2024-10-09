@@ -2,7 +2,7 @@
 @import '_mixins.scss';
 
 .spinner {
-  stroke: $bright;
+  stroke: $grey-90;
   position: absolute;
   left: calc(50% - 23px);
   top: calc(50% - 23px);

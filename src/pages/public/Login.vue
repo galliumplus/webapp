@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import {
   onBeforeRouteUpdate,
@@ -7,13 +7,13 @@ import {
   useRoute,
   useRouter
 } from 'vue-router'
-import { useApi, useParams, useStore } from '@/composables'
-import { Problem } from '@/business/problem'
 import LoginLogo from '@/components/misc/LoginLogo.vue'
 import LoginForm from '@/components/forms/LoginForm.vue'
-import LoadingBar from '@/components/loading/LoadingBar.vue'
-import { Done, Indeterminate, type Progress } from '@/business/progress'
+import LoadingBar from '@/components/basic/LoadingBar.vue'
 import StyledButton from '@/components/basic/StyledButton.vue'
+import { useApi, useParams, useStore } from '@/composables'
+import { Done, Indeterminate, type Progress } from '@/business/progress'
+import { Problem } from '@/business/problem'
 import { type LoginClient, SelfLoginClient, SsoLoginClient } from '@/business/clients'
 import type { LoginCredentials } from '@/business/access'
 
@@ -56,7 +56,7 @@ async function logIn(credentials: LoginCredentials) {
 
   try {
     if (client.value?.isSelf) {
-      store.session = await api.logIn(credentials)
+      store.session.set(await api.logIn(credentials))
       await router.push({ name: 'dashboard' })
     } else if (ssoApiKey !== null) {
       window.location.href = await api.ssoLogIn(ssoApiKey, credentials)
@@ -81,7 +81,7 @@ function goBack() {
 <template>
   <main class="public small">
     <LoadingBar :progress="progress" />
-    <div class="content" :class="{ invisible: mainContentHidden }">
+    <div :class="{ invisible: mainContentHidden }" class="content">
       <LoginLogo :client="client" />
 
       <template v-if="client === null">
@@ -101,24 +101,24 @@ function goBack() {
 
         <ul class="no-bullet">
           <li>
-            <StyledButton kind="link" class="back" @click="goBack">Retour</StyledButton>
+            <StyledButton class="back" kind="link" @click="goBack">Retour</StyledButton>
           </li>
           <li>
-            <RouterLink to="/login" class="fwd">Se connecter à Gallium+</RouterLink>
+            <RouterLink class="fwd" to="/login">Se connecter à Gallium+</RouterLink>
           </li>
         </ul>
       </template>
       <template v-else>
         <h1>Connectez-vous à {{ client?.name }}</h1>
 
-        <LoginForm @submit="logIn" :disabled="progress !== Done" />
+        <LoginForm :disabled="progress !== Done" @submit="logIn" />
 
         <ul class="no-bullet">
           <li>
-            <RouterLink to="/login/forgot-password" class="fwd"> Mot de passe oublié ? </RouterLink>
+            <RouterLink class="fwd" to="/login/forgot-password"> Mot de passe oublié ? </RouterLink>
           </li>
           <li>
-            <RouterLink to="/login/help" class="fwd">Besoin d'aide ?</RouterLink>
+            <RouterLink class="fwd" to="/login/help">Besoin d'aide ?</RouterLink>
           </li>
         </ul>
       </template>

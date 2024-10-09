@@ -7,13 +7,10 @@ export interface PasswordModification {
 }
 
 export interface GalliumUsersApi {
+  getAll(): Promise<User[]>
   getSelf(): Promise<User>
 
-  changePassword(userId: string, passwordModification: PasswordModification): Promise<void>
-
-  getAll(): Promise<User[]>
-
   canResetPassword(userId: string): Promise<boolean>
-
   askForPasswordReset(userId: string, retryInit?: boolean): Promise<void>
+  changePassword(userId: string, passwordModification: PasswordModification): Promise<void>
 }

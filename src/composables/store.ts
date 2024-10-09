@@ -1,5 +1,5 @@
-import { SessionStorage } from '@/store'
+import { GalliumStore, StoragePath } from '@/store'
 
-export function useStore(): SessionStorage {
-  return new SessionStorage()
+export function useStore(): GalliumStore {
+  return new GalliumStore(StoragePath.root(window.sessionStorage, 'gallium'))
 }

@@ -1,6 +1,6 @@
 import type { LocationQueryValue } from 'vue-router'
 
-export default class Query {
+export class Query {
   public static first(query: LocationQueryValue | LocationQueryValue[]): string | null {
     if (Array.isArray(query)) {
       return query[0]

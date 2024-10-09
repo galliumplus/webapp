@@ -5,7 +5,7 @@ import { GalliumClientsService } from '@/services/gallium/webservice/clients'
 import { BasicAuth, BearerToken, number, object, type Service, service, string } from '@hokaze/core'
 import dayjs from '@hokaze/dayjs'
 import { GalliumPermissions, User } from '@/business/users'
-import { SessionStorage } from '@/store'
+import { useStore } from '@/composables'
 
 const loggedIn = object({
   token: string,
@@ -21,12 +21,13 @@ export class GalliumService implements GalliumApi {
 
   public constructor(baseUrl: string, apiKey: string) {
     this._apiKey = apiKey
+
     this._loginService = service(baseUrl)
 
     this._mainService = service(baseUrl)
-    const store = new SessionStorage()
-    if (store.loggedIn) {
-      this._mainService.useAuth(new BearerToken(store.sessionToken))
+    const store = useStore()
+    if (store.session.isLoggedIn) {
+      this._mainService.useAuth(new BearerToken(store.session.token))
     }
   }
 
@@ -55,6 +56,6 @@ export class GalliumService implements GalliumApi {
   }
 
   public get clients(): GalliumClientsApi {
-    return new GalliumClientsService()
+    return new GalliumClientsService(this._mainService)
   }
 }

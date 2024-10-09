@@ -1,14 +1,8 @@
 import { nextTick } from 'vue'
-import {
-  createRouter,
-  createWebHistory,
-  type RouteLocationRaw,
-  type RouteRecordRaw
-} from 'vue-router'
-import { SessionStorage } from '@/store'
+import { createRouter, createWebHistory, type RouteLocationRaw } from 'vue-router'
 import protectedRoutes from './protected'
 import publicRoutes from './public'
-import dashboardRoutes from '@/router/protected'
+import { useStore } from '@/composables'
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -44,7 +38,7 @@ const router = createRouter({
         title: 'Dashboard',
         requiresAuth: true
       },
-      children: dashboardRoutes
+      children: protectedRoutes
     },
     // page non trouvée
     {
@@ -59,13 +53,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  let store = new SessionStorage()
+  const store = useStore()
 
-  if (from.name != null) store.previousRouteName = from.name
-  store.previousRouteUrl = from.fullPath
+  if (from.name != null) store.route.previousName = from.name
+  store.route.previousPath = from.fullPath
 
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (!store.loggedIn) {
+    if (!store.session.isLoggedIn) {
       let loginLocation: RouteLocationRaw = { name: 'login' }
       if (to.name != null && typeof to.name !== 'symbol') {
         loginLocation.query = { to: to.name }
@@ -74,7 +68,7 @@ router.beforeEach((to, from, next) => {
       return
     }
   } else if (to.matched.some((record) => record.meta.visitorsOnly)) {
-    if (store.loggedIn && to.query.service === undefined) {
+    if (store.session.isLoggedIn && to.query.service === undefined) {
       next({ name: 'dashboard' })
       return
     }

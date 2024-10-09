@@ -12,7 +12,7 @@ defineProps<Props>()
 </script>
 
 <template>
-  <Card class="table-card">
+  <Card>
     <h2>{{ title }}</h2>
     <table>
       <colgroup>
@@ -20,7 +20,7 @@ defineProps<Props>()
       </colgroup>
       <thead>
         <tr>
-          <th v-for="col in columns" :class="'align-' + col[1]">{{ col[0] }}</th>
+          <th v-for="col in columns" :class="'g-' + col[1]">{{ col[0] }}</th>
         </tr>
       </thead>
       <tbody>
@@ -30,13 +30,4 @@ defineProps<Props>()
   </Card>
 </template>
 
-<style scoped lang="scss">
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th.align-left {
-  text-align: left;
-}
-</style>
+<style scoped lang="scss"></style>

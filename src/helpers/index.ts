@@ -1,1 +1,2 @@
-export { default as Query } from './query'
+export * from './query'
+export * from './string'

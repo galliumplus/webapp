@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import NavLink from '@/components/NavLink.vue'
 import { useApi } from '@/composables'
 import FormInput from '@/components/basic/FormInput.vue'
 import StyledButton from '@/components/basic/StyledButton.vue'
 import { Problem } from '@/business/problem'
-import Icon from '@/components/icons/Icon.vue'
+import Zincon from '@/components/basic/Zincon.vue'
+import NavLink from '@/components/basic/NavLink.vue'
 
 const route = useRoute()
 const api = useApi()
@@ -52,15 +52,15 @@ async function continuer() {
       </template>
 
       <template v-if="canResetPassword === true">
-        <p class="g-centered">
+        <p class="g-center">
           Un mail contenant un lien pour réinitialiser votre mot de passe vient de vous être envoyé.
           <br />
-          <Icon of="mail-fast" size="huge" />
+          <Zincon of="mail-fast" size="huge" />
         </p>
       </template>
 
       <template v-if="canResetPassword === false">
-        <p class="g-centered">
+        <p class="g-center">
           Votre compte est actif, mais nous ne pouvons pas vous envoyer un mail pour confirmer votre
           identité. Veuillez vous présenter au local de l'association pour récupérer votre compte.
         </p>

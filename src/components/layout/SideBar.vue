@@ -11,7 +11,7 @@
 @import '@/assets/style/mixins.scss';
 
 div {
-  background-color: $dark;
+  background-color: $grey-10;
 
   @include flexbox(column, unset, unset);
 }

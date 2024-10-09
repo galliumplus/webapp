@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Icon from '@/components/icons/Icon.vue'
+import Zincon from '@/components/basic/Zincon.vue'
 import StyledButton from '@/components/basic/StyledButton.vue'
-import type { IconName } from '@/components/icons/Icon.vue'
+import type { IconName } from '@/components/basic/Zincon.vue'
 import type { ButtonStyle } from '@/components/basic/StyledButton.vue'
 
 interface Props {
@@ -14,7 +14,7 @@ withDefaults(defineProps<Props>(), { disabled: false })
 </script>
 
 <template>
-  <StyledButton :kind="kind" :disabled="disabled"><Icon :of="icon" /></StyledButton>
+  <StyledButton :kind="kind" :disabled="disabled"><Zincon :of="icon" /></StyledButton>
 </template>
 
 <style scoped lang="scss">

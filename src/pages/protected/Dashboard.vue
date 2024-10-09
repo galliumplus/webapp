@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ClockCard from '@/components/cards/utilities/ClockCard.vue'
+import ClockCard from '@/components/modules/dashboard/ClockCard.vue'
 </script>
 
 <template>

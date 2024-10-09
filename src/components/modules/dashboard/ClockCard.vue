@@ -4,13 +4,17 @@ import Card from '@/components/cards/Card.vue'
 import dayjs from 'dayjs'
 
 const time = ref('')
-const date = ref('')
+const dayOfWeek = ref('')
+const date = ref(0)
+const month = ref('')
 let timer: number
 
 function updateTime() {
   const now = dayjs()
   time.value = now.format('HH:mm')
-  date.value = now.format('dddd D MMMM')
+  dayOfWeek.value = now.format('dddd')
+  date.value = now.date()
+  month.value = now.format('MMMM')
 }
 
 onMounted(() => {
@@ -26,7 +30,12 @@ onUnmounted(() => {
 <template>
   <Card class="card">
     <span class="time">{{ time }}</span>
-    <span class="date">{{ date }}</span>
+    <span class="date">
+      {{ dayOfWeek }}
+      <template v-if="date == 1">1<sup>er</sup></template>
+      <template v-else>{{ date }}</template>
+      {{ month }}
+    </span>
   </Card>
 </template>
 
@@ -38,7 +47,7 @@ onUnmounted(() => {
 
 .time,
 .date {
-  margin: 10px;
+  margin: 0.5rem;
 }
 
 .time {

@@ -19,7 +19,7 @@
     "@hokaze/dayjs": "^0.1.2",
     "lodash": "^4.17.21",
     "multiflag": "^1.0.2",
-    "vue": "^3.3.4",
+    "vue": "^3.5.11",
     "vue-router": "^4.2.2"
   },
   "devDependencies": {

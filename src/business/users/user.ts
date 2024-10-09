@@ -1,3 +1,5 @@
+import { titleCase } from '@/helpers'
+
 export interface UserInit {
   id: string
   firstName: string
@@ -67,17 +69,13 @@ export class User {
   }
 
   public get shortDisplayName(): string {
-    const firstName = this._firstName.replace(/(?=[^a-zâàæêèéëîïôòœûùüç])./gi, (m) =>
-      m.toUpperCase()
-    )
+    const firstName = titleCase(this._firstName)
     const lastNameInitial = this._lastName.trim().charAt(0).toUpperCase()
     return `${firstName} ${lastNameInitial}.`
   }
 
   public get longDisplayName(): string {
-    const firstName = this._firstName.replace(/(?=[^a-zâàæêèéëîïôòœûùüç])./gi, (m) =>
-      m.toUpperCase()
-    )
+    const firstName = titleCase(this._firstName)
     const lastName = this._lastName.toUpperCase()
     return `${firstName} ${lastName}`
   }

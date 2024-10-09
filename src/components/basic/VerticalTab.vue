@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import Icon from '@/components/icons/Icon.vue'
-import type { IconName } from '@/components/icons/Icon.vue'
-import { computed } from 'vue'
+import type { IconName } from '@/components/basic/Zincon.vue'
+import Zincon from '@/components/basic/Zincon.vue'
 
 interface Props {
   link: string
@@ -10,13 +9,11 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-
-const iconUrl = computed(() => `@/assets/icons/${props.icon}.svg`)
 </script>
 
 <template>
   <RouterLink :to="link">
-    <Icon :of="icon" />
+    <Zincon :of="icon" class="icon" />
     {{ label }}
   </RouterLink>
 </template>
@@ -29,12 +26,12 @@ $transition-duration: 0.2s;
 
 a {
   @include flexbox(row, center, flex-start);
-  padding: 6px 24px 6px 10px;
+  padding: 6px 24px 6px 0.5rem;
   height: 29px;
   margin: 12px 0px;
   overflow: hidden;
 
-  color: $bright;
+  color: $grey-90;
   border: none;
   text-decoration: none;
   text-align: left;
@@ -43,28 +40,24 @@ a {
   transition: $transition-duration color background-color;
 
   &:hover {
-    background-color: $bright-overlay;
+    background-color: $overlay-bright;
   }
 
   &:active {
-    background-color: $bright-overlay;
+    background-color: $overlay-bright;
     padding-bottom: 2px;
-    border-top: 4px solid $more-dark;
+    border-top: 4px solid $grey-05;
   }
 
   &.router-link-exact-active {
     padding-bottom: 2px;
-    border-top: 4px solid $more-dark;
-    background-color: $bright;
-    color: $dark;
+    border-top: 4px solid $grey-05;
+    background-color: $grey-90;
+    color: $grey-10;
   }
 }
 
-svg {
-  display: inline-block;
-  $icon-size: 29px;
-  height: $icon-size;
-  width: $icon-size;
+.icon {
   margin-right: 12px;
 }
 </style>

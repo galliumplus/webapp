@@ -64,7 +64,7 @@ function modelValueChange(ev: Event): void {
 div {
   &.input-box {
     max-width: 500px;
-    margin: 20px 0;
+    margin: 1rem 0;
   }
 
   &.input-label {
@@ -72,12 +72,12 @@ div {
   }
 
   &.error {
-    color: $red;
+    color: $danger;
   }
 }
 
 label {
-  @include allcaps;
+  @include all-caps;
   font-size: 11pt;
 }
 
@@ -87,11 +87,11 @@ input {
   &[type='text'],
   &[type='password'] {
     background: none;
-    border: solid $bright;
+    border: solid $grey-90;
     border-width: 0 0 2px 0;
 
     &:focus {
-      background-color: $bright-overlay;
+      background-color: $overlay-bright;
     }
   }
 
