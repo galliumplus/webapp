@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
 const icons = {
   zn: '\uE000',
   cart: '\uE001',

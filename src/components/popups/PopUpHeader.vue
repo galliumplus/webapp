@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 import { ThisPopUp } from '@/services/popups'
-import StyledButton from '@/components/basic/StyledButton.vue'
 import IconButton from '@/components/basic/IconButton.vue'
 
 const popUp = inject(ThisPopUp)

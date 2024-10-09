@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!store.session.isLoggedIn) {
       let loginLocation: RouteLocationRaw = { name: 'login' }
-      if (to.name != null && typeof to.name !== 'symbol') {
+      if (to.name != null && typeof to.name === 'string') {
         loginLocation.query = { to: to.name }
       }
       next(loginLocation)

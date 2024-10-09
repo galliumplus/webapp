@@ -40,7 +40,6 @@ body {
 
     #app {
       @include flexbox(row, stretch, center);
-      height: 100vh;
       height: 100dvh;
       box-sizing: border-box;
     }

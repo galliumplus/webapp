@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { LoginCredentials } from '@/business/access'
 import type { Problem } from '@/business/problem'
 
 interface Props {
