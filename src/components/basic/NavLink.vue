@@ -16,10 +16,10 @@ let cls = ref('fwd')
 let realHref = ref(props.to)
 
 onMounted(() => {
-  if (props.target == store.previousRouteName) {
+  if (props.target == store.route.previousName) {
     prefix.value = 'Retour à'
     cls.value = 'back'
-    realHref.value = store.previousRouteUrl
+    realHref.value = store.route.previousPath
   }
 })
 </script>

@@ -18,11 +18,11 @@ onBeforeMount(() => {
 })
 
 function logout() {
-  store.clearSession()
+  store.session.clear()
   router.push({ name: 'login' })
 }
 
-const userDisplayName = store.userShortDisplayName
+const userDisplayName = store.session.userShortDisplayName
 </script>
 
 <template>
