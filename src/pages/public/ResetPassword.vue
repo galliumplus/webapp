@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 
 import PasswordModificationForm from '@/components/forms/PasswordModificationForm.vue'
-import NavLink from '@/components/NavLink.vue'
 import { Query } from '@/helpers'
 import { useApi } from '@/composables'
+import NavLink from '@/components/basic/NavLink.vue'
 
 const route = useRoute()
 const api = useApi()
