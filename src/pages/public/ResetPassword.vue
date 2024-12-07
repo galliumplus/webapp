@@ -30,12 +30,12 @@ async function resetPassword(passwords: { newPassword: string }) {
 
       <PasswordModificationForm :current-password-needed="false" @submit="resetPassword" v-else />
 
-      <ul class="no-bullet">
+      <ul class="g-no-bullet">
         <li>
           <NavLink to="/login" target="login">la page de connexion</NavLink>
         </li>
         <li>
-          <RouterLink to="/login/help" class="fwd">Besoin d'aide ?</RouterLink>
+          <RouterLink to="/login/help" class="g-fwd">Besoin d'aide ?</RouterLink>
         </li>
       </ul>
     </div>

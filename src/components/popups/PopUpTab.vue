@@ -28,17 +28,17 @@ button {
   text-decoration: none;
   text-align: left;
   white-space: nowrap;
-  border: 0 solid $grey-05;
+  border: 0 solid var(--surface-shadow);
   border-bottom-width: 4px;
 
   transition: $transition-duration color background-color;
 
   &:hover {
-    background-color: $grey-25;
+    background-color: var(--surface-container);
   }
 
   &:active {
-    background-color: $grey-25;
+    background-color: var(--surface-container);
     border-top-width: 4px;
     border-bottom-width: 0;
   }

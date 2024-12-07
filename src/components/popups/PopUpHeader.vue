@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { inject } from 'vue'
-import { ThisPopUp } from '@/services/popups'
-import IconButton from '@/components/basic/IconButton.vue'
+import { useThisPopUp } from '@/composables/popups'
+import Zincon from '@/components/basic/Zincon.vue'
 
-const popUp = inject(ThisPopUp)
+const popUp = useThisPopUp()
 </script>
 
 <template>
-  <header v-if="popUp !== undefined">
+  <header>
     <h1>
-      <span class="g-grow"></span>
+      <span class="popup-header-left"></span>
       <span>{{ popUp.title }}</span>
-      <span class="g-grow g-right">
-        <IconButton kind="flat-dark" icon="arrow-box-out" />
-        <IconButton kind="flat-dark" icon="cross" @click="popUp.dismiss()" />
+      <span class="popup-header-right">
+        <button class="g-flat" @click="popUp.dismiss()"><Zincon of="cross" /></button>
       </span>
     </h1>
     <nav>
@@ -27,9 +26,10 @@ const popUp = inject(ThisPopUp)
 @import '@/assets/style/mixins';
 
 header {
-  color: $grey-90;
-  background: $grey-10;
-  border-bottom: 4px solid $grey-05;
+  @include context-dark;
+  color: var(--on-surface);
+  background: var(--surface);
+  border-bottom: 4px solid var(--surface-shadow);
 
   h1 {
     margin: 0;
@@ -39,7 +39,21 @@ header {
 
   nav {
     padding-left: 1rem;
+    margin-top: 0.5rem;
     @include flexbox(row, flex-end, flex-start);
   }
+}
+
+.popup-header-left,
+.popup-header-right {
+  flex: 1 1;
+}
+
+.popup-header-left {
+  text-align: left;
+}
+
+.popup-header-right {
+  text-align: right;
 }
 </style>

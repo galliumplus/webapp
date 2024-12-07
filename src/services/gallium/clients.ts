@@ -1,7 +1,6 @@
-import type { SsoClientPublicInfo } from '@/business/clients'
-import type { ClientSummary } from '@/business/clients/client'
+import type { ClientInit, SsoClientPublicInfo } from '@/business/clients'
 
 export interface GalliumClientsApi {
-  getAll(): Promise<ClientSummary[]>
-  getPublicInfoSso(apiKey: string): Promise<SsoClientPublicInfo>
+  getAll(): Promise<ClientInit[]>
+  save(id: number): Promise<void>
 }

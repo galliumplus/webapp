@@ -4,6 +4,7 @@ export interface LoginClient {
   name: string
   logoUrl?: string
   isSelf: boolean
+  scope?: number
 }
 
 export class SelfLoginClient implements LoginClient {
@@ -13,11 +14,13 @@ export class SelfLoginClient implements LoginClient {
 
 export class SsoLoginClient implements LoginClient {
   private readonly _name: string
-  private readonly _logoUrl: string
+  private readonly _logoUrl: string | undefined
+  private readonly _scope: number
 
   public constructor(client: SsoClientPublicInfo) {
     this._name = client.displayName
-    this._logoUrl = client.logoUrl
+    this._logoUrl = client.logoUrl ?? undefined
+    this._scope = client.scope
   }
 
   public readonly isSelf = false
@@ -26,7 +29,11 @@ export class SsoLoginClient implements LoginClient {
     return this._name
   }
 
-  public get logoUrl(): string {
+  public get logoUrl(): string | undefined {
     return this._logoUrl
+  }
+
+  public get scope(): number {
+    return this._scope
   }
 }

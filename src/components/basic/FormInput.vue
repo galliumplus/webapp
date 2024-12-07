@@ -60,37 +60,28 @@ function modelValueChange(ev: Event): void {
 @import '@/assets/style/colors';
 @import '@/assets/style/mixins';
 
-div {
-  &.input-box {
-    max-width: 500px;
-    margin: 1rem 0;
-  }
-
-  &.input-label {
-    margin-bottom: 5px;
-  }
-
-  &.error {
-    color: $danger;
-  }
+div.error {
+  color: var(--error-content);
 }
 
 label {
-  @include all-caps;
-  font-size: 11pt;
+  color: var(--secondary-content);
 }
 
 input {
   outline: none;
+  @include ease(border-color);
 
   &[type='text'],
   &[type='password'] {
-    background: none;
-    border: solid $grey-90;
+    background-color: var(--surface-container);
     border-width: 0 0 2px 0;
+    border-style: solid;
+
+    border-color: $secondary;
 
     &:focus {
-      background-color: $overlay-bright;
+      border-color: $primary;
     }
   }
 

@@ -10,8 +10,7 @@ export enum ErrorCode {
 
   // codes spécifiques à l'appli web
   Unknown = 'Unknown',
-  Unauthenticated = 'Unauthenticated',
-  InvalidInput = 'InvalidInput'
+  Unauthenticated = 'Unauthenticated'
 }
 
 export class Problem {

@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { useApi } from '@/composables'
 import FormInput from '@/components/basic/FormInput.vue'
-import StyledButton from '@/components/basic/StyledButton.vue'
 import { Problem } from '@/business/problem'
 import Zincon from '@/components/basic/Zincon.vue'
 import NavLink from '@/components/basic/NavLink.vue'
@@ -37,7 +36,7 @@ async function continuer() {
     <div class="content">
       <h1>Mot de passe oublié</h1>
 
-      <template v-if="canResetPassword === null">
+      <div v-if="canResetPassword === null" class="g-column">
         <FormInput
           name="username"
           v-model="userId"
@@ -46,10 +45,8 @@ async function continuer() {
           :problem="userIdProblem"
         />
 
-        <StyledButton kind="raised-accented" type="submit" @click="continuer()"
-          >Continuer
-        </StyledButton>
-      </template>
+        <button class="g-raised g-primary" type="submit" @click="continuer()">Continuer</button>
+      </div>
 
       <template v-if="canResetPassword === true">
         <p class="g-center">
@@ -66,12 +63,12 @@ async function continuer() {
         </p>
       </template>
 
-      <ul class="no-bullet">
+      <ul class="g-no-bullet">
         <li>
           <NavLink to="/login" target="login">la page de connexion</NavLink>
         </li>
         <li>
-          <RouterLink to="/login/help" class="fwd">Besoin d'aide ?</RouterLink>
+          <RouterLink to="/login/help" class="g-fwd">Besoin d'aide ?</RouterLink>
         </li>
       </ul>
     </div>

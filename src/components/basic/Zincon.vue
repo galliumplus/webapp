@@ -45,38 +45,32 @@ const icons = {
   search: '\uE02A',
   sort: '\uE02B',
   video: '\uE02C',
-  'usb-stick': '\uE02D'
+  'usb-stick': '\uE02D',
+  ban: '\uE02E',
+  cut: '\uE02F',
+  copy: '\uE030',
+  paste: '\uE031',
+  clipboard: '\uE032',
+  check: '\uE033',
+  slash: '\uE034'
 }
 
 export type IconName = keyof typeof icons
 
 interface Props {
   of: IconName
-  size?: 'small' | 'medium' | 'large' | 'huge'
 }
 
-const props = withDefaults(defineProps<Props>(), { size: 'small' })
+defineProps<Props>()
 </script>
 
 <template>
-  <span :class="'icon-' + size">{{ icons[of] }}</span>
+  <span>{{ icons[of] }}</span>
 </template>
 
 <style scoped lang="scss">
-$sizes: (
-  'small': 29px,
-  'medium': 58px,
-  'large': 87px,
-  'huge': 116px
-);
-
-@each $name, $size in $sizes {
-  .icon-#{$name} {
-    display: inline-block;
-    width: $size;
-    height: $size;
-    font-family: 'Zincons', emoji;
-    font-size: $size;
-  }
+span {
+  font-family: Zincons, system-ui;
+  line-height: 1;
 }
 </style>

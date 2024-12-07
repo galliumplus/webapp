@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { onBeforeMount } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
-import TabNav from '@/components/layout/SideBarNav.vue'
 import Tab from '@/components/basic/VerticalTab.vue'
-import SideBar from '@/components/layout/SideBar.vue'
 import HeaderLogo from '@/components/misc/SideBarLogo.vue'
-import IconButton from '@/components/basic/IconButton.vue'
 import { useStore } from '@/composables'
-import SideBarFooter from '@/components/layout/SideBarFooter.vue'
 import Zincon from '@/components/basic/Zincon.vue'
 
 const store = useStore()
@@ -26,31 +22,45 @@ const userDisplayName = store.session.userShortDisplayName
 </script>
 
 <template>
-  <SideBar>
+  <div class="side-bar">
     <HeaderLogo />
 
-    <TabNav class="g-grow">
+    <nav>
       <Tab link="/dashboard" label="Accueil" icon="home" />
       <!--Tab link="/checkout" label="Caisse" icon="cart" /-->
       <Tab link="/users" label="Utilisateurs" icon="user-group" />
       <Tab link="/admin" label="Administration" icon="zn" />
       <Tab link="/dev" label="Espace développeurs" icon="zn" />
-    </TabNav>
+    </nav>
 
-    <SideBarFooter class="footer">
-      <Zincon of="user"></Zincon>
+    <div class="footer">
+      <Zincon of="user" />
       <span class="g-grow padded">{{ userDisplayName }}</span>
-      <IconButton icon="exit" kind="sinking-dark" @click="logout" />
-    </SideBarFooter>
-  </SideBar>
+      <button class="g-sinking" @click="logout"><Zincon of="exit" /></button>
+    </div>
+  </div>
 
   <main class="bento-box">
     <RouterView />
   </main>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 @import '@/assets/style/colors';
+@import '@/assets/style/mixins';
+
+.side-bar {
+  @include context-dark;
+  @include flexbox(column);
+  background-color: var(--surface);
+}
+
+nav {
+  align-self: end;
+  margin-left: 48px;
+  min-width: 76%;
+  flex-grow: 1;
+}
 
 main.bento-box {
   flex-grow: 1;
@@ -59,8 +69,13 @@ main.bento-box {
 }
 
 .footer {
-  color: $grey-90;
   margin-bottom: 0.5rem;
+  align-self: stretch;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--on-surface);
 }
 
 .padded {

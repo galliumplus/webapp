@@ -32,4 +32,8 @@ export class PopUp<C extends Component = Component> {
     this._openWindow?.close()
     this._openWindow = null
   }
+
+  public getData<T>(): T {
+    return this._config.data as T
+  }
 }

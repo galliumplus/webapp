@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ToolsCard from '@/components/cards/ToolsCard.vue'
-import StyledButton from '@/components/basic/StyledButton.vue'
 import TableCard from '@/components/cards/TableCard.vue'
 import UserCard from '@/components/modules/users/UserCard.vue'
 import { useApi } from '@/composables'
@@ -15,6 +14,20 @@ const activeUser = ref(-1)
 onMounted(async () => {
   userList.value = await api.users.getAll()
   userList.value.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+  for (let i = 0; i < 100; i++) {
+    userList.value.push(
+      new User({
+        id: String(9000 + i),
+        deposit: null,
+        email: 'joe@biden.net',
+        firstName: 'Joe',
+        lastName: 'Biden',
+        role: 0,
+        isMember: false,
+        year: 'JOE BIDEN'
+      })
+    )
+  }
 })
 
 function selectUser(i: number): void {
@@ -23,14 +36,14 @@ function selectUser(i: number): void {
 </script>
 
 <template>
-  <div class="g-column g-no-gap">
+  <div class="g-column g-no-gap full-height">
     <div class="g-row">
       <ToolsCard class="g-grow">
-        <StyledButton kind="raised-bright">nouvelle adhésion</StyledButton>
-        <StyledButton kind="raised-bright">créer un utilisateur</StyledButton>
+        <button class="g-raised g-secondary">Nouvelle adhésion</button>
+        <button class="g-raised g-secondary">Créer un utilisateur</button>
       </ToolsCard>
     </div>
-    <div class="g-row g-grow">
+    <div class="g-row g-grow g-min-height-0">
       <TableCard
         class="g-grow"
         title="liste des utilisateurs"
@@ -58,5 +71,9 @@ function selectUser(i: number): void {
 <style scoped lang="scss">
 tr.highlight {
   background-color: #fdd4c9;
+}
+
+.full-height {
+  height: 100%;
 }
 </style>

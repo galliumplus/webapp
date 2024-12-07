@@ -3,7 +3,7 @@ import { RouterLink } from 'vue-router'
 import { onBeforeMount } from 'vue'
 
 onBeforeMount(() => {
-  document.body.className = 'public'
+  document.body.className = 'g-public'
 })
 </script>
 
@@ -25,8 +25,8 @@ main.public {
   flex-direction: column;
   justify-content: center;
 
-  color: $grey-90;
-  background-color: $grey-10;
+  color: var(--on-surface);
+  background-color: var(--surface);
   font-size: 1.1rem;
   @include media-desktop {
     box-shadow: $shadow-dark 0 0 16px;

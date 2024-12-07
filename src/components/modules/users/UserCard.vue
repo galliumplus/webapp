@@ -2,7 +2,6 @@
 import Card from '@/components/cards/Card.vue'
 import { User } from '@/business/users'
 import { ref, watch } from 'vue'
-import StyledButton from '@/components/basic/StyledButton.vue'
 import { useCurrentSchoolYear } from '@/composables'
 
 interface Props {
@@ -37,9 +36,7 @@ watch(
       <p>
         Adresse mail:
         <a v-if="emailShown" :href="'mailto:' + user.email">{{ user.email }}</a>
-        <StyledButton v-else @click="emailShown = true" kind="link">
-          cliquez pour afficher
-        </StyledButton>
+        <button v-else @click="emailShown = true" class="g-link">cliquez pour afficher</button>
       </p>
       <p>Rôle: {{ user.role }}</p>
       <p v-if="user.isMember">

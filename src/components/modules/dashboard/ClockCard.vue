@@ -23,7 +23,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  window.clearInterval(timer)
+  // window.clearInterval(timer)
 })
 </script>
 

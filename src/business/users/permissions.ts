@@ -85,7 +85,7 @@ export class GalliumPermissions {
 
   /**
    * Crée un groupe de permissions.
-   * @param code (optionnel) Le code de permissions si le groupe est crée à partir d'informations existantes.
+   * @param code (optionnel) Le code de permissions si le groupe est créé à partir d'informations existantes.
    */
   public constructor(code?: number) {
     this._code = code ?? 0

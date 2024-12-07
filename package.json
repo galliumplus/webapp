@@ -15,7 +15,8 @@
     "build-netlify": "echo \"VUE_APP_API_KEY=$GALLIUM_API_KEY\" > .env.local && run-p type-check build-only"
   },
   "dependencies": {
-    "@hokaze/core": "^0.1.2",
+    "@floating-ui/vue": "^1.1.5",
+    "@hokaze/core": "^0.1.3",
     "@hokaze/dayjs": "^0.1.2",
     "lodash": "^4.17.21",
     "multiflag": "^1.0.2",

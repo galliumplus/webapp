@@ -5,7 +5,7 @@ import type { SsoClientPublicInfo } from '@/business/clients'
 import type { ClientSummary } from '@/business/clients/client'
 
 export class FakeGalliumClientsService implements GalliumClientsApi {
-  public async getPublicInfoSso(apiKey: string): Promise<SsoClientPublicInfo> {
+  public async getSsoPublicInfo(apiKey: string): Promise<SsoClientPublicInfo> {
     await Fake.delay()
     if (apiKey == 'demo') {
       return Fake.ssoClientPublicInfo()
@@ -30,5 +30,9 @@ export class FakeGalliumClientsService implements GalliumClientsApi {
         isEnabled: false
       }
     ]
+  }
+
+  public async save(id: number): Promise<void> {
+    await Fake.delay()
   }
 }

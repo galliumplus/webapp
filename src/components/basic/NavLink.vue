@@ -12,13 +12,13 @@ interface Props {
 let props = defineProps<Props>()
 
 let prefix = ref('Aller à')
-let cls = ref('fwd')
+let cls = ref('g-fwd')
 let realHref = ref(props.to)
 
 onMounted(() => {
   if (props.target == store.route.previousName) {
     prefix.value = 'Retour à'
-    cls.value = 'back'
+    cls.value = 'g-back'
     realHref.value = store.route.previousPath
   }
 })

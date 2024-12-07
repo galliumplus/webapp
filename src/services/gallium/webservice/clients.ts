@@ -1,16 +1,24 @@
 import type { GalliumClientsApi } from '@/services/gallium/clients'
 import type { ClientInit, SsoClientPublicInfo } from '@/business/clients'
-import type { CollectionResource, ObjectDescriptor, Service } from '@hokaze/core'
+import { type CollectionResource, type ObjectDescriptor, type Service } from '@hokaze/core'
 import { boolean, number, object, string } from '@hokaze/core'
-import type { ClientSummary } from '@/business/clients/client'
 
 export const client: ObjectDescriptor<ClientInit> = object({
   id: number,
-  apiKey: string.readOnly.optional,
+  apiKey: string.readOnly,
   name: string,
-  granted: number.optional,
-  revoked: number.optional,
-  isEnabled: boolean
+  granted: number,
+  revoked: number,
+  isEnabled: boolean,
+  hasAppAccess: boolean,
+  sameSignOn: object({
+    signatureType: string,
+    scope: number,
+    displayName: string.nullable,
+    redirectUrl: string,
+    logoUrl: string.nullable,
+    requiresApiKey: boolean
+  }).nullable
 })
 
 export class GalliumClientsService implements GalliumClientsApi {
@@ -20,11 +28,11 @@ export class GalliumClientsService implements GalliumClientsApi {
     this._clientsResource = service.collection('clients', client)
   }
 
-  async getAll(): Promise<ClientSummary[]> {
-    return await this._clientsResource.getAll()
+  public getAll(): Promise<ClientInit[]> {
+    return this._clientsResource.getAll()
   }
 
-  public getPublicInfoSso(apiKey: string): Promise<SsoClientPublicInfo> {
-    throw 'Not implemented'
+  public save(id: number): Promise<void> {
+    return this._clientsResource.save()
   }
 }

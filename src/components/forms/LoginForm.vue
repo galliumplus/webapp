@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import FormInput from '../basic/FormInput.vue'
-import StyledButton from '@/components/basic/StyledButton.vue'
 import { LoginCredentials } from '@/business/access'
 
 interface Props {
@@ -26,9 +25,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" class="g-column">
     <FormInput
-      label="identifiant"
+      label="Identifiant"
       name="username"
       v-model="credentials.username"
       type="text"
@@ -36,7 +35,7 @@ onMounted(() => {
       :disabled="disabled"
     />
     <FormInput
-      label="mot de passe"
+      label="Mot de passe"
       name="password"
       v-model="credentials.password"
       type="password"
@@ -44,6 +43,6 @@ onMounted(() => {
       :disabled="disabled"
     />
 
-    <StyledButton kind="raised-accented" :disabled="disabled" submit>connexion</StyledButton>
+    <input type="submit" :disabled="disabled" value="Connexion" class="g-raised g-primary" />
   </form>
 </template>

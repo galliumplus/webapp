@@ -20,7 +20,9 @@ const openModals = PopUpService.instance.openModals
   width: 100lvw;
   height: 100lvh;
   @include flexbox(column, center, center);
-  background: #0004;
+  background: repeating-linear-gradient(135deg, #0004 0 14px, #3334 14px 18px);
   animation: fadeIn 0.2s;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 </style>

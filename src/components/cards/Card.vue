@@ -10,14 +10,13 @@
 @import '@/assets/style/mixins';
 
 div {
-  background-color: white;
-  border-bottom: 4px solid #ccc;
+  background-color: var(--surface);
+  border-bottom: 4px solid var(--surface-shadow);
   padding: 1rem;
   margin: 0.5rem 0 6px 0;
 }
 
 :deep(h2) {
-  @include all-caps;
   font-size: 13pt;
   margin: 0 0 6px 0;
 }

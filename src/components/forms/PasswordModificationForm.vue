@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import FormInput from '../basic/FormInput.vue'
-import StyledButton from '@/components/basic/StyledButton.vue'
 
 interface Props {
   currentPasswordNeeded: boolean
@@ -28,10 +27,10 @@ function submit() {
 </script>
 
 <template>
-  <form @submit.prevent="submit">
+  <form @submit.prevent="submit" class="g-column">
     <FormInput
       v-if="currentPasswordNeeded"
-      label="votre mot de passe actuel"
+      label="Votre mot de passe actuel"
       name="current-password"
       v-model="currentPassword"
       type="password"
@@ -40,7 +39,7 @@ function submit() {
     />
 
     <FormInput
-      label="nouveau mot de passe"
+      label="Nouveau mot de passe"
       name="new-password"
       v-model="newPassword"
       type="password"
@@ -48,7 +47,7 @@ function submit() {
       :disabled="disabled"
     />
     <FormInput
-      label="répétez le mot de passe"
+      label="Répétez le mot de passe"
       name="new-password"
       v-model="newPasswordAgain"
       type="password"
@@ -56,6 +55,6 @@ function submit() {
       :disabled="disabled"
     />
 
-    <StyledButton kind="raised-accented" :disabled="disabled" submit>continuer</StyledButton>
+    <input class="g-raised g-primary" :disabled="disabled" type="submit" value="Continuer" />
   </form>
 </template>

@@ -12,22 +12,33 @@ defineProps<Props>()
 </script>
 
 <template>
-  <Card>
+  <Card class="table-card g-column g-no-gap">
     <h2>{{ title }}</h2>
-    <table>
-      <colgroup>
-        <col v-for="col in columns" />
-      </colgroup>
-      <thead>
-        <tr>
-          <th v-for="col in columns" :class="'g-' + col[1]">{{ col[0] }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        <slot />
-      </tbody>
-    </table>
+    <div class="scroll-box">
+      <table>
+        <colgroup>
+          <col v-for="col in columns" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th v-for="col in columns" :class="'g-' + col[1]">{{ col[0] }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <slot />
+        </tbody>
+      </table>
+    </div>
   </Card>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.scroll-box {
+  overflow-y: auto;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+}
+</style>

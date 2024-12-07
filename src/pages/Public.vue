@@ -16,13 +16,14 @@ onBeforeMount(() => {
 @import '@/assets/style/mixins.scss';
 
 main.public {
-  color: $grey-90;
-  background-color: $grey-10;
+  color: var(--on-surface);
+  background-color: var(--surface);
   @include media-desktop {
     box-shadow: $shadow-dark 0 0 16px;
   }
 
   @include animation-popup;
+  @include context-dark;
 
   &.small {
     width: 452px;

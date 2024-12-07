@@ -1,21 +1,103 @@
-$grey-90: #e9e9e9;
-$grey-70: #b9b9b9;
-$grey-25: #424242;
-$grey-10: #212121;
-$grey-05: #070707;
+/** PALETTES : DÉGRADÉ DES COULEURS DU THÈME, PAS UTILISÉ DIRECTEMENT **/
 
-$overlay-bright: #ffffff25;
-$overlay-dark: #00000013;
+$--grey-50: #F9FAFB;
+$--grey-100: #ECEFF6;
+$--grey-200: #D0D5E1;
+$--grey-300: #B6BFCB;
+$--grey-400: #969FAF;
+$--grey-500: #697180;
+$--grey-600: #4F5763;
+$--grey-700: #404754;
+$--grey-800: #2B323C;
+$--grey-900: #1C212C;
+$--grey-950: #0A0C12;
+
+$--orange-50: #FFEBE6;
+$--orange-100: #FFD9CF;
+$--orange-200: #FEB5A2;
+$--orange-300: #FE8E71;
+$--orange-400: #FE6842;
+$--orange-500: #FD4719;
+$--orange-600: #F33506;
+$--orange-700: #D62E04;
+$--orange-800: #B02B09;
+$--orange-900: #7C240E;
+$--orange-950: #3E150B;
+
+$--red-50: #FEF2F4;
+$--red-100: #FEE2E7;
+$--red-200: #FECAD4;
+$--red-300: #FCA5B5;
+$--red-400: #F8718A;
+$--red-500: #EF4463;
+$--red-600: #DC2647;
+$--red-700: #B91C39;
+$--red-800: #991B32;
+$--red-900: #7F1D2F;
+$--red-950: #450A15;
+
+$--green-blue-a: #1E7E6B;
+$--green-blue-b: #1B7F82;
+$--green-blue-c: #20748E;
+$--green-blue-d: #256B98;
+$--green-blue-e: #3161A3;
+
+/** TOKENS DE COULEURS **/
+
+/** TOKENS CONTEXTUELS THÈME SOMBRE, À UTILISER VIA LES VARIABLES CSS **/
+$--dark-on-surface: $--grey-100;
+$--dark-surface: $--grey-900;
+$--dark-surface-shadow: black;
+
+$--dark-on-surface-container: $--grey-100;
+$--dark-surface-container: $--grey-800;
+$--dark-surface-container-shadow: $--grey-950;
+
+$--dark-on-error-container: $--red-200;
+$--dark-error-container: $--red-900;
+$--dark-error-container-shadow: $--red-950;
+
+$--dark-primary-content: $--orange-400;
+$--dark-secondary-content: $--grey-300;
+$--dark-error-content: $--red-500;
+
+/** TOKENS CONTEXTUELS THÈME CLAIR, À UTILISER VIA LES VARIABLES CSS **/
+$--bright-on-surface: $--grey-950;
+$--bright-surface: white;
+$--bright-surface-shadow: $--grey-300;
+
+$--bright-on-surface-container: $--grey-950;
+$--bright-surface-container: $--grey-100;
+$--bright-surface-container-shadow: $--grey-400;
+
+$--bright-on-error-container: $--red-950;
+$--bright-error-container: $--red-200;
+$--bright-error-container-shadow: $--red-300;
+
+$--bright-primary-content: $--orange-700;
+$--bright-secondary-content: $--grey-600;
+$--bright-error-content: $--red-700;
+
+/** TOKENS FIXES, UTILISABLES DIRECTEMENT **/
+
+$on-primary: $--grey-950;
+$primary: $--orange-500;
+$primary-shadow: $--orange-800;
+$primary-dim: $--orange-200;
+
+$on-secondary: $--grey-950;
+$secondary: $--grey-200;
+$secondary-shadow: $--grey-500;
+
+$on-tertiary: $--grey-50;
+$tertiary-a: $--green-blue-a;
+$tertiary-b: $--green-blue-b;
+$tertiary-c: $--green-blue-c;
+$tertiary-d: $--green-blue-d;
+$tertiary-e: $--green-blue-e;
+
+$on-error: $--red-950;
+$error: $--red-500;
+$error-shadow: $--red-800;
 
 $shadow-dark: #00000044;
-
-$accent: #fd4719;
-$accent-dark: #9f3015;
-
-$danger: #ef3d5d;
-
-$tints: (
-  1: #69af28,
-  2: #25a25f,
-  3: #269da8,
-);

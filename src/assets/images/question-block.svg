@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="20mm"
+   height="20mm"
+   viewBox="0 0 20 20"
+   version="1.1"
+   id="svg5"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <g
+     id="layer1">
+    <path
+       style="fill:none;stroke:#bbb;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 0.5,0.5 H 19.5 V 19.5 H 0.5 Z"
+       id="path3108" />
+    <ellipse
+       style="fill:#bbb;fill-opacity:1;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.584314;paint-order:stroke markers fill;stroke:none"
+       id="path3459"
+       cx="2.6"
+       cy="2.6"
+       rx="0.7"
+       ry="0.7" />
+    <ellipse
+       style="fill:#bbb;fill-opacity:1;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.584314;paint-order:stroke markers fill;stroke:none"
+       id="ellipse3945"
+       cx="2.6"
+       cy="2.6"
+       rx="0.7"
+       ry="0.7" />
+    <ellipse
+       style="fill:#bbb;fill-opacity:1;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.584314;paint-order:stroke markers fill;stroke:none"
+       id="ellipse3947"
+       cx="2.6"
+       cy="17.4"
+       rx="0.7"
+       ry="0.7" />
+    <ellipse
+       style="fill:#bbb;fill-opacity:1;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.584314;paint-order:stroke markers fill;stroke:none"
+       id="ellipse3949"
+       cx="17.4"
+       cy="17.4"
+       rx="0.7"
+       ry="0.7" />
+    <ellipse
+       style="fill:#bbb;fill-opacity:1;stroke-width:1;stroke-linecap:square;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.584314;paint-order:stroke markers fill;stroke:none"
+       id="ellipse3951"
+       cx="17.4"
+       cy="2.6"
+       rx="0.7"
+       ry="0.7" />
+    <path
+       style="fill:#bbb;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="M 3.9,4.7 5.5,3.1 h 9 l 1.6,1.6 v 4.5 l -1.6,1.6 h -2.3 l -0.4,0.4 v 2.2 l -3.6,0 0,-3.2 1.6,-1.6 L 12.3,8.6 12.7,8.2 12.7,5.7 12.3,5.3 7.7,5.3 7.3,5.7 7.3,8.1 3.9,8.1 Z"
+       id="path4005" />
+    <path
+       style="fill:#bbb;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="m 8.2,14.7 v 2.2 h 3.6 v -2.2 z"
+       id="path4007" />
+  </g>
+</svg>

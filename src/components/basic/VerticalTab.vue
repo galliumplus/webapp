@@ -22,8 +22,6 @@ const props = defineProps<Props>()
 @import '@/assets/style/colors';
 @import '@/assets/style/mixins';
 
-$transition-duration: 0.2s;
-
 a {
   @include flexbox(row, center, flex-start);
   padding: 6px 24px 6px 0.5rem;
@@ -31,29 +29,29 @@ a {
   margin: 12px 0;
   overflow: hidden;
 
-  color: $grey-90;
+  color: var(--on-surface);
   border: none;
   text-decoration: none;
   text-align: left;
   white-space: nowrap;
 
-  transition: $transition-duration color background-color;
+  @include ease(color background-color);
 
   &:hover {
-    background-color: $overlay-bright;
+    background-color: var(--surface-container);
   }
 
   &:active {
-    background-color: $overlay-bright;
+    background-color: var(--surface-container);
     padding-bottom: 2px;
-    border-top: 4px solid $grey-05;
+    border-top: 4px solid var(--surface-shadow);
   }
 
   &.router-link-exact-active {
     padding-bottom: 2px;
-    border-top: 4px solid $grey-05;
-    background-color: $grey-90;
-    color: $grey-10;
+    border-top: 4px solid var(--surface-shadow);
+    background-color: $--bright-surface-container;
+    color: $--bright-on-surface-container;
   }
 }
 

@@ -10,12 +10,12 @@ import {
 import LoginLogo from '@/components/misc/LoginLogo.vue'
 import LoginForm from '@/components/forms/LoginForm.vue'
 import LoadingBar from '@/components/basic/LoadingBar.vue'
-import StyledButton from '@/components/basic/StyledButton.vue'
 import { useApi, useParams, useStore } from '@/composables'
 import { Done, Indeterminate, type Progress } from '@/business/progress'
 import { Problem } from '@/business/problem'
 import { type LoginClient, SelfLoginClient, SsoLoginClient } from '@/business/clients'
 import type { LoginCredentials } from '@/business/access'
+import { SameSignOnScope } from '@/business/clients/sameSignOn'
 
 const router = useRouter()
 const api = useApi()
@@ -30,16 +30,20 @@ const mainContentHidden = computed(() => client.value === null && progress.value
 
 async function loadLoginClientInfo(route: RouteLocationNormalized) {
   const params = useParams(route)
-  ssoApiKey = params.service.asString
+  ssoApiKey = params.app.asString
 
   if (ssoApiKey === null) {
     client.value = new SelfLoginClient()
+    if (store.session.isLoggedIn) {
+      await router.replace({ name: 'dashboard' })
+    }
   } else {
     client.value = null
     progress.value = Indeterminate
 
     try {
-      client.value = new SsoLoginClient(await api.clients.getPublicInfoSso(ssoApiKey))
+      const info = await api.getSsoPublicInfo(ssoApiKey)
+      client.value = new SsoLoginClient(info)
     } catch (err) {
       ssoError.value = Problem.handle(err)
     } finally {
@@ -81,30 +85,22 @@ function goBack() {
 <template>
   <main class="public small">
     <LoadingBar :progress="progress" />
-    <div :class="{ invisible: mainContentHidden }" class="content">
+    <div :class="{ 'g-invisible': mainContentHidden }" class="content">
       <LoginLogo :client="client" />
 
       <template v-if="client === null">
         <h1>Erreur</h1>
 
-        <p class="centered">
+        <p class="g-center">
           Nous n'avons pas pu trouver l'application à laquelle vous essayez de vous connecter.
         </p>
 
-        <details>
-          <summary>Détails...</summary>
-          <p>
-            Erreur: {{ ssoError?.message }} <br />
-            (code {{ ssoError?.errorCode }})
-          </p>
-        </details>
-
-        <ul class="no-bullet">
+        <ul class="g-no-bullet">
           <li>
-            <StyledButton class="back" kind="link" @click="goBack">Retour</StyledButton>
+            <StyledButton class="g-back" kind="link" @click="goBack">Retour</StyledButton>
           </li>
           <li>
-            <RouterLink class="fwd" to="/login">Se connecter à Gallium+</RouterLink>
+            <RouterLink class="g-fwd" to="/login">Se connecter à Gallium+</RouterLink>
           </li>
         </ul>
       </template>
@@ -113,12 +109,33 @@ function goBack() {
 
         <LoginForm :disabled="progress !== Done" @submit="logIn" />
 
-        <ul class="no-bullet">
+        <div
+          v-if="client.scope !== undefined && !SameSignOnScope.Gallium.in(client.scope)"
+          class="g-box g-mt-3"
+        >
+          {{ client?.name }} aura accès à&nbsp;:
+          <ul class="g-m-0">
+            <li>Votre identifiant utilisateur</li>
+            <li v-if="SameSignOnScope.Identity.in(client.scope)">Votre nom et prénom</li>
+            <li v-if="SameSignOnScope.Email.in(client.scope)">Votre adresse mail</li>
+            <li v-if="SameSignOnScope.Role.in(client.scope)">
+              Votre statut au sein de l'ETIQ (adhérent ou non, membre du bureau...)
+            </li>
+          </ul>
+        </div>
+        <div
+          v-if="client.scope !== undefined && SameSignOnScope.Gallium.in(client.scope)"
+          class="g-box g-mt-3"
+        >
+          {{ client?.name }} aura un accès direct à Gallium.
+        </div>
+
+        <ul class="g-no-bullet">
           <li>
-            <RouterLink class="fwd" to="/login/forgot-password"> Mot de passe oublié ? </RouterLink>
+            <RouterLink class="g-fwd" to="/login/forgot-password">Mot de passe oublié ?</RouterLink>
           </li>
           <li>
-            <RouterLink class="fwd" to="/login/help">Besoin d'aide ?</RouterLink>
+            <RouterLink class="g-fwd" to="/login/help">Besoin d'aide ?</RouterLink>
           </li>
         </ul>
       </template>
