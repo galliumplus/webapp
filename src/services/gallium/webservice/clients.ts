@@ -32,7 +32,7 @@ export class GalliumClientsService implements GalliumClientsApi {
     return this._clientsResource.getAll()
   }
 
-  public save(id: number): Promise<void> {
-    return this._clientsResource.save()
+  public save(client: ClientInit): Promise<void> {
+    return this._clientsResource.save(client)
   }
 }
