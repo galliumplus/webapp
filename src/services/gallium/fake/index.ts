@@ -28,6 +28,7 @@ export class Fake {
 
   public static ssoClientPublicInfo(): SsoClientPublicInfo {
     return {
+      scope: 0,
       displayName: 'Démo',
       logoUrl: 'https://res.cloudinary.com/louisdevie/image/upload/demo-logo.png'
     }
