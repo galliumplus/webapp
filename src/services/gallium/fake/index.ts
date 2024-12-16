@@ -3,10 +3,11 @@ import type { GalliumApi, GalliumClientsApi } from '..'
 import type { GalliumUsersApi } from '../users'
 import { GalliumPermissions, User } from '@/business/users'
 import { FakeGalliumUserService } from './users'
-import type { LoginCredentials, LoggedIn } from '@/business/access'
+import type { LoggedIn } from '@/business/access'
 import { Problem } from '@/business/problem'
 import type { SsoClientPublicInfo } from '@/business/clients'
 import { FakeGalliumClientsService } from './clients'
+import { LoginCredentials } from '@/business/access'
 
 export class Fake {
   public static delay(millis: number = 1500): Promise<void> {
@@ -67,5 +68,14 @@ export class FakeGalliumService implements GalliumApi {
 
   public get clients(): GalliumClientsApi {
     return new FakeGalliumClientsService()
+  }
+
+  public async getSsoPublicInfo(apiKey: string): Promise<SsoClientPublicInfo> {
+    await Fake.delay()
+    return {
+      displayName: '',
+      logoUrl: undefined,
+      scope: 0
+    }
   }
 }

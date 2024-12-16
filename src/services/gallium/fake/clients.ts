@@ -1,8 +1,7 @@
 import type { GalliumClientsApi } from '@/services/gallium'
 import { Fake } from '@/services/gallium/fake/index'
 import { Problem, ErrorCode } from '@/business/problem'
-import type { SsoClientPublicInfo } from '@/business/clients'
-import type { ClientSummary } from '@/business/clients/client'
+import type { ClientInit, SameSignOnInit, SsoClientPublicInfo } from '@/business/clients'
 
 export class FakeGalliumClientsService implements GalliumClientsApi {
   public async getSsoPublicInfo(apiKey: string): Promise<SsoClientPublicInfo> {
@@ -17,22 +16,32 @@ export class FakeGalliumClientsService implements GalliumClientsApi {
     }
   }
 
-  public async getAll(): Promise<ClientSummary[]> {
+  public async getAll(): Promise<ClientInit[]> {
     return [
       {
         id: 1,
         name: 'Client 1',
-        isEnabled: true
+        apiKey: 'test-api-key',
+        isEnabled: true,
+        granted: 0,
+        revoked: 0,
+        hasAppAccess: false,
+        sameSignOn: null
       },
       {
         id: 2,
         name: 'Client 2',
-        isEnabled: false
+        apiKey: 'test-api-key',
+        isEnabled: false,
+        granted: 0,
+        revoked: 0,
+        hasAppAccess: false,
+        sameSignOn: null
       }
     ]
   }
 
-  public async save(id: number): Promise<void> {
+  public async save(client: ClientInit): Promise<void> {
     await Fake.delay()
   }
 }
