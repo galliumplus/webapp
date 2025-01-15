@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import dayjs from 'dayjs'
 import { ref, onMounted, onUnmounted } from 'vue'
 import Card from '@/components/cards/Card.vue'
-import dayjs from 'dayjs'
 
 const time = ref('')
 const dayOfWeek = ref('')

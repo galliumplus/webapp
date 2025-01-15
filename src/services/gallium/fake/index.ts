@@ -1,13 +1,12 @@
-import dayjs from 'dayjs'
-import type { GalliumApi, GalliumClientsApi } from '..'
-import type { GalliumUsersApi } from '../users'
-import { GalliumPermissions, User } from '@/business/users'
-import { FakeGalliumUserService } from './users'
-import type { LoggedIn } from '@/business/access'
-import { Problem } from '@/business/problem'
-import type { SsoClientPublicInfo } from '@/business/clients'
+import type { GalliumApi, GalliumClientsApi, GalliumRolesApi, GalliumUsersApi } from '..'
 import { FakeGalliumClientsService } from './clients'
+import { FakeGalliumUserService, FakeRolesService } from './users'
+import dayjs from 'dayjs'
+import type { LoggedIn } from '@/business/access'
 import { LoginCredentials } from '@/business/access'
+import type { SsoClientPublicInfo } from '@/business/clients'
+import { Problem } from '@/business/problem'
+import { User } from '@/business/users'
 
 export class Fake {
   public static delay(millis: number = 1500): Promise<void> {
@@ -45,7 +44,7 @@ export class FakeGalliumService implements GalliumApi {
         token: 'fake-session-token',
         expiration: dayjs().add(24, 'hour'),
         user: Fake.user(),
-        permissions: new GalliumPermissions()
+        permissions: 0
       }
     } else {
       throw new Problem('Identifiant ou mot de passe invalide.')
@@ -70,11 +69,15 @@ export class FakeGalliumService implements GalliumApi {
     return new FakeGalliumClientsService()
   }
 
+  public get roles(): GalliumRolesApi {
+    return new FakeRolesService()
+  }
+
   public async getSsoPublicInfo(apiKey: string): Promise<SsoClientPublicInfo> {
     await Fake.delay()
     return {
       displayName: '',
-      logoUrl: undefined,
+      logoUrl: null,
       scope: 0
     }
   }

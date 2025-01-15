@@ -55,11 +55,11 @@ function modelChange(ev: Event): void {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/style/colors';
-@import '@/assets/style/mixins';
+@use '@/assets/style/colors';
+@use '@/assets/style/utils';
 
 .input-group {
-  @include flexbox(row, center);
+  @include utils.flexbox(row, center);
 }
 
 .input-label {
@@ -71,18 +71,26 @@ input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  font-size: inherit;
   width: 1.2em;
   height: 1.2em;
-  border: 2px solid $secondary;
+  border: 2px solid colors.$secondary;
   background: none;
   margin: 0 0.75rem;
+  text-align: center;
+  line-height: 0.8em;
 
-  @include ease(border-color);
+  @include utils.ease(border-color);
 
   &:checked {
-    border-color: $primary;
-    background-color: $primary;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='butt' stroke-linejoin='miter' stroke-width='3' d='m 3,9 5,5 9,-9'/%3e%3c/svg%3e");
+    border-color: colors.$primary;
+    background-color: colors.$primary;
+
+    &::after {
+      content: '\E033';
+      font-family: 'Zincons', system-ui;
+      font-size: 0.8em;
+    }
   }
 }
 </style>

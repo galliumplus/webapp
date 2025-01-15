@@ -18,7 +18,7 @@ defineProps<Props>()
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/colors.scss';
+@use '@/assets/style/colors.scss';
 
 .slider {
   position: relative;
@@ -33,7 +33,7 @@ defineProps<Props>()
 
 .foreground {
   position: absolute;
-  background: $primary;
+  background: colors.$primary;
   height: 6px;
 }
 .increment {

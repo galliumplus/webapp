@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import Card from '@/components/cards/Card.vue'
 import { User } from '@/business/users'
-import { ref, watch } from 'vue'
 import { useCurrentSchoolYear } from '@/composables'
 
 interface Props {

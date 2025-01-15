@@ -7,10 +7,10 @@ import ClockCard from '@/components/modules/dashboard/ClockCard.vue'
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/mixins';
+@use '@/assets/style/utils';
 
 div.layout {
   box-sizing: border-box;
-  @include flexbox(column, flex-end, flex-start);
+  @include utils.flexbox(column, flex-end, flex-start);
 }
 </style>

@@ -1,7 +1,5 @@
 import type { GalliumApi, GalliumClientsApi, GalliumUsersApi } from '..'
-import { GalliumUserService, user } from './users'
-import { type LoggedIn, LoginCredentials } from '@/business/access'
-import { GalliumClientsService } from '@/services/gallium/webservice/clients'
+import { GalliumUserService, role, user } from './users'
 import {
   BasicAuth,
   BearerToken,
@@ -13,11 +11,14 @@ import {
   string
 } from '@hokaze/core'
 import dayjs from '@hokaze/dayjs'
-import { GalliumPermissions, User } from '@/business/users'
-import { useStore } from '@/composables/store'
-import { ErrorCode, Problem } from '@/business/problem'
-import router from '@/router'
+import { type LoggedIn, LoginCredentials } from '@/business/access'
 import type { SsoClientPublicInfo } from '@/business/clients'
+import { ErrorCode, Problem } from '@/business/problem'
+import { User } from '@/business/users'
+import { useStore } from '@/composables/store'
+import router from '@/router'
+import type { GalliumRolesApi } from '@/services/gallium/users'
+import { GalliumClientsService } from '@/services/gallium/webservice/clients'
 
 const loggedIn = object({
   token: string,
@@ -61,7 +62,7 @@ export class GalliumService implements GalliumApi {
       token: dto.token,
       expiration: dto.expiration,
       user: new User(dto.user),
-      permissions: new GalliumPermissions(dto.permissions)
+      permissions: dto.permissions
     }
   }
 
@@ -79,11 +80,15 @@ export class GalliumService implements GalliumApi {
     return new GalliumUserService(this._mainService)
   }
 
+  public get roles(): GalliumRolesApi {
+    return this._mainService.collection('roles', role)
+  }
+
   public get clients(): GalliumClientsApi {
     return new GalliumClientsService(this._mainService)
   }
 
-  public onBadResponse(response: Response): Response {
+  public async onBadResponse(response: Response): Promise<never> {
     if (response.status === 401) {
       const store = useStore()
       store.session.clear()
@@ -93,14 +98,32 @@ export class GalliumService implements GalliumApi {
       if (currentRouteName !== null && typeof currentRouteName === 'string') {
         logInDestination = currentRouteName
       }
-      router.push({ name: 'login', query: { to: logInDestination, disconnected: 'yes' } })
+      router
+        .push({ name: 'login', query: { to: logInDestination, disconnected: 'yes' } })
+        .catch((err) => {
+          console.error('Échec lors de la redirection vers la page de connexion', err)
+          window.location.reload()
+        })
 
       throw new Problem(
         "Le jeton d'authentification semble ne plus être valide.",
         ErrorCode.Unauthenticated
       )
     } else {
-      throw response
+      let galliumError
+      try {
+        galliumError = await response.json()
+      } catch {
+        galliumError = undefined
+      }
+      if (
+        typeof galliumError === 'object' &&
+        galliumError !== null &&
+        'debugInfo' in galliumError
+      ) {
+        console.debug('Informations de débogage disponibles :', galliumError.debugInfo)
+      }
+      throw Problem.fromGalliumError(galliumError)
     }
   }
 }

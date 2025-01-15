@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { inject } from 'vue'
-import { useThisPopUp } from '@/composables/popups'
 import Zincon from '@/components/basic/Zincon.vue'
+import { useThisPopUp } from '@/composables/popups'
 
 const popUp = useThisPopUp()
 </script>
@@ -22,25 +22,26 @@ const popUp = useThisPopUp()
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/colors';
-@import '@/assets/style/mixins';
+@use '@/assets/style/colors';
+@use '@/assets/style/utils';
 
 header {
-  @include context-dark;
+  @include colors.context-dark;
   color: var(--on-surface);
   background: var(--surface);
   border-bottom: 4px solid var(--surface-shadow);
+  padding: 0.5rem 0.5rem 0 0.5rem;
 
   h1 {
     margin: 0;
-    @include flexbox(row, center);
+    @include utils.flexbox(row, center);
     font-size: 12pt;
   }
 
   nav {
-    padding-left: 1rem;
+    padding-left: 0.5rem;
     margin-top: 0.5rem;
-    @include flexbox(row, flex-end, flex-start);
+    @include utils.flexbox(row, flex-end, flex-start);
   }
 }
 

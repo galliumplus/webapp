@@ -1,7 +1,7 @@
+import type { ClientInit, SameSignOnInit, SsoClientPublicInfo } from '@/business/clients'
+import { Problem, ErrorCode } from '@/business/problem'
 import type { GalliumClientsApi } from '@/services/gallium'
 import { Fake } from '@/services/gallium/fake/index'
-import { Problem, ErrorCode } from '@/business/problem'
-import type { ClientInit, SameSignOnInit, SsoClientPublicInfo } from '@/business/clients'
 
 export class FakeGalliumClientsService implements GalliumClientsApi {
   public async getSsoPublicInfo(apiKey: string): Promise<SsoClientPublicInfo> {

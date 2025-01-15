@@ -8,40 +8,36 @@ declare module 'vue' {
     $hasPermission: typeof hasPermission
     $hasAllPermissions: typeof hasAllPermissions
     $hasAnyPermission: typeof hasAnyPermission
-    $test: typeof test
   }
 }
 
 const globalConstants = {
-  SeeProductsAndCategories: GalliumPermission.SEE_PRODUCTS_AND_CATEGORIES,
-  ManageProducts: GalliumPermission.MANAGE_PRODUCTS,
-  ManageCategories: GalliumPermission.MANAGE_CATEGORIES,
-  SeeAllUsersAndRoles: GalliumPermission.SEE_ALL_USERS_AND_ROLES,
-  ManageDeposits: GalliumPermission.MANAGE_DEPOSITS,
-  ManageUsers: GalliumPermission.MANAGE_USERS,
-  ManageRoles: GalliumPermission.MANAGE_ROLES,
-  ReadLogs: GalliumPermission.READ_LOGS,
-  ResetMemberships: GalliumPermission.RESET_MEMBERSHIPS,
-  Sell: GalliumPermission.SELL
+  SeeProductsAndCategories: GalliumPermission.SeeProductsAndCategories,
+  ManageProducts: GalliumPermission.ManageProducts,
+  ManageCategories: GalliumPermission.ManageCategories,
+  SeeAllUsersAndRoles: GalliumPermission.SeeAllUsersAndRoles,
+  ManageDeposits: GalliumPermission.ManageDeposits,
+  ManageUsers: GalliumPermission.ManageUsers,
+  ManageRoles: GalliumPermission.ManageRoles,
+  ReadLogs: GalliumPermission.ReadLogs,
+  ManageClients: GalliumPermission.ManageClients,
+  UseDeveloperTools: GalliumPermission.UseDeveloperTools,
+  Sell: GalliumPermission.Sell
 }
 
 function hasPermission(...perms: GalliumPermission[]) {
   const sessionPerms = useStore().session.permissions
-  return perms.every((p) => sessionPerms.includes(p))
+  return perms.every((p) => p.in(sessionPerms))
 }
 
 function hasAllPermissions(...perms: GalliumPermission[]) {
   const sessionPerms = useStore().session.permissions
-  return perms.every((p) => sessionPerms.includes(p))
+  return perms.every((p) => p.in(sessionPerms))
 }
 
 function hasAnyPermission(...perms: GalliumPermission[]) {
   const sessionPerms = useStore().session.permissions
-  return perms.some((p) => sessionPerms.includes(p))
-}
-
-function test(this: unknown) {
-  console.log(this)
+  return perms.some((p) => p.in(sessionPerms))
 }
 
 export const globalServices: Plugin = {
@@ -50,6 +46,5 @@ export const globalServices: Plugin = {
     app.config.globalProperties.$hasPermission = hasPermission
     app.config.globalProperties.$hasAllPermissions = hasAllPermissions
     app.config.globalProperties.$hasAnyPermission = hasAnyPermission
-    app.config.globalProperties.$test = test
   }
 }

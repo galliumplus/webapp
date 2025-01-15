@@ -1,6 +1,7 @@
-import { type User } from '@/business/users'
-import type { GalliumUsersApi, PasswordModification } from '../users'
 import { Fake } from '.'
+import type { GalliumRolesApi, GalliumUsersApi, PasswordModification } from '../users'
+import type { User, Role } from '@/business/users'
+import { FakeCollection } from '@/services/gallium/fake/generic'
 
 export class FakeGalliumUserService implements GalliumUsersApi {
   public async getAll(): Promise<User[]> {
@@ -26,5 +27,19 @@ export class FakeGalliumUserService implements GalliumUsersApi {
 
   public askForPasswordReset(userId: string, retryInit?: boolean): Promise<void> {
     return Promise.resolve(undefined)
+  }
+}
+
+export class FakeRolesService extends FakeCollection<Role, 'id'> implements GalliumRolesApi {
+  public constructor() {
+    super('id', [])
+  }
+
+  public create(): Role {
+    return {
+      id: 0,
+      name: '',
+      permissions: 0
+    }
   }
 }

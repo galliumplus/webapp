@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import ToolsCard from '@/components/cards/ToolsCard.vue'
-import TableCard from '@/components/cards/TableCard.vue'
-import UserCard from '@/components/modules/users/UserCard.vue'
-import { useApi } from '@/composables'
 import { onMounted, ref } from 'vue'
+import TableCard from '@/components/cards/TableCard.vue'
+import ToolsCard from '@/components/cards/ToolsCard.vue'
+import UserCard from '@/components/modules/users/UserCard.vue'
 import { User } from '@/business/users'
+import { useApi } from '@/composables'
 
 const api = useApi()
 
@@ -14,20 +14,6 @@ const activeUser = ref(-1)
 onMounted(async () => {
   userList.value = await api.users.getAll()
   userList.value.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
-  for (let i = 0; i < 100; i++) {
-    userList.value.push(
-      new User({
-        id: String(9000 + i),
-        deposit: null,
-        email: 'joe@biden.net',
-        firstName: 'Joe',
-        lastName: 'Biden',
-        role: 0,
-        isMember: false,
-        year: 'JOE BIDEN'
-      })
-    )
-  }
 })
 
 function selectUser(i: number): void {

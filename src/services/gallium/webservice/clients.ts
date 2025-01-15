@@ -1,7 +1,7 @@
-import type { GalliumClientsApi } from '@/services/gallium/clients'
-import type { ClientInit, SsoClientPublicInfo } from '@/business/clients'
 import { type CollectionResource, type ObjectDescriptor, type Service } from '@hokaze/core'
 import { boolean, number, object, string } from '@hokaze/core'
+import type { ClientInit, SsoClientPublicInfo } from '@/business/clients'
+import type { GalliumClientsApi } from '@/services/gallium/clients'
 
 export const client: ObjectDescriptor<ClientInit> = object({
   id: number,

@@ -1,10 +1,10 @@
-import { createApp } from 'vue'
 import App from './App.vue'
-import { globalServices } from '@/services/global'
 import router from './router'
 import dayjs from 'dayjs'
 import 'dayjs/locale/fr.js'
+import { createApp } from 'vue'
 import '@/assets/style/global.scss'
+import { globalServices } from '@/services/global'
 
 dayjs.locale('fr')
 

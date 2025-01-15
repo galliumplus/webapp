@@ -7,7 +7,7 @@
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/mixins';
+@use '@/assets/style/utils';
 
 div {
   background-color: var(--surface);

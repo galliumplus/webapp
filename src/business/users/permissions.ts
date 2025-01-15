@@ -7,126 +7,73 @@ export class GalliumPermission extends NumberFlag {
   /**
    * Accès en lecture seule aux produits et aux catégories.
    */
-  public static readonly SEE_PRODUCTS_AND_CATEGORIES: GalliumPermission =
-    NumberFlag.withValue(0x001)
+  public static readonly SeeProductsAndCategories: GalliumPermission = NumberFlag.withValue(0x001)
 
   /**
    * Accès en lecture/écriture aux produits.
    */
-  public static readonly MANAGE_PRODUCTS: GalliumPermission = NumberFlag.withValue(
+  public static readonly ManageProducts: GalliumPermission = NumberFlag.withValue(
     0x002,
-    GalliumPermission.SEE_PRODUCTS_AND_CATEGORIES
+    GalliumPermission.SeeProductsAndCategories
   )
 
   /**
    * Accès en lecture/écriture aux catégories.
    */
-  public static readonly MANAGE_CATEGORIES: GalliumPermission = NumberFlag.withValue(
+  public static readonly ManageCategories: GalliumPermission = NumberFlag.withValue(
     0x004,
-    GalliumPermission.SEE_PRODUCTS_AND_CATEGORIES
+    GalliumPermission.SeeProductsAndCategories
   )
 
   /**
-   * Accès en lecture seule à tous les utilisateur et aux rôles.
+   * Accès en lecture seule à tous les utilisateurs et aux rôles.
    */
-  public static readonly SEE_ALL_USERS_AND_ROLES: GalliumPermission = NumberFlag.withValue(0x008)
+  public static readonly SeeAllUsersAndRoles: GalliumPermission = NumberFlag.withValue(0x008)
 
   /**
    * Accès à tous les utilisateurs et possibilité de modifier les acomptes.
    */
-  public static readonly MANAGE_DEPOSITS: GalliumPermission = NumberFlag.withValue(
+  public static readonly ManageDeposits: GalliumPermission = NumberFlag.withValue(
     0x010,
-    GalliumPermission.SEE_ALL_USERS_AND_ROLES
+    GalliumPermission.SeeAllUsersAndRoles
   )
 
   /**
    * Accès en lecture/écriture aux utilisateurs.
    */
-  public static readonly MANAGE_USERS: GalliumPermission = NumberFlag.withValue(
+  public static readonly ManageUsers: GalliumPermission = NumberFlag.withValue(
     0x020,
-    GalliumPermission.MANAGE_DEPOSITS
+    GalliumPermission.ManageDeposits
   )
 
   /**
    * Accès en lecture/écriture aux rôles.
    */
-  public static readonly MANAGE_ROLES: GalliumPermission = NumberFlag.withValue(
+  public static readonly ManageRoles: GalliumPermission = NumberFlag.withValue(
     0x040,
-    GalliumPermission.SEE_ALL_USERS_AND_ROLES
+    GalliumPermission.SeeAllUsersAndRoles
   )
 
   /**
    * Accès à l'historique.
    */
-  public static readonly READ_LOGS: GalliumPermission = NumberFlag.withValue(0x080)
+  public static readonly ReadLogs: GalliumPermission = NumberFlag.withValue(0x080)
 
   /**
-   * Possibilité de révoquer toutes les adhésions.
+   * Gestion complète des applications.
    */
-  public static readonly RESET_MEMBERSHIPS: GalliumPermission = NumberFlag.withValue(
-    0x100,
-    GalliumPermission.MANAGE_USERS
-  )
+  public static readonly ManageClients: GalliumPermission = NumberFlag.withValue(0x200)
+
+  /**
+   * Accès aux outils de développement de Gallium+.
+   */
+  public static readonly UseDeveloperTools: GalliumPermission = NumberFlag.withValue(0x400)
 
   /**
    * Les permissions nécessaires pour vendre des produits.
    */
-  public static readonly SELL: GalliumPermission = NumberFlag.withoutValue(
-    GalliumPermission.MANAGE_PRODUCTS,
-    GalliumPermission.MANAGE_DEPOSITS
+  public static readonly Sell: GalliumPermission = NumberFlag.withoutValue(
+    GalliumPermission.ManageProducts,
+    GalliumPermission.ManageDeposits
   )
-}
-
-/**
- * Un groupe de permissions.
- */
-export class GalliumPermissions {
-  private _code: number
-
-  /**
-   * Crée un groupe de permissions.
-   * @param code (optionnel) Le code de permissions si le groupe est créé à partir d'informations existantes.
-   */
-  public constructor(code?: number) {
-    this._code = code ?? 0
-  }
-
-  /**
-   * Teste si une permissions est présente dans le groupe.
-   * @param permission
-   */
-  public includes(permission: GalliumPermission): boolean {
-    return permission.in(this._code)
-  }
-
-  /**
-   * Donne une permission.
-   * @param permission La nouvelle permission.
-   */
-  public grant(permission: GalliumPermission) {
-    this._code = permission.addTo(this._code)
-  }
-
-  /**
-   * Retire une permission.
-   * @param permission
-   */
-  public revoke(permission: GalliumPermission) {
-    this._code = permission.removeFrom(this._code)
-  }
-
-  public toString(): string {
-    return this._code.toString()
-  }
-
-  /**
-   * Crée des permissions depuis une forme de texte.
-   *
-   * @param value La valeur à convertir.
-   *
-   * @returns Une instance de la classe {@link GalliumPermissions}.
-   */
-  public static parse(value: string | null | undefined): GalliumPermissions {
-    return new GalliumPermissions(parseInt(value ?? '0'))
-  }
 }

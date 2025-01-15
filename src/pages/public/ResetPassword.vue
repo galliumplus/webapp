@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-
-import PasswordModificationForm from '@/components/forms/PasswordModificationForm.vue'
-import { Query } from '@/helpers'
-import { useApi } from '@/composables'
 import NavLink from '@/components/basic/NavLink.vue'
+import PasswordModificationForm from '@/components/forms/PasswordModificationForm.vue'
+import { useApi } from '@/composables'
+import { Query } from '@/helpers'
 
 const route = useRoute()
 const api = useApi()

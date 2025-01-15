@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { useApi } from '@/composables'
 import FormInput from '@/components/basic/FormInput.vue'
-import { Problem } from '@/business/problem'
-import Zincon from '@/components/basic/Zincon.vue'
 import NavLink from '@/components/basic/NavLink.vue'
+import Zincon from '@/components/basic/Zincon.vue'
+import { Problem } from '@/business/problem'
+import { useApi } from '@/composables'
 
 const route = useRoute()
 const api = useApi()

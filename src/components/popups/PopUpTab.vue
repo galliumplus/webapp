@@ -15,8 +15,8 @@ const model = defineModel()
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/colors';
-@import '@/assets/style/mixins';
+@use '@/assets/style/colors';
+@use '@/assets/style/utils';
 
 $transition-duration: 0.2s;
 

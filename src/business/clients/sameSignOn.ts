@@ -1,5 +1,5 @@
-import { NumberFlag } from 'multiflag'
 import _ from 'lodash'
+import { NumberFlag } from 'multiflag'
 import { ifEmpty } from '@/helpers'
 
 export interface SsoClientPublicInfo {

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, type Ref, ref, type StyleValue, toRef, useTemplateRef } from 'vue'
 import {
   arrow,
   type MaybeElement,
@@ -8,6 +7,7 @@ import {
   type ReferenceElement,
   useFloating
 } from '@floating-ui/vue'
+import { computed, type Ref, ref, type StyleValue, toRef, useTemplateRef } from 'vue'
 
 interface Props {
   attachedTo: MaybeElement<ReferenceElement>
@@ -71,7 +71,7 @@ const arrowFloatingStyles = computed<StyleValue>(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/colors.scss';
+@use '@/assets/style/colors.scss';
 
 .tooltip {
   padding: 0.25rem 0.5rem;
@@ -81,21 +81,21 @@ const arrowFloatingStyles = computed<StyleValue>(() => {
   white-space: nowrap;
 
   &.tooltip-primary {
-    --tooltip-bg: #{$primary};
+    --tooltip-bg: #{colors.$primary};
     background-color: var(--tooltip-bg);
-    color: $on-primary;
+    color: colors.$on-primary;
   }
 
   &.tooltip-secondary {
-    --tooltip-bg: #{$secondary};
+    --tooltip-bg: #{colors.$secondary};
     background-color: var(--tooltip-bg);
-    color: $on-secondary;
+    color: colors.$on-secondary;
   }
 
   &.tooltip-error {
-    --tooltip-bg: #{$error};
+    --tooltip-bg: #{colors.$error};
     background-color: var(--tooltip-bg);
-    color: $on-error;
+    color: colors.$on-error;
   }
 
   .arrow {

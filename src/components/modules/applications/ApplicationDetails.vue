@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import PopUpHeader from '@/components/popups/PopUpHeader.vue'
-import PopUpTab from '@/components/popups/PopUpTab.vue'
-import TextInput from '@/components/basic/TextInput.vue'
-import Zincon from '@/components/basic/Zincon.vue'
-import Checkbox from '@/components/basic/Checkbox.vue'
 import SameSignOnSettings from './SameSignOnSettings.vue'
 import { reactive, ref } from 'vue'
-import { useApi, useThisPopUp } from '@/composables'
+import Checkbox from '@/components/basic/Checkbox.vue'
+import TextInput from '@/components/basic/TextInput.vue'
+import Zincon from '@/components/basic/Zincon.vue'
+import PopUpHeader from '@/components/popups/PopUpHeader.vue'
+import PopUpTab from '@/components/popups/PopUpTab.vue'
 import { Client, type ClientInit } from '@/business/clients/client'
+import { useApi, useThisPopUp } from '@/composables'
 
 const tab = ref('overview')
 const popup = useThisPopUp()
@@ -15,7 +15,7 @@ const client = reactive(new Client(popup.getData<ClientInit>()))
 const initiallyEnabled = client.isEnabled
 
 async function save() {
-  await useApi().clients.save(client.id)
+  await useApi().clients.save(client.asRaw())
   popup.dismiss()
 }
 </script>
@@ -62,7 +62,7 @@ async function save() {
   <footer class="g-row g-align-center">
     <div>
       <button class="g-flat g-error" @click="save()">
-        <Zincon of="zn" /> Supprimer l'application
+        <Zincon of="delete" /> Supprimer l'application
       </button>
     </div>
     <div class="g-right g-grow">
@@ -70,7 +70,3 @@ async function save() {
     </div>
   </footer>
 </template>
-
-<style scoped lang="scss">
-@import '/src/assets/style/mixins.scss';
-</style>

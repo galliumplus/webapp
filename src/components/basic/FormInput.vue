@@ -57,8 +57,8 @@ function modelValueChange(ev: Event): void {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/style/colors';
-@import '@/assets/style/mixins';
+@use '@/assets/style/colors';
+@use '@/assets/style/utils';
 
 div.error {
   color: var(--error-content);
@@ -70,7 +70,7 @@ label {
 
 input {
   outline: none;
-  @include ease(border-color);
+  @include utils.ease(border-color);
 
   &[type='text'],
   &[type='password'] {
@@ -78,10 +78,10 @@ input {
     border-width: 0 0 2px 0;
     border-style: solid;
 
-    border-color: $secondary;
+    border-color: colors.$secondary;
 
     &:focus {
-      border-color: $primary;
+      border-color: colors.$primary;
     }
   }
 

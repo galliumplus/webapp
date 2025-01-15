@@ -2,9 +2,9 @@
 import { onBeforeMount } from 'vue'
 import { RouterView, useRouter } from 'vue-router'
 import Tab from '@/components/basic/VerticalTab.vue'
+import Zincon from '@/components/basic/Zincon.vue'
 import HeaderLogo from '@/components/misc/SideBarLogo.vue'
 import { useStore } from '@/composables'
-import Zincon from '@/components/basic/Zincon.vue'
 
 const store = useStore()
 const router = useRouter()
@@ -29,14 +29,19 @@ const userDisplayName = store.session.userShortDisplayName
       <Tab link="/dashboard" label="Accueil" icon="home" />
       <!--Tab link="/checkout" label="Caisse" icon="cart" /-->
       <Tab link="/users" label="Utilisateurs" icon="user-group" />
-      <Tab link="/admin" label="Administration" icon="zn" />
-      <Tab link="/dev" label="Espace développeurs" icon="zn" />
+      <Tab link="/admin" label="Administration" icon="settings" />
+      <Tab
+        link="/dev"
+        label="Espace développeurs"
+        icon="zn"
+        v-if="$hasPermission(G.UseDeveloperTools)"
+      />
     </nav>
 
     <div class="footer">
       <Zincon of="user" />
       <span class="g-grow padded">{{ userDisplayName }}</span>
-      <button class="g-sinking" @click="logout"><Zincon of="exit" /></button>
+      <button class="g-sinking" @click="logout"><Zincon of="log-out" /></button>
     </div>
   </div>
 
@@ -46,12 +51,12 @@ const userDisplayName = store.session.userShortDisplayName
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/colors';
-@import '@/assets/style/mixins';
+@use '@/assets/style/colors';
+@use '@/assets/style/utils';
 
 .side-bar {
-  @include context-dark;
-  @include flexbox(column);
+  @include colors.context-dark;
+  @include utils.flexbox(column);
   background-color: var(--surface);
 }
 
@@ -71,7 +76,7 @@ main.bento-box {
 .footer {
   margin-bottom: 0.5rem;
   align-self: stretch;
-  padding: 0 0.5rem;
+  padding: 0 0.5rem 0 1rem;
   display: flex;
   flex-direction: row;
   align-items: center;

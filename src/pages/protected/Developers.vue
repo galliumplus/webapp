@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Card from '@/components/cards/Card.vue'
-import Zincon from '@/components/basic/Zincon.vue'
 
 const backgrounds = [
   { cls: 'bright', desc: 'Fond clair' },
@@ -48,33 +47,34 @@ const backgrounds = [
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/mixins';
+@use '@/assets/style/utils';
+@use '@/assets/style/colors';
 
 .background {
   padding: 1rem;
 
   &.bright {
-    color: $--bright-on-surface;
-    background-color: $--bright-surface;
-    @include context-bright;
+    @include colors.context-bright;
+    color: var(--on-surface);
+    background-color: var(--surface);
   }
 
   &.bright-container {
-    color: $--bright-on-surface-container;
-    background-color: $--bright-surface-container;
-    @include context-bright;
+    @include colors.context-bright;
+    color: var(--on-surface-container);
+    background-color: var(--surface-container);
   }
 
   &.dark {
-    color: $--dark-on-surface;
-    background-color: $--dark-surface;
-    @include context-dark;
+    @include colors.context-dark;
+    color: var(--on-surface);
+    background-color: var(--surface);
   }
 
   &.dark-container {
-    color: $--dark-on-surface-container;
-    background-color: $--dark-surface-container;
-    @include context-dark;
+    @include colors.context-dark;
+    color: var(--on-surface-container);
+    background-color: var(--surface-container);
   }
 
   h3 {
@@ -88,46 +88,46 @@ const backgrounds = [
   border-bottom: 4px solid;
 
   &.primary {
-    color: $on-primary;
-    background-color: $primary;
-    border-color: $primary-shadow;
+    color: colors.$on-primary;
+    background-color: colors.$primary;
+    border-color: colors.$primary-shadow;
   }
 
   &.secondary {
-    color: $on-secondary;
-    background-color: $secondary;
-    border-color: $secondary-shadow;
+    color: colors.$on-secondary;
+    background-color: colors.$secondary;
+    border-color: colors.$secondary-shadow;
   }
 
   &.tertiary {
-    color: $on-tertiary;
+    color: colors.$on-tertiary;
     border: none;
 
     &.variant-a {
-      background-color: $tertiary-a;
+      background-color: colors.$tertiary-a;
     }
 
     &.variant-b {
-      background-color: $tertiary-b;
+      background-color: colors.$tertiary-b;
     }
 
     &.variant-c {
-      background-color: $tertiary-c;
+      background-color: colors.$tertiary-c;
     }
 
     &.variant-d {
-      background-color: $tertiary-d;
+      background-color: colors.$tertiary-d;
     }
 
     &.variant-e {
-      background-color: $tertiary-e;
+      background-color: colors.$tertiary-e;
     }
   }
 
   &.error {
-    color: $on-error;
-    background-color: $error;
-    border-color: $error-shadow;
+    color: colors.$on-error;
+    background-color: colors.$error;
+    border-color: colors.$error-shadow;
   }
 
   &.error-container {

@@ -1,2 +1,3 @@
 export { User, type UserInit } from './user'
-export { GalliumPermission, GalliumPermissions } from './permissions'
+export { GalliumPermission } from './permissions'
+export type { Role } from './role'

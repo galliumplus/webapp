@@ -1,7 +1,8 @@
 @use 'sass:math';
+@use 'sass:list';
 
-@import './colors.scss';
-@import './mixins.scss';
+@use './colors.scss';
+@use 'utils';
 
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans&text=%E2%86%90%E2%86%92&display=swap');
@@ -16,10 +17,10 @@ body {
   padding: 0;
 
   &.g-public {
-    @include context-dark;
+    @include colors.context-dark;
     background-color: var(--surface);
 
-    @include media-desktop {
+    @include utils.media-desktop {
       background-color: white;
       background-image: url('/external-background.svg');
       background-position: bottom right;
@@ -27,29 +28,30 @@ body {
     }
 
     #app {
-      @include flexbox(row, center, center);
+      @include utils.flexbox(row, center, center);
       min-height: 100dvh;
       box-sizing: border-box;
 
-      @include media-desktop {
+      @include utils.media-desktop {
         padding: 26px;
       }
     }
   }
 
   &.g-protected {
-    @include context-bright;
+    @include colors.context-bright;
     background-color: var(--surface-container);
 
     #app {
-      @include flexbox(row, stretch, center);
+      @include utils.flexbox(row, stretch, center);
       height: 100dvh;
       box-sizing: border-box;
     }
   }
 }
 
-a, button.g-link {
+a,
+button.g-link {
   color: inherit;
   text-decoration: none;
 
@@ -73,10 +75,10 @@ button {
   }
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="submit"],
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='submit'],
 button {
   min-width: 0;
   display: inline-block;
@@ -87,7 +89,7 @@ button {
   border-radius: 0;
   font-family: inherit;
   color: inherit;
-  padding: .375rem .75rem;
+  padding: 0.375rem 0.75rem;
   font-size: 1rem;
 
   &[disabled] {
@@ -95,7 +97,8 @@ button {
   }
 }
 
-button, input[type="submit"] {
+button,
+input[type='submit'] {
   font-weight: 500;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -107,7 +110,7 @@ button, input[type="submit"] {
   &.g-list-item {
     text-align: left;
     font-weight: 400;
-    padding: .575rem .75rem;
+    padding: 0.575rem 0.75rem;
     width: 100%;
 
     &:hover {
@@ -152,21 +155,21 @@ button, input[type="submit"] {
     }
 
     &.g-primary {
-      background-color: $primary;
-      color: $on-primary;
-      border-color: $primary-shadow;
+      background-color: colors.$primary;
+      color: colors.$on-primary;
+      border-color: colors.$primary-shadow;
     }
 
     &.g-secondary {
-      background-color: $secondary;
-      color: $on-secondary;
-      border-color: $secondary-shadow;
+      background-color: colors.$secondary;
+      color: colors.$on-secondary;
+      border-color: colors.$secondary-shadow;
     }
 
     &.g-error {
-      background-color: $error;
-      color: $on-error;
-      border-color: $error-shadow;
+      background-color: colors.$error;
+      color: colors.$on-error;
+      border-color: colors.$error-shadow;
     }
   }
 }
@@ -179,23 +182,25 @@ ul {
   padding-left: 1em;
   list-style: '•  ';
 
-  &.g-no-bullet, &.g-list {
+  &.g-no-bullet,
+  &.g-list {
     padding-left: 0;
     display: block;
     list-style: none;
   }
+
   &.g-flush {
     margin: 0;
   }
 
   > li {
-    margin: .5rem 0;
+    margin: 0.5rem 0;
   }
 
   &.g-list > li {
     margin: 0;
-    padding: .5rem 1rem;
-    border-bottom: 1px solid $secondary;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid colors.$secondary;
   }
 
   &.g-list.g-flush > li {
@@ -215,10 +220,11 @@ thead th {
 }
 
 tbody td {
-  border-bottom: 1px solid $secondary;
+  border-bottom: 1px solid colors.$secondary;
 }
 
-td, th {
+td,
+th {
   padding: 8px 5px;
 }
 
@@ -316,30 +322,34 @@ p.g-flush {
   padding: 0.25em 0.65em;
   margin: -0.2em 0.4em;
 
-  background-color: $secondary;
-  color: $on-secondary;
+  background-color: colors.$secondary;
+  color: colors.$on-secondary;
 
-  font-size: .8em;
+  font-size: 0.8em;
 
   &.g-variant-a {
-    color: $on-tertiary;
-    background-color: $tertiary-a;
+    color: colors.$on-tertiary;
+    background-color: colors.$tertiary-a;
   }
+
   &.g-variant-b {
-    color: $on-tertiary;
-    background-color: $tertiary-b;
+    color: colors.$on-tertiary;
+    background-color: colors.$tertiary-b;
   }
+
   &.g-variant-c {
-    color: $on-tertiary;
-    background-color: $tertiary-c;
+    color: colors.$on-tertiary;
+    background-color: colors.$tertiary-c;
   }
+
   &.g-variant-d {
-    color: $on-tertiary;
-    background-color: $tertiary-d;
+    color: colors.$on-tertiary;
+    background-color: colors.$tertiary-d;
   }
+
   &.g-variant-e {
-    color: $on-tertiary;
-    background-color: $tertiary-e;
+    color: colors.$on-tertiary;
+    background-color: colors.$tertiary-e;
   }
 }
 
@@ -361,11 +371,16 @@ p.g-flush {
 }
 
 @each $ratio in (1 2, 1 3, 2 3, 1 4, 3 4, 1 6, 5 6) {
-  $num: nth($ratio, 1);
-  $den: nth($ratio, 2);
+  $num: list.nth($ratio, 1);
+  $den: list.nth($ratio, 2);
   .g-flex-#{$num}-#{$den} {
     flex: 1 1 (math.div($num, $den) * 100%);
   }
+}
+
+.g-section-heading {
+  font-size: 1rem;
+  margin: 0;
 }
 
 //======= ANIMATIONS ==================================================================================================/
@@ -391,7 +406,7 @@ p.g-flush {
 //======= ICÔNES ======================================================================================================/
 
 @font-face {
-  font-family: "Zincons";
-  src: url("@/assets/fonts/zincons-2.woff2");
+  font-family: 'Zincons';
+  src: url('@/assets/fonts/zincons-3.woff2');
   unicode-range: U+E000-EFFF;
 }

@@ -1,0 +1,27 @@
+@use 'sass:list';
+@use './colors.scss';
+
+@mixin flexbox($direction, $align: unset, $justify: unset) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+@mixin media-desktop {
+  @media screen and (min-width: 540px) {
+    @content;
+  }
+}
+
+@mixin animation-popup {
+  animation: 0.15s ease-out forwards popup;
+}
+
+@mixin ease($properties...) {
+  $transition-list: ();
+  @each $property in $properties {
+    $transition-list: list.append($transition-list, #{$property} 0.15s ease-in-out, $separator: comma);
+  }
+  transition: $transition-list;
+}

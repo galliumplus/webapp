@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { PopUpService } from '@/services/popups/service'
 import PopUpWindow from '@/components/popups/PopUpWindow.vue'
+import { PopUpService } from '@/services/popups/service'
+
 const openModals = PopUpService.instance.openModals
 </script>
 
@@ -11,7 +12,7 @@ const openModals = PopUpService.instance.openModals
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/mixins.scss';
+@use '@/assets/style/utils';
 
 .modal-overlay {
   position: fixed;
@@ -19,7 +20,7 @@ const openModals = PopUpService.instance.openModals
   left: 0;
   width: 100lvw;
   height: 100lvh;
-  @include flexbox(column, center, center);
+  @include utils.flexbox(column, center, center);
   background: repeating-linear-gradient(135deg, #0004 0 14px, #3334 14px 18px);
   animation: fadeIn 0.2s;
   padding: 2rem;

@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import Card from '@/components/cards/Card.vue'
 import ApplicationDetails from '@/components/modules/applications/ApplicationDetails.vue'
-import { useApi, usePopUp } from '@/composables'
-import { onMounted, ref } from 'vue'
 import type { ClientInit } from '@/business/clients'
+import { useApi, usePopUp } from '@/composables'
 
 const api = useApi()
 

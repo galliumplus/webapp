@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { type PopUp, ThisPopUp } from '@/services/popups'
 import { provide } from 'vue'
+import { type PopUp, ThisPopUp } from '@/services/popups'
 
 interface Props {
   popUp: PopUp
@@ -18,8 +18,8 @@ provide(ThisPopUp, props.popUp)
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/colors';
-@import '@/assets/style/mixins';
+@use '@/assets/style/colors';
+@use '@/assets/style/utils';
 
 div {
   background: white;
@@ -28,8 +28,8 @@ div {
   max-width: 100%;
   height: 580px;
   max-height: 100%;
-  @include animation-popup;
-  @include flexbox(column);
+  @include utils.animation-popup;
+  @include utils.flexbox(column);
 
   :deep(main) {
     padding: 1rem;
@@ -38,7 +38,7 @@ div {
   }
 
   :deep(footer) {
-    @include context-dark;
+    @include colors.context-dark;
     background: var(--surface);
     border-bottom: 4px solid var(--surface-shadow);
     padding: 0.5rem;

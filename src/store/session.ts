@@ -1,6 +1,5 @@
-import { GalliumPermissions } from '@/business/users'
-import type { LoggedIn } from '@/business/access'
 import type { StoragePath } from './storagePath'
+import type { LoggedIn } from '@/business/access'
 
 export class SessionStore {
   private _storage: StoragePath
@@ -17,8 +16,8 @@ export class SessionStore {
     return this._storage.get('token') ?? ''
   }
 
-  public get permissions(): GalliumPermissions {
-    return GalliumPermissions.parse(this._storage.get('permissions'))
+  public get permissions(): number {
+    return parseInt(this._storage.get('permissions') ?? '0')
   }
 
   public get userShortDisplayName(): string {

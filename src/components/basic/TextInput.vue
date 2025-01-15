@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import Zincon from '@/components/basic/Zincon.vue'
 import type { Problem } from '@/business/problem'
+import { messageOf } from '@/helpers'
 
 interface Props {
   name: string
   label?: string
   labelSize?: 'narrow' | 'medium' | 'wide'
-  problem?: Problem
+  isInvalid?: boolean
   placeholder?: string
   autocomplete?: string
   disabled?: boolean
@@ -16,36 +18,23 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   autocomplete: 'off',
   disabled: false,
-  labelSize: 'medium'
+  labelSize: 'medium',
+  isInvalid: false
 })
 
 const model = defineModel<string>({ required: true })
 
-const formattedProblem = ref<string>()
-
-watch(
-  () => props.problem,
-  (pb) => {
-    formattedProblem.value = pb === undefined ? undefined : ' – ' + pb.message
-  }
-)
-
 const labelId = computed(() => props.name + '-input')
 
 function modelChange(ev: Event): void {
-  formattedProblem.value = undefined
   model.value = (ev.target as HTMLInputElement).value
 }
 </script>
 
 <template>
   <div class="input-group">
-    <div
-      v-if="label !== undefined"
-      :class="{ error: formattedProblem !== undefined, ['input-label-' + labelSize]: true }"
-    >
+    <div v-if="label !== undefined" :class="{ ['input-label-' + labelSize]: true }">
       <label :for="labelId">{{ label }}</label>
-      <span>{{ formattedProblem }}</span>
     </div>
     <div v-if="blurred" class="readonly-blurred-input">
       <div>{{ model }}</div>
@@ -61,16 +50,17 @@ function modelChange(ev: Event): void {
       :disabled="disabled"
       v-model="model"
       @input="modelChange($event)"
+      :class="{ 'is-invalid': isInvalid }"
     />
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/style/colors';
-@import '@/assets/style/mixins';
+@use '@/assets/style/colors';
+@use '@/assets/style/utils';
 
 .input-group {
-  @include flexbox(row, center);
+  @include utils.flexbox(row, center);
 }
 
 .input-label-narrow {
@@ -91,16 +81,21 @@ input,
 
   border-width: 0 0 2px 0;
   border-style: solid;
-  border-color: $secondary;
+  border-color: colors.$secondary;
   background-color: var(--surface-container);
 }
 
 input {
   outline: none;
-  @include ease(border-color);
+  @include utils.ease(border-color, background-color);
 
   &:focus {
-    border-color: $primary;
+    border-color: colors.$primary;
+  }
+
+  &.is-invalid {
+    background-color: var(--error-container);
+    border-color: colors.$error;
   }
 }
 

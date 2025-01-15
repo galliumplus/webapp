@@ -19,11 +19,11 @@ const props = defineProps<Props>()
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/colors';
-@import '@/assets/style/mixins';
+@use '@/assets/style/colors';
+@use '@/assets/style/utils';
 
 a {
-  @include flexbox(row, center, flex-start);
+  @include utils.flexbox(row, center, flex-start);
   padding: 6px 24px 6px 0.5rem;
   height: 29px;
   margin: 12px 0;
@@ -35,7 +35,7 @@ a {
   text-align: left;
   white-space: nowrap;
 
-  @include ease(color background-color);
+  @include utils.ease(color background-color);
 
   &:hover {
     background-color: var(--surface-container);
@@ -50,12 +50,12 @@ a {
   &.router-link-exact-active {
     padding-bottom: 2px;
     border-top: 4px solid var(--surface-shadow);
-    background-color: $--bright-surface-container;
-    color: $--bright-on-surface-container;
+    background-color: var(--inverse-surface-container);
+    color: var(--inverse-on-surface-container);
   }
 }
 
 .icon {
-  margin-right: 12px;
+  margin-right: 8px;
 }
 </style>

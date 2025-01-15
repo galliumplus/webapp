@@ -12,18 +12,19 @@ onBeforeMount(() => {
 </template>
 
 <style lang="scss">
-@import '@/assets/style/colors.scss';
-@import '@/assets/style/mixins.scss';
+@use '@/assets/style/colors.scss';
+@use '@/assets/style/utils';
 
 main.public {
   color: var(--on-surface);
   background-color: var(--surface);
-  @include media-desktop {
-    box-shadow: $shadow-dark 0 0 16px;
-  }
 
-  @include animation-popup;
-  @include context-dark;
+  @include utils.animation-popup;
+  @include colors.context-dark;
+
+  @include utils.media-desktop {
+    box-shadow: colors.$shadow-dark 0 0 16px;
+  }
 
   &.small {
     width: 452px;

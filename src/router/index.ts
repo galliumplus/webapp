@@ -1,7 +1,7 @@
-import { nextTick } from 'vue'
-import { createRouter, createWebHistory, type RouteLocationRaw } from 'vue-router'
 import protectedRoutes from './protected'
 import publicRoutes from './public'
+import { nextTick } from 'vue'
+import { createRouter, createWebHistory, type RouteLocationRaw } from 'vue-router'
 import { useStore } from '@/composables'
 
 declare module 'vue-router' {

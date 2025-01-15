@@ -1,4 +1,3 @@
-import { GalliumPermissions } from '@/business/users'
 import { type SameSignOnInit, SameSignOn } from '.'
 
 export interface ClientInit {
@@ -16,8 +15,8 @@ export class Client {
   private readonly _id: number
   private readonly _apiKey: string
   private readonly _name: string
-  private readonly _granted: GalliumPermissions
-  private readonly _revoked: GalliumPermissions
+  private readonly _granted: number
+  private readonly _revoked: number
   private _isEnabled: boolean
   private readonly _hasAppAccess: boolean
   private _sameSignOn: SameSignOn | null
@@ -26,8 +25,8 @@ export class Client {
     this._id = init.id
     this._apiKey = init.apiKey ?? ''
     this._name = init.name
-    this._granted = new GalliumPermissions(init.granted)
-    this._revoked = new GalliumPermissions(init.revoked)
+    this._granted = init.granted
+    this._revoked = init.revoked
     this._isEnabled = init.isEnabled
     this._hasAppAccess = init.hasAppAccess
     this._sameSignOn = init.sameSignOn === null ? null : new SameSignOn(init.sameSignOn)
@@ -53,11 +52,11 @@ export class Client {
     this._isEnabled = value
   }
 
-  public get granted(): GalliumPermissions {
+  public get granted(): number {
     return this._granted
   }
 
-  public get revoked(): GalliumPermissions {
+  public get revoked(): number {
     return this._revoked
   }
 

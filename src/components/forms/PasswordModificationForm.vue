@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import FormInput from '../basic/FormInput.vue'
+import { ref } from 'vue'
 
 interface Props {
   currentPasswordNeeded: boolean

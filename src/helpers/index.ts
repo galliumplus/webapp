@@ -1,3 +1,6 @@
 export * from './jwt'
 export * from './query'
 export * from './string'
+export * from './promise.ts'
+export * from './arrays'
+export * from './popups'

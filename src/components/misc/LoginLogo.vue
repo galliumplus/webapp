@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { LoginClient } from '@/business/clients'
 import { computed } from 'vue'
 import questionBlockImage from '@/assets/images/question-block.svg'
+import type { LoginClient } from '@/business/clients'
 
 interface Props {
   client: LoginClient | null
@@ -35,11 +35,11 @@ function failedToLoadLogo(ev: Event) {
 </template>
 
 <style lang="scss" scoped>
-@import '@/assets/style/colors';
-@import '@/assets/style/mixins';
+@use '@/assets/style/colors';
+@use '@/assets/style/utils';
 
 div {
-  @include flexbox(row, center, center);
+  @include utils.flexbox(row, center, center);
   height: 60px;
 }
 img {

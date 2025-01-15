@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import { onBeforeMount } from 'vue'
+import { RouterLink } from 'vue-router'
 
 onBeforeMount(() => {
   document.body.className = 'g-public'
@@ -16,8 +16,8 @@ onBeforeMount(() => {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/colors.scss';
-@import '@/assets/style/mixins.scss';
+@use '@/assets/style/colors.scss';
+@use '@/assets/style/utils';
 
 main.public {
   padding: 26px;

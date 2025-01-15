@@ -72,13 +72,13 @@ function moveTooltip(event: MouseEvent) {
 </template>
 
 <style scoped lang="scss">
-@import '@/assets/style/colors.scss';
+@use '@/assets/style/colors.scss';
 
 .help {
   display: inline-block;
   text-align: center;
-  color: $on-tertiary;
-  background-color: $tertiary-e;
+  color: colors.$on-tertiary;
+  background-color: colors.$tertiary-e;
   user-select: none;
   width: 1.1rem;
   height: 1.1rem;
@@ -88,8 +88,8 @@ function moveTooltip(event: MouseEvent) {
 
 .tooltip {
   display: none;
-  background-color: $secondary;
-  color: $on-secondary;
+  background-color: colors.$secondary;
+  color: colors.$on-secondary;
   padding: 0.25rem 0.5rem;
   transition: opacity 0.2s;
   box-shadow: 0 0.1rem 0.3rem #0004;
@@ -112,7 +112,7 @@ function moveTooltip(event: MouseEvent) {
 
   .arrow {
     position: absolute;
-    background-color: $secondary;
+    background-color: colors.$secondary;
     width: 8px;
     height: 8px;
     transform: rotate(45deg);

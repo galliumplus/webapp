@@ -1,5 +1,5 @@
-import type { InjectionKey } from 'vue'
 import type { PopUp } from './popup'
+import type { InjectionKey } from 'vue'
 
 export type { PopUpOptions, PopUpConfig } from './config'
 export { PopUp } from './popup'

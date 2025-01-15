@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import TextInput from '@/components/basic/TextInput.vue'
-import { Client } from '@/business/clients'
 import { computed, ref, useTemplateRef } from 'vue'
-import { exampleJWT } from '@/helpers'
-import Zincon from '@/components/basic/Zincon.vue'
-import Tooltip from '@/components/basic/Tooltip.vue'
 import Checkbox from '@/components/basic/Checkbox.vue'
+import TextInput from '@/components/basic/TextInput.vue'
+import Tooltip from '@/components/basic/Tooltip.vue'
+import Zincon from '@/components/basic/Zincon.vue'
+import { Client } from '@/business/clients'
+import { exampleJWT } from '@/helpers'
 
 interface Props {
   client: Client
@@ -57,7 +57,7 @@ function clearLoginUrlCopy() {
     </div>
     <template v-else>
       <div class="g-column">
-        <h3>Authentification</h3>
+        <h3 class="g-section-heading">Authentification</h3>
         <div class="g-row g-small-gap">
           <TextInput
             class="g-grow"
@@ -135,14 +135,19 @@ function clearLoginUrlCopy() {
         <hr />
       </div>
       <div class="g-column">
-        <h3>Portée de la connexion</h3>
+        <h3 class="g-section-heading">Portée de la connexion</h3>
         <div class="g-row">
-          <Checkbox name="sso-scope-identity" label="Identité" />
+          <Checkbox name="sso-scope-identity" label="Nom et prénom" class="g-grow" />
+          <Checkbox name="sso-scope-email" label="Adresse électronique" class="g-grow" />
+          <Checkbox name="sso-scope-role" label="Rôle et permissions" class="g-grow" />
+        </div>
+        <div class="g-row">
+          <Checkbox name="sso-scope-gallium" label="Accès direct à Gallium" />
         </div>
         <hr />
       </div>
       <div class="g-column">
-        <h3>Personnalisation du portail</h3>
+        <h3 class="g-section-heading">Personnalisation du portail</h3>
         <TextInput
           name="sso-display-name"
           v-model="client.sameSignOn.inputDisplayName"
@@ -165,7 +170,7 @@ function clearLoginUrlCopy() {
 </template>
 
 <style scoped lang="scss">
-@import '@style/mixins';
+@use '@/assets/style/utils';
 
 .supporting-text {
   margin: 0.25rem 0 0 0;
@@ -174,17 +179,12 @@ function clearLoginUrlCopy() {
   text-overflow: ellipsis;
 }
 
-h3 {
-  font-size: 1rem;
-  margin: 0;
-}
-
 .signature-type {
   width: 17rem;
 }
 
 .centered-content {
-  @include flexbox(column, center, center);
+  @include utils.flexbox(column, center, center);
   height: 100%;
 }
 </style>

@@ -1,5 +1,5 @@
-import Config from '@/config'
 import dayjs from '@hokaze/dayjs'
+import Config from '@/config'
 
 export function useCurrentSchoolYear(): string {
   const [day, month] = Config.START_OF_SCHOOL_YEAR.split('-')

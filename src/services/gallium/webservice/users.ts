@@ -1,7 +1,7 @@
 import type { GalliumUsersApi, PasswordModification } from '../users'
-import { User, type UserInit } from '@/business/users'
 import { type CollectionResource, type ObjectDescriptor, service, type Service } from '@hokaze/core'
 import { object, string, number, boolean } from '@hokaze/core'
+import { type Role, User, type UserInit } from '@/business/users'
 
 export const user: ObjectDescriptor<UserInit> = object({
   id: string,
@@ -18,6 +18,12 @@ const passwordModification: ObjectDescriptor<PasswordModification> = object({
   newPassword: string,
   currentPassword: string.optional,
   resetToken: string.optional
+})
+
+export const role: ObjectDescriptor<Role> = object({
+  id: number,
+  name: string,
+  permissions: number
 })
 
 export class GalliumUserService implements GalliumUsersApi {

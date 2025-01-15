@@ -1,6 +1,6 @@
-import { StoragePath } from '@/store/storagePath'
 import { RouteStore } from './route'
 import { SessionStore } from './session'
+import { StoragePath } from '@/store/storagePath'
 
 export class GalliumStore {
   private _storage: StoragePath

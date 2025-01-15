@@ -7,15 +7,15 @@ import {
   useRoute,
   useRouter
 } from 'vue-router'
-import LoginLogo from '@/components/misc/LoginLogo.vue'
-import LoginForm from '@/components/forms/LoginForm.vue'
 import LoadingBar from '@/components/basic/LoadingBar.vue'
-import { useApi, useParams, useStore } from '@/composables'
-import { Done, Indeterminate, type Progress } from '@/business/progress'
-import { Problem } from '@/business/problem'
-import { type LoginClient, SelfLoginClient, SsoLoginClient } from '@/business/clients'
+import LoginForm from '@/components/forms/LoginForm.vue'
+import LoginLogo from '@/components/misc/LoginLogo.vue'
 import type { LoginCredentials } from '@/business/access'
+import { type LoginClient, SelfLoginClient, SsoLoginClient } from '@/business/clients'
 import { SameSignOnScope } from '@/business/clients/sameSignOn'
+import { Problem } from '@/business/problem'
+import { Done, Indeterminate, type Progress } from '@/business/progress'
+import { useApi, useParams, useStore } from '@/composables'
 
 const router = useRouter()
 const api = useApi()
@@ -25,17 +25,20 @@ const client = ref<LoginClient | null>(null)
 const progress = ref<Progress>(Done)
 const ssoError = ref<Problem>()
 let ssoApiKey: string | null = null
+const defaultRedirectRoute = 'dashboard'
+let redirectTo = defaultRedirectRoute
 
 const mainContentHidden = computed(() => client.value === null && progress.value !== Done)
 
 async function loadLoginClientInfo(route: RouteLocationNormalized) {
   const params = useParams(route)
-  ssoApiKey = params.app.asString
+  ssoApiKey = params['app'].asString
+  redirectTo = params['to'].asString ?? defaultRedirectRoute
 
   if (ssoApiKey === null) {
     client.value = new SelfLoginClient()
     if (store.session.isLoggedIn) {
-      await router.replace({ name: 'dashboard' })
+      await router.replace({ name: defaultRedirectRoute })
     }
   } else {
     client.value = null
@@ -61,7 +64,7 @@ async function logIn(credentials: LoginCredentials) {
   try {
     if (client.value?.isSelf) {
       store.session.set(await api.logIn(credentials))
-      await router.push({ name: 'dashboard' })
+      await router.push({ name: redirectTo })
     } else if (ssoApiKey !== null) {
       window.location.href = await api.ssoLogIn(ssoApiKey, credentials)
     } else {
@@ -97,7 +100,7 @@ function goBack() {
 
         <ul class="g-no-bullet">
           <li>
-            <StyledButton class="g-back" kind="link" @click="goBack">Retour</StyledButton>
+            <button class="g-link g-back" @click="goBack">Retour</button>
           </li>
           <li>
             <RouterLink class="g-fwd" to="/login">Se connecter à Gallium+</RouterLink>
