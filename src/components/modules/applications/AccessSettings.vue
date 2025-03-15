@@ -6,7 +6,7 @@ import PermissionsGrid from '@/components/forms/PermissionsGrid.vue'
 import RenewSecret, { type SecretToRenew } from '@/components/modules/applications/RenewSecret.vue'
 import { Client } from '@/business/apps'
 import type { GeneratedSecret } from '@/business/apps/secrets'
-import { usePopUp } from '@/composables/popups'
+import { usePopUp } from '@/composables'
 
 interface Props {
   client: Client

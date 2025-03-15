@@ -5,7 +5,8 @@ import Zincon from '@/components/basic/Zincon.vue'
 import PermissionsGrid from '@/components/forms/PermissionsGrid.vue'
 import PopUpHeader from '@/components/popups/PopUpHeader.vue'
 import type { Role } from '@/business/users'
-import { useApi, useThisPopUp } from '@/composables'
+import { useThisPopUp } from '@/composables'
+import { useApi } from '@/composables/api'
 import { Reason } from '@/helpers'
 
 const popup = useThisPopUp()

@@ -1,6 +1,6 @@
 import type { App, Plugin } from 'vue'
 import { GalliumPermission } from '@/business/users'
-import { useStore } from '@/composables'
+import { useStore } from '@/composables/store'
 
 declare module 'vue' {
   interface ComponentCustomProperties {

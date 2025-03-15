@@ -8,7 +8,8 @@ import Zincon from '@/components/basic/Zincon.vue'
 import PopUpHeader from '@/components/popups/PopUpHeader.vue'
 import PopUpTab from '@/components/popups/PopUpTab.vue'
 import { Client, type ClientInit } from '@/business/apps/client'
-import { useApi, useThisPopUp } from '@/composables'
+import { useThisPopUp } from '@/composables'
+import { useApi } from '@/composables/api'
 
 export interface InitialConfig {
   wasEnabled: boolean

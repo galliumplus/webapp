@@ -1,4 +1,3 @@
-import type { PopUpConfig } from './config'
 import { ModalContext, type PopUpContext } from './context'
 import { PopUp } from './popup'
 import type { Component, ShallowReactive } from 'vue'

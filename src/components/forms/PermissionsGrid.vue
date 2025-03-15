@@ -18,7 +18,7 @@ function hasPermission(perms: number | undefined, flag: GalliumPermission): bool
 function updatePermission(
   perms: number | undefined,
   flag: GalliumPermission,
-  value: boolean
+  value: boolean | undefined
 ): number {
   return value ? flag.addTo(perms ?? 0) : flag.removeFrom(perms ?? 0)
 }

@@ -3,7 +3,8 @@ import { onMounted, ref } from 'vue'
 import Card from '@/components/cards/Card.vue'
 import ApplicationDetails from '@/components/modules/applications/ApplicationDetails.vue'
 import type { ClientInit } from '@/business/apps'
-import { useApi, usePopUp } from '@/composables'
+import { usePopUp } from '@/composables'
+import { useApi } from '@/composables/api'
 import { deleteFirst, Reason, updateFirst } from '@/helpers'
 
 const api = useApi()

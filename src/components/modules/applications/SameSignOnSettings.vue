@@ -5,8 +5,8 @@ import CopyToClipboardButton from '@/components/basic/CopyToClipboardButton.vue'
 import TextInput from '@/components/basic/TextInput.vue'
 import RenewSecret, { type SecretToRenew } from '@/components/modules/applications/RenewSecret.vue'
 import { Client, SameSignOnScope } from '@/business/apps'
-import type { GeneratedSecret } from '@/business/apps/secrets.ts'
-import { useMessageBox, usePopUp } from '@/composables/popups.ts'
+import type { GeneratedSecret } from '@/business/apps/secrets'
+import { usePopUp } from '@/composables'
 import { exampleJWT, Choice } from '@/helpers'
 
 interface Props {
@@ -36,7 +36,7 @@ function hasScope(scope: SameSignOnScope): boolean {
   return props.client.sameSignOn !== null && scope.in(props.client.sameSignOn.scope)
 }
 
-function updateScope(scope: SameSignOnScope, value: boolean): void {
+function updateScope(scope: SameSignOnScope, value: boolean | undefined): void {
   if (props.client.sameSignOn !== null) {
     if (value) {
       props.client.sameSignOn.scope = scope.addTo(props.client.sameSignOn.scope)
@@ -80,9 +80,9 @@ async function renewSsoSecret() {
           <TextInput
             class="g-grow"
             name="sso-login-url"
-            :modelValue="loginUrl"
+            :model-value="loginUrl"
             label="URL de connexion"
-            labelSize="wide"
+            label-size="wide"
             disabled
           />
           <CopyToClipboardButton :textToCopy="loginUrl" />
@@ -113,7 +113,7 @@ async function renewSsoSecret() {
             name="sso-redirect-url"
             v-model="client.sameSignOn.redirectUrl"
             label="URL de redirection"
-            labelSize="wide"
+            label-size="wide"
             placeholder="https://ma-super-appli.fr/login"
           />
           <p v-if="redirectUrlExample !== null" class="supporting-text g-text-secondary">
@@ -132,31 +132,31 @@ async function renewSsoSecret() {
           <Checkbox
             name="sso-scope-identity"
             label="Nom et prénom"
-            :modelValue="hasScope(Scope.Identity) || hasScope(Scope.Gallium)"
+            :model-value="hasScope(Scope.Identity) || hasScope(Scope.Gallium)"
             :disabled="hasScope(Scope.Gallium)"
-            @update:modelValue="updateScope(Scope.Identity, $event)"
+            @update:model-value="updateScope(Scope.Identity, $event)"
           />
           <Checkbox
             name="sso-scope-email"
             label="Adresse électronique"
-            :modelValue="hasScope(Scope.Email) || hasScope(Scope.Gallium)"
+            :model-value="hasScope(Scope.Email) || hasScope(Scope.Gallium)"
             :disabled="hasScope(Scope.Gallium)"
-            @update:modelValue="updateScope(Scope.Email, $event)"
+            @update:model-value="updateScope(Scope.Email, $event)"
           />
           <Checkbox
             name="sso-scope-role"
             label="Rôle et permissions"
-            :modelValue="hasScope(Scope.Role) || hasScope(Scope.Gallium)"
+            :model-value="hasScope(Scope.Role) || hasScope(Scope.Gallium)"
             :disabled="hasScope(Scope.Gallium)"
-            @update:modelValue="updateScope(Scope.Role, $event)"
+            @update:model-value="updateScope(Scope.Role, $event)"
           />
         </div>
         <div class="g-row">
           <Checkbox
             name="sso-scope-gallium"
             label="Accès direct à Gallium"
-            :modelValue="hasScope(Scope.Gallium)"
-            @update:modelValue="updateScope(Scope.Gallium, $event)"
+            :model-value="hasScope(Scope.Gallium)"
+            @update:model-value="updateScope(Scope.Gallium, $event)"
           />
         </div>
         <hr />
@@ -167,14 +167,14 @@ async function renewSsoSecret() {
           name="sso-display-name"
           v-model="client.sameSignOn.inputDisplayName"
           label="Nom affiché"
-          labelSize="wide"
+          label-size="wide"
           :placeholder="client.name"
         />
         <TextInput
           name="sso-logo-url"
           v-model="client.sameSignOn.inputLogoUrl"
           label="URL du logo"
-          labelSize="wide"
+          label-size="wide"
           placeholder="https://ma-super-appli.fr/logo.png"
         />
         <hr />

@@ -14,7 +14,8 @@ import type { LoginCredentials } from '@/business/access'
 import { type LoginClient, SelfLoginClient, SsoLoginClient } from '@/business/apps'
 import { SameSignOnScope } from '@/business/apps/sameSignOn'
 import { Problem } from '@/business/problem'
-import { useApi, useParams, useStore } from '@/composables'
+import { useParams, useStore } from '@/composables'
+import { useApi } from '@/composables/api'
 import { Done, Indeterminate, type Progress } from '@/helpers/progress'
 
 const router = useRouter()

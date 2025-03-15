@@ -8,7 +8,8 @@ import Zincon from '@/components/basic/Zincon.vue'
 import PopUpHeader from '@/components/popups/PopUpHeader.vue'
 import type { GeneratedSecret } from '@/business/apps/secrets.ts'
 import { Problem } from '@/business/problem.ts'
-import { useApi, useThisPopUp } from '@/composables'
+import { useThisPopUp } from '@/composables'
+import { useApi } from '@/composables/api'
 import { Reason, Done, Indeterminate } from '@/helpers'
 
 const popUp = useThisPopUp()

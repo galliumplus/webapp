@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Zincon from '@/components/basic/Zincon.vue'
-import { useThisPopUp } from '@/composables/popups'
+import { useThisPopUp } from '@/composables'
 import { Reason } from '@/helpers'
 
 interface Props {

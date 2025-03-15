@@ -5,7 +5,7 @@ import FormInput from '@/components/basic/FormInput.vue'
 import NavLink from '@/components/basic/NavLink.vue'
 import Zincon from '@/components/basic/Zincon.vue'
 import { Problem } from '@/business/problem'
-import { useApi } from '@/composables'
+import { useApi } from '@/composables/api'
 
 const route = useRoute()
 const api = useApi()

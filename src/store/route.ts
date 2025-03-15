@@ -13,7 +13,7 @@ export class RouteStore {
   }
 
   public set previousName(name: RouteRecordName) {
-    this._storage.set('previousName', name.toString())
+    this._storage.set('previousName', name?.toString() ?? '')
   }
 
   public get previousPath(): string {

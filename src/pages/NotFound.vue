@@ -28,11 +28,12 @@ main.public {
   color: var(--on-surface);
   background-color: var(--surface);
   font-size: 1.1rem;
-  @include media-desktop {
-    box-shadow: $shadow-dark 0 0 16px;
-  }
 
-  @include animation-popup;
+  @include utils.animation-popup;
+
+  @include utils.media-desktop {
+    box-shadow: colors.$shadow-dark 0 0 16px;
+  }
 }
 
 h1,

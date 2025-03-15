@@ -4,7 +4,7 @@ import TableCard from '@/components/cards/TableCard.vue'
 import ToolsCard from '@/components/cards/ToolsCard.vue'
 import UserCard from '@/components/modules/users/UserCard.vue'
 import { User } from '@/business/users'
-import { useApi } from '@/composables'
+import { useApi } from '@/composables/api'
 
 const api = useApi()
 

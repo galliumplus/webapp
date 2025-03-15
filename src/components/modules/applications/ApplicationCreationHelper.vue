@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import RadioButton from '@/components/basic/RadioButton.vue'
 import PopUpHeader from '@/components/popups/PopUpHeader.vue'
-import { useThisPopUp } from '@/composables/popups'
+import { useThisPopUp } from '@/composables'
 
 const popup = useThisPopUp()
 

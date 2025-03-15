@@ -1,10 +1,10 @@
 import type { BadResponseHandler } from '@hokaze/core'
 import { ErrorCode, Problem } from '@/business/problem.ts'
-import { useStore } from '@/composables'
+import { useStore } from '@/composables/store'
 import router from '@/router'
 
 export class GalliumErrorHandler implements BadResponseHandler {
-  private _redirectIfUnauthenticated: boolean
+  private readonly _redirectIfUnauthenticated: boolean
 
   public constructor(redirectIfUnauthenticated: boolean) {
     this._redirectIfUnauthenticated = redirectIfUnauthenticated
