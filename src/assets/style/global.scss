@@ -372,8 +372,8 @@ p.g-flush {
   padding: 1rem 1rem;
 
   &.g-error {
-  background-color: var(--error-container);
-  color: var(--on-error-container);
+    background-color: var(--error-container);
+    color: var(--on-error-container);
   }
 }
 
