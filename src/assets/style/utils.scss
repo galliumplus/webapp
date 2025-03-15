@@ -21,7 +21,11 @@
 @mixin ease($properties...) {
   $transition-list: ();
   @each $property in $properties {
-    $transition-list: list.append($transition-list, #{$property} 0.15s ease-in-out, $separator: comma);
+    $transition-list: list.append(
+      $transition-list,
+      #{$property} 0.15s ease-in-out,
+      $separator: comma
+    );
   }
   transition: $transition-list;
 }

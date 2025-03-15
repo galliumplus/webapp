@@ -1,14 +1,15 @@
-import { type CollectionResource, type ObjectDescriptor, type Service } from '@hokaze/core'
-import { boolean, number, object, string } from '@hokaze/core'
-import type { ClientInit, SsoClientPublicInfo } from '@/business/clients'
-import type { GalliumClientsApi } from '@/services/gallium/clients'
+import type { CollectionResource, ObjectDescriptor, Service } from '@hokaze/core'
+import { boolean, number, object, service, string } from '@hokaze/core'
+import { Client } from '@/business/apps'
+import type { GeneratedSecret } from '@/business/apps/secrets.ts'
+import type { GalliumClientsApi } from '@/services/gallium'
 
-export const client: ObjectDescriptor<ClientInit> = object({
+export const client: ObjectDescriptor<Client> = object({
   id: number,
   apiKey: string.readOnly,
   name: string,
+  allowed: number,
   granted: number,
-  revoked: number,
   isEnabled: boolean,
   hasAppAccess: boolean,
   sameSignOn: object({
@@ -19,20 +20,35 @@ export const client: ObjectDescriptor<ClientInit> = object({
     logoUrl: string.nullable,
     requiresApiKey: boolean
   }).nullable
+}).asInstanceOf(Client)
+
+const ssoSecretParams = object({
+  signatureType: string
 })
 
-export class GalliumClientsService implements GalliumClientsApi {
-  private _clientsResource: CollectionResource<ClientInit>
+const generatedSecret: ObjectDescriptor<GeneratedSecret> = object({
+  secret: string,
+  signatureType: string.optional
+})
 
-  public constructor(service: Service) {
-    this._clientsResource = service.collection('clients', client)
-  }
+export function generateNewAppAccessSecret(
+  service: Service
+): (id: number) => Promise<GeneratedSecret> {
+  return (id: number) =>
+    service
+      .postRequest({ path: `clients/${id}/app-access-secret`, response: generatedSecret })
+      .send()
+}
 
-  public getAll(): Promise<ClientInit[]> {
-    return this._clientsResource.getAll()
-  }
-
-  public save(client: ClientInit): Promise<void> {
-    return this._clientsResource.save(client)
-  }
+export function generateNewSameSignOnSecret(
+  service: Service
+): (id: number, signatureType: string) => Promise<GeneratedSecret> {
+  return (id: number, signatureType: string) =>
+    service
+      .postRequest({
+        path: `clients/${id}/sso-secret`,
+        request: ssoSecretParams,
+        response: generatedSecret
+      })
+      .send({ signatureType })
 }

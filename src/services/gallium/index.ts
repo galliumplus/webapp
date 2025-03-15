@@ -1,7 +1,7 @@
 import type { GalliumClientsApi } from './clients'
 import type { GalliumRolesApi, GalliumUsersApi } from './users'
 import type { LoginCredentials, LoggedIn } from '@/business/access'
-import type { SsoClientPublicInfo } from '@/business/clients'
+import type { SsoClientPublicInfo } from '@/business/apps'
 
 export type { GalliumUsersApi, GalliumRolesApi } from './users'
 export type { GalliumClientsApi } from './clients'

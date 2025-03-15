@@ -12,17 +12,7 @@ declare module 'vue' {
 }
 
 const globalConstants = {
-  SeeProductsAndCategories: GalliumPermission.SeeProductsAndCategories,
-  ManageProducts: GalliumPermission.ManageProducts,
-  ManageCategories: GalliumPermission.ManageCategories,
-  SeeAllUsersAndRoles: GalliumPermission.SeeAllUsersAndRoles,
-  ManageDeposits: GalliumPermission.ManageDeposits,
-  ManageUsers: GalliumPermission.ManageUsers,
-  ManageRoles: GalliumPermission.ManageRoles,
-  ReadLogs: GalliumPermission.ReadLogs,
-  ManageClients: GalliumPermission.ManageClients,
-  UseDeveloperTools: GalliumPermission.UseDeveloperTools,
-  Sell: GalliumPermission.Sell
+  Permission: GalliumPermission
 }
 
 function hasPermission(...perms: GalliumPermission[]) {

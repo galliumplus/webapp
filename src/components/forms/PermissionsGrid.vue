@@ -100,6 +100,8 @@ const ComputedPermissionsList: PermissionInfo[] = [
       :allow-neutral="allowNeutral"
       :granted="hasPermission(grantedModel, perm.flag)"
       @update:granted="grantedModel = updatePermission(grantedModel, perm.flag, $event)"
+      :allowed="hasPermission(allowedModel, perm.flag)"
+      @update:allowed="allowedModel = updatePermission(allowedModel, perm.flag, $event)"
     />
   </div>
   <div class="g-column">
@@ -110,7 +112,7 @@ const ComputedPermissionsList: PermissionInfo[] = [
       :allow-neutral="allowNeutral"
       disabled
       :granted="hasPermission(grantedModel, perm.flag)"
-      @update:granted="grantedModel = updatePermission(grantedModel, perm.flag, $event)"
+      :allowed="hasPermission(allowedModel, perm.flag)"
     />
   </div>
 </template>

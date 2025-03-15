@@ -3,11 +3,10 @@ import { computed, ref, watch } from 'vue'
 import type { Problem } from '@/business/problem'
 
 interface Props {
-  name: string
+  group: string
+  value: any
   label?: string
   problem?: Problem
-  placeholder?: string
-  autocomplete?: string
   disabled?: boolean
 }
 
@@ -16,7 +15,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false
 })
 
-const model = defineModel<boolean>()
+const model = defineModel()
 
 const formattedProblem = ref<string>()
 
@@ -27,7 +26,7 @@ watch(
   }
 )
 
-const labelId = computed(() => props.name + '-input')
+const labelId = computed(() => props.group + '-input')
 
 function modelChange(ev: Event): void {
   formattedProblem.value = undefined
@@ -38,11 +37,10 @@ function modelChange(ev: Event): void {
 <template>
   <div class="input-group">
     <input
-      type="checkbox"
-      :name="name"
+      type="radio"
+      :name="group"
+      :value="value"
       :id="labelId"
-      :placeholder="placeholder"
-      :autocomplete="autocomplete"
       :disabled="disabled"
       v-model="model"
       @input="modelChange($event)"
@@ -74,28 +72,30 @@ input {
   font-size: inherit;
   width: 1.2em;
   height: 1.2em;
-  color: black;
   border: 2px solid colors.$secondary;
   background: none;
   margin: 0 0.75rem;
-  text-align: center;
-  line-height: 0.8em;
+  padding: 2px;
 
-  @include utils.ease(border-color, background-color);
+  @include utils.ease(border-color);
+
+  &::after {
+    content: '';
+    display: block;
+    width: calc(1.2em - 8px);
+    height: calc(1.2em - 8px);
+    transform: scale(0.3);
+    transform-origin: center;
+    @include utils.ease(background-color, transform);
+  }
 
   &:checked {
     border-color: colors.$primary;
-    background-color: colors.$primary;
 
     &::after {
-      content: '\E033';
-      font-family: 'Zincons', system-ui;
-      font-size: 0.8em;
+      background-color: colors.$primary;
+      transform: scale(1);
     }
-  }
-
-  &:disabled {
-    opacity: 0.6;
   }
 }
 </style>

@@ -21,10 +21,6 @@ export class PopUpService {
     return this._openModals
   }
 
-  public makePopUp<C extends Component>(component: C, config: PopUpConfig): PopUp<C> {
-    return new PopUp(this, component, config)
-  }
-
   public openNewModal(popUp: PopUp): PopUpContext {
     const currentLayer = this._openModals.length
     this._openModals.push(popUp)

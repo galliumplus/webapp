@@ -34,7 +34,7 @@ const userDisplayName = store.session.userShortDisplayName
         link="/dev"
         label="Espace développeurs"
         icon="zn"
-        v-if="$hasPermission(G.UseDeveloperTools)"
+        v-if="$hasPermission(G.Permission.UseDeveloperTools)"
       />
     </nav>
 

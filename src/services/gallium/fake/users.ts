@@ -2,6 +2,7 @@ import { Fake } from '.'
 import type { GalliumRolesApi, GalliumUsersApi, PasswordModification } from '../users'
 import type { User, Role } from '@/business/users'
 import { FakeCollection } from '@/services/gallium/fake/generic'
+import { role } from '@/services/gallium/webservice/users.ts'
 
 export class FakeGalliumUserService implements GalliumUsersApi {
   public async getAll(): Promise<User[]> {
@@ -32,14 +33,6 @@ export class FakeGalliumUserService implements GalliumUsersApi {
 
 export class FakeRolesService extends FakeCollection<Role, 'id'> implements GalliumRolesApi {
   public constructor() {
-    super('id', [])
-  }
-
-  public create(): Role {
-    return {
-      id: 0,
-      name: '',
-      permissions: 0
-    }
+    super(role, 'id', [])
   }
 }

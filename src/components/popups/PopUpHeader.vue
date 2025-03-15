@@ -1,18 +1,28 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import Zincon from '@/components/basic/Zincon.vue'
 import { useThisPopUp } from '@/composables/popups'
+import { Reason } from '@/helpers'
+
+interface Props {
+  showCloseButton?: boolean
+}
 
 const popUp = useThisPopUp()
+
+withDefaults(defineProps<Props>(), {
+  showCloseButton: true
+})
 </script>
 
 <template>
   <header>
     <h1>
       <span class="popup-header-left"></span>
-      <span>{{ popUp.title }}</span>
+      <span class="popup-header-title">{{ popUp.title }}</span>
       <span class="popup-header-right">
-        <button class="g-flat" @click="popUp.dismiss()"><Zincon of="cross" /></button>
+        <button v-if="showCloseButton" class="g-flat" @click="popUp.dismiss(Reason.Cancelled)">
+          <Zincon of="cross" />
+        </button>
       </span>
     </h1>
     <nav>
@@ -43,6 +53,12 @@ header {
     margin-top: 0.5rem;
     @include utils.flexbox(row, flex-end, flex-start);
   }
+}
+
+.popup-header-title {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  line-height: 1.5;
 }
 
 .popup-header-left,

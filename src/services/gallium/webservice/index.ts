@@ -1,5 +1,6 @@
 import type { GalliumApi, GalliumClientsApi, GalliumUsersApi } from '..'
-import { GalliumUserService, role, user } from './users'
+import { client, generateNewAppAccessSecret, generateNewSameSignOnSecret } from './clients'
+import { GalliumUsersService, role, user } from './users'
 import {
   BasicAuth,
   BearerToken,
@@ -12,19 +13,29 @@ import {
 } from '@hokaze/core'
 import dayjs from '@hokaze/dayjs'
 import { type LoggedIn, LoginCredentials } from '@/business/access'
-import type { SsoClientPublicInfo } from '@/business/clients'
-import { ErrorCode, Problem } from '@/business/problem'
+import type { SsoClientPublicInfo } from '@/business/apps'
 import { User } from '@/business/users'
 import { useStore } from '@/composables/store'
-import router from '@/router'
 import type { GalliumRolesApi } from '@/services/gallium/users'
-import { GalliumClientsService } from '@/services/gallium/webservice/clients'
+import { GalliumErrorHandler } from '@/services/gallium/webservice/errors.ts'
+
+const ssoCredentials = object({
+  username: string,
+  password: string,
+  application: string
+})
 
 const loggedIn = object({
   token: string,
   expiration: dayjs,
   user,
   permissions: number
+})
+
+const loggedInThroughSso = object({
+  jwt: string,
+  redirectUrl: string,
+  fullRedirectUrl: string
 })
 
 const ssoClientPublicInfo: ObjectDescriptor<SsoClientPublicInfo> = object({
@@ -34,16 +45,18 @@ const ssoClientPublicInfo: ObjectDescriptor<SsoClientPublicInfo> = object({
 })
 
 export class GalliumService implements GalliumApi {
-  private _loginService: Service
+  private readonly _loginService: Service
   private readonly _mainService: Service
   private _apiKey: string
 
   public constructor(baseUrl: string, apiKey: string) {
     this._apiKey = apiKey
 
-    this._loginService = service(baseUrl)
+    // service sans authentification
+    this._loginService = service({ baseUrl, badResponseHandler: new GalliumErrorHandler(false) })
 
-    this._mainService = service({ baseUrl, badResponseHandler: this })
+    // service avec authentification par token
+    this._mainService = service({ baseUrl, badResponseHandler: new GalliumErrorHandler(true) })
     const store = useStore()
     if (store.session.isLoggedIn) {
       this._mainService.useAuth(new BearerToken(store.session.token))
@@ -72,12 +85,18 @@ export class GalliumService implements GalliumApi {
       .send()
   }
 
-  public ssoLogIn(apiKey: string, credentials: LoginCredentials): Promise<string> {
-    throw 'Method not implemented.'
+  public async ssoLogIn(apiKey: string, credentials: LoginCredentials): Promise<string> {
+    const dto = await this._loginService
+      .postRequest({ path: 'same-sign-on', request: ssoCredentials, response: loggedInThroughSso })
+      .withHeaders({
+        'X-Api-Key': this._apiKey
+      })
+      .send({ application: apiKey, username: credentials.username, password: credentials.password })
+    return dto.fullRedirectUrl
   }
 
   public get users(): GalliumUsersApi {
-    return new GalliumUserService(this._mainService)
+    return new GalliumUsersService(this._mainService)
   }
 
   public get roles(): GalliumRolesApi {
@@ -85,45 +104,9 @@ export class GalliumService implements GalliumApi {
   }
 
   public get clients(): GalliumClientsApi {
-    return new GalliumClientsService(this._mainService)
-  }
-
-  public async onBadResponse(response: Response): Promise<never> {
-    if (response.status === 401) {
-      const store = useStore()
-      store.session.clear()
-
-      const currentRouteName = router.currentRoute.value.name
-      let logInDestination
-      if (currentRouteName !== null && typeof currentRouteName === 'string') {
-        logInDestination = currentRouteName
-      }
-      router
-        .push({ name: 'login', query: { to: logInDestination, disconnected: 'yes' } })
-        .catch((err) => {
-          console.error('Échec lors de la redirection vers la page de connexion', err)
-          window.location.reload()
-        })
-
-      throw new Problem(
-        "Le jeton d'authentification semble ne plus être valide.",
-        ErrorCode.Unauthenticated
-      )
-    } else {
-      let galliumError
-      try {
-        galliumError = await response.json()
-      } catch {
-        galliumError = undefined
-      }
-      if (
-        typeof galliumError === 'object' &&
-        galliumError !== null &&
-        'debugInfo' in galliumError
-      ) {
-        console.debug('Informations de débogage disponibles :', galliumError.debugInfo)
-      }
-      throw Problem.fromGalliumError(galliumError)
-    }
+    return Object.assign(this._mainService.collection('clients', client), {
+      generateNewAppAccessSecret: generateNewAppAccessSecret(this._mainService),
+      generateNewSameSignOnSecret: generateNewSameSignOnSecret(this._mainService)
+    })
   }
 }

@@ -4,8 +4,8 @@ export interface ClientInit {
   id: number
   apiKey: string
   name: string
+  allowed: number
   granted: number
-  revoked: number
   isEnabled: boolean
   hasAppAccess: boolean
   sameSignOn: SameSignOnInit | null
@@ -14,19 +14,19 @@ export interface ClientInit {
 export class Client {
   private readonly _id: number
   private readonly _apiKey: string
-  private readonly _name: string
-  private readonly _granted: number
-  private readonly _revoked: number
+  private _name: string
+  private _allowed: number
+  private _granted: number
   private _isEnabled: boolean
-  private readonly _hasAppAccess: boolean
+  private _hasAppAccess: boolean
   private _sameSignOn: SameSignOn | null
 
   public constructor(init: ClientInit) {
     this._id = init.id
-    this._apiKey = init.apiKey ?? ''
+    this._apiKey = init.apiKey
     this._name = init.name
+    this._allowed = init.allowed
     this._granted = init.granted
-    this._revoked = init.revoked
     this._isEnabled = init.isEnabled
     this._hasAppAccess = init.hasAppAccess
     this._sameSignOn = init.sameSignOn === null ? null : new SameSignOn(init.sameSignOn)
@@ -44,6 +44,10 @@ export class Client {
     return this._name
   }
 
+  public set name(value: string) {
+    this._name = value
+  }
+
   public get isEnabled(): boolean {
     return this._isEnabled
   }
@@ -56,12 +60,24 @@ export class Client {
     return this._granted
   }
 
-  public get revoked(): number {
-    return this._revoked
+  public set granted(value: number) {
+    this._granted = value
+  }
+
+  public get allowed(): number {
+    return this._allowed
+  }
+
+  public set allowed(value: number) {
+    this._allowed = value
   }
 
   public get hasAppAccess(): boolean {
     return this._hasAppAccess
+  }
+
+  public set hasAppAccess(value: boolean) {
+    this._hasAppAccess = value
   }
 
   public get hasDirectAccess(): boolean {
@@ -87,5 +103,9 @@ export class Client {
         displayName: null
       })
     }
+  }
+
+  public removeSameSignOn(): void {
+    this._sameSignOn = null
   }
 }

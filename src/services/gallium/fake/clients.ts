@@ -1,47 +1,49 @@
-import type { ClientInit, SameSignOnInit, SsoClientPublicInfo } from '@/business/clients'
-import { Problem, ErrorCode } from '@/business/problem'
+import { FakeCollection } from './generic'
+import { Client } from '@/business/apps'
+import type { GeneratedSecret } from '@/business/apps/secrets.ts'
 import type { GalliumClientsApi } from '@/services/gallium'
-import { Fake } from '@/services/gallium/fake/index'
+import { Fake } from '@/services/gallium/fake/index.ts'
+import { client } from '@/services/gallium/webservice/clients.ts'
 
-export class FakeGalliumClientsService implements GalliumClientsApi {
-  public async getSsoPublicInfo(apiKey: string): Promise<SsoClientPublicInfo> {
-    await Fake.delay()
-    if (apiKey == 'demo') {
-      return Fake.ssoClientPublicInfo()
-    } else {
-      throw new Problem(
-        `Application SSO inconnue. La clé d'API ${apiKey} n'est pas valide.`,
-        ErrorCode.ItemNotFound
-      )
-    }
-  }
-
-  public async getAll(): Promise<ClientInit[]> {
-    return [
-      {
+export class FakeGalliumClientsService
+  extends FakeCollection<Client, 'id'>
+  implements GalliumClientsApi
+{
+  public constructor() {
+    super(client, 'id', [
+      new Client({
         id: 1,
         name: 'Client 1',
         apiKey: 'test-api-key',
         isEnabled: true,
+        allowed: 2047,
         granted: 0,
-        revoked: 0,
         hasAppAccess: false,
         sameSignOn: null
-      },
-      {
+      }),
+      new Client({
         id: 2,
         name: 'Client 2',
-        apiKey: 'test-api-key',
-        isEnabled: false,
+        apiKey: 'test-api-key-alt',
+        isEnabled: true,
+        allowed: 2047,
         granted: 0,
-        revoked: 0,
         hasAppAccess: false,
         sameSignOn: null
-      }
-    ]
+      })
+    ])
   }
 
-  public async save(client: ClientInit): Promise<void> {
+  public async generateNewAppAccessSecret(id: number): Promise<GeneratedSecret> {
     await Fake.delay()
+    return { secret: 'AAAAAAAA-AAAAAAAAAAAA-AAAAAAAA' }
+  }
+
+  public async generateNewSameSignOnSecret(
+    id: number,
+    signatureType: string
+  ): Promise<GeneratedSecret> {
+    await Fake.delay()
+    return { secret: 'AAAAAAAA-AAAAAAAAAAAA-AAAAAAAA', signatureType }
   }
 }

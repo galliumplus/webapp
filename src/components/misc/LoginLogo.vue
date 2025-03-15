@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import questionBlockImage from '@/assets/images/question-block.svg'
-import type { LoginClient } from '@/business/clients'
+import type { LoginClient } from '@/business/apps'
 
 interface Props {
   client: LoginClient | null

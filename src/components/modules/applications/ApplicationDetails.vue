@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AccessSettings from './AccessSettings.vue'
 import SameSignOnSettings from './SameSignOnSettings.vue'
 import { reactive, ref } from 'vue'
 import Checkbox from '@/components/basic/Checkbox.vue'
@@ -6,17 +7,26 @@ import TextInput from '@/components/basic/TextInput.vue'
 import Zincon from '@/components/basic/Zincon.vue'
 import PopUpHeader from '@/components/popups/PopUpHeader.vue'
 import PopUpTab from '@/components/popups/PopUpTab.vue'
-import { Client, type ClientInit } from '@/business/clients/client'
+import { Client, type ClientInit } from '@/business/apps/client'
 import { useApi, useThisPopUp } from '@/composables'
+
+export interface InitialConfig {
+  wasEnabled: boolean
+  hadAppAccess: boolean
+}
 
 const tab = ref('overview')
 const popup = useThisPopUp()
-const client = reactive(new Client(popup.getData<ClientInit>()))
-const initiallyEnabled = client.isEnabled
-
+const api = useApi()
+const init = popup.getData<ClientInit>()
+const client = reactive(new Client(init ?? api.clients.create())) as Client
+const initialConfig: InitialConfig = {
+  wasEnabled: client.isEnabled,
+  hadAppAccess: client.hasAppAccess
+}
 async function save() {
-  await useApi().clients.save(client.asRaw())
-  popup.dismiss()
+  await api.clients.save(client)
+  popup.close(client)
 }
 </script>
 
@@ -27,16 +37,24 @@ async function save() {
     <PopUpTab v-model="tab" value="sso" label="Same Sign-On" />
   </PopUpHeader>
   <main v-if="tab == 'overview'">
-    <div class="g-row">
-      <TextInput class="g-flex-1-2" name="name" v-model="client.name" label="Nom" />
-      <Checkbox
-        class="g-flex-1-2"
-        name="is-enabled"
-        v-model="client.isEnabled"
-        label="Application activée"
-      />
+    <div class="g-column">
+      <div class="g-row">
+        <TextInput
+          class="g-flex-2-3"
+          name="name"
+          v-model="client.name"
+          label="Nom"
+          label-size="narrow"
+        />
+        <Checkbox
+          class="g-flex-1-3"
+          name="is-enabled"
+          v-model="client.isEnabled"
+          label="Application activée"
+        />
+      </div>
+      <hr class="g-flush-bottom" />
     </div>
-    <hr class="g-flush-bottom" />
     <ul class="g-list g-flush">
       <li>
         <button class="g-list-item g-row g-align-center" @click="tab = 'access'">
@@ -57,12 +75,13 @@ async function save() {
       </li>
     </ul>
   </main>
-  <main v-if="tab == 'access'"></main>
-  <SameSignOnSettings v-if="tab == 'sso'" :client="client as Client" />
+  <AccessSettings v-if="tab == 'access'" :client="client" />
+  <SameSignOnSettings v-if="tab == 'sso'" :client="client" />
   <footer class="g-row g-align-center">
     <div>
       <button class="g-flat g-error" @click="save()">
-        <Zincon of="delete" /> Supprimer l'application
+        <Zincon of="delete" />
+        Supprimer l'application
       </button>
     </div>
     <div class="g-right g-grow">

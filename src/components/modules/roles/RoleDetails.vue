@@ -6,7 +6,7 @@ import PermissionsGrid from '@/components/forms/PermissionsGrid.vue'
 import PopUpHeader from '@/components/popups/PopUpHeader.vue'
 import type { Role } from '@/business/users'
 import { useApi, useThisPopUp } from '@/composables'
-import { DismissReason } from '@/helpers'
+import { Reason } from '@/helpers'
 
 const popup = useThisPopUp()
 
@@ -33,7 +33,7 @@ async function save() {
 
 async function del() {
   await useApi().roles.delete(role)
-  popup.dismiss(DismissReason.Deleted)
+  popup.dismiss(Reason.Deleted)
 }
 </script>
 

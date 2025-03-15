@@ -1,4 +1,4 @@
-import type { SsoClientPublicInfo } from '@/business/clients/sameSignOn'
+import type { SsoClientPublicInfo } from '@/business/apps/sameSignOn'
 
 export interface LoginClient {
   name: string

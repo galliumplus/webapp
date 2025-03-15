@@ -12,7 +12,13 @@ provide(ThisPopUp, props.popUp)
 </script>
 
 <template>
-  <div @click="$event.stopPropagation()">
+  <div
+    @click="$event.stopPropagation()"
+    :style="{
+      '--popup-width': popUp.windowSize.width + 'px',
+      '--popup-height': popUp.windowSize.height + 'px'
+    }"
+  >
     <Component :is="popUp.component"></Component>
   </div>
 </template>
@@ -24,9 +30,9 @@ provide(ThisPopUp, props.popUp)
 div {
   background: white;
   border: 2px solid #aaa;
-  width: 820px;
+  width: var(--popup-width);
   max-width: 100%;
-  height: 580px;
+  height: var(--popup-height);
   max-height: 100%;
   @include utils.animation-popup;
   @include utils.flexbox(column);

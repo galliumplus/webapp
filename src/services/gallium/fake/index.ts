@@ -4,7 +4,7 @@ import { FakeGalliumUserService, FakeRolesService } from './users'
 import dayjs from 'dayjs'
 import type { LoggedIn } from '@/business/access'
 import { LoginCredentials } from '@/business/access'
-import type { SsoClientPublicInfo } from '@/business/clients'
+import type { SsoClientPublicInfo } from '@/business/apps'
 import { Problem } from '@/business/problem'
 import { User } from '@/business/users'
 

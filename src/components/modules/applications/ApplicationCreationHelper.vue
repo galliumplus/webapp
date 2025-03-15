@@ -1,37 +1,22 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import FormInput from '@/components/basic/FormInput.vue'
-import HelpTooltip from '@/components/basic/HelpTooltip.vue'
-import TextInput from '@/components/basic/TextInput.vue'
-import Zincon from '@/components/basic/Zincon.vue'
+import { ref } from 'vue'
+import RadioButton from '@/components/basic/RadioButton.vue'
 import PopUpHeader from '@/components/popups/PopUpHeader.vue'
-import PopUpTab from '@/components/popups/PopUpTab.vue'
-import type { ClientInit } from '@/business/clients/client'
-import { useApi } from '@/composables'
 import { useThisPopUp } from '@/composables/popups'
 
-const tab = ref('overview')
 const popup = useThisPopUp()
-const modifiedClient = reactive({ ...popup.getData<ClientInit>() })
-const initiallyEnabled = modifiedClient.isEnabled
 
-function disable() {
-  modifiedClient.isEnabled = false
-}
-function enable() {
-  modifiedClient.isEnabled = true
-}
-
-async function save() {
-  await useApi().clients.save(modifiedClient.id)
-  popup.dismiss()
-}
+const test = ref('')
 </script>
 
 <template>
   <PopUpHeader></PopUpHeader>
   <main>
-    <button class="g-flat">AAHAHA</button>
+    <p></p>
+    <RadioButton group="test" v-model="test" value="a" label="Option A"></RadioButton>
+    <RadioButton group="test" v-model="test" value="b" label="Option B"></RadioButton>
+    <RadioButton group="test" v-model="test" value="c" label="Option C"></RadioButton>
+    <RadioButton group="test" v-model="test" value="d" label="Option D"></RadioButton>
   </main>
 </template>
 

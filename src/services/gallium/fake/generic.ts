@@ -1,12 +1,14 @@
-import type { CollectionResource } from '@hokaze/core'
+import type { CollectionResource, ObjectDescriptor } from '@hokaze/core'
 import { Fake } from '@/services/gallium/fake/index'
 
 export abstract class FakeCollection<T, K extends keyof T> implements CollectionResource<T> {
+  private readonly _descriptor: ObjectDescriptor<T>
   private readonly _keyProperty: K
   private _autoIncrement: number
   private _data: Map<number, T>
 
-  protected constructor(keyProperty: K, initialData: T[]) {
+  protected constructor(descriptor: ObjectDescriptor<T>, keyProperty: K, initialData: T[]) {
+    this._descriptor = descriptor
     this._keyProperty = keyProperty
     this._autoIncrement = 1
     this._data = new Map()
@@ -25,11 +27,17 @@ export abstract class FakeCollection<T, K extends keyof T> implements Collection
     throw new Error('not implemented')
   }
 
+  public get descriptor(): ObjectDescriptor<T> {
+    return this._descriptor
+  }
+
   public get keyProperty(): keyof T {
     return this._keyProperty
   }
 
-  public abstract create(): T
+  public create(): T {
+    return this._descriptor.makeBlankValue()
+  }
 
   public async delete(item: T): Promise<void> {
     await this.deleteKey(castKey(item[this._keyProperty]))

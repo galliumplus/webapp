@@ -4,9 +4,6 @@
 @use './colors.scss';
 @use 'utils';
 
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&text=%E2%86%90%E2%86%92&display=swap');
-
 //======= STYLES DE BASE POUR LES BALISES HTML ========================================================================/
 
 body {
@@ -254,6 +251,10 @@ p.g-flush {
 
 .g-right {
   text-align: right;
+
+  &.g-row {
+    justify-content: flex-end;
+  }
 }
 
 .g-justify {
@@ -280,6 +281,10 @@ p.g-flush {
   flex: 1 1;
 }
 
+.g-even-size > * {
+  flex: 1 1 0;
+}
+
 .g-column {
   display: flex;
   flex-direction: column;
@@ -300,7 +305,7 @@ p.g-flush {
   gap: 1rem;
 }
 
-.g-em {
+.g-dim {
   font-style: italic;
   color: var(--secondary-content);
 }
@@ -363,7 +368,13 @@ p.g-flush {
 
 .g-box {
   background-color: var(--surface-container);
+  color: var(--on-surface-container);
   padding: 1rem 1rem;
+
+  &.g-error {
+  background-color: var(--error-container);
+  color: var(--on-error-container);
+  }
 }
 
 .g-min-height-0 {
@@ -401,12 +412,4 @@ p.g-flush {
   to {
     opacity: 1;
   }
-}
-
-//======= ICÔNES ======================================================================================================/
-
-@font-face {
-  font-family: 'Zincons';
-  src: url('@/assets/fonts/zincons-3.woff2');
-  unicode-range: U+E000-EFFF;
 }

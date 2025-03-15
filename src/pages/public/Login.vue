@@ -11,11 +11,11 @@ import LoadingBar from '@/components/basic/LoadingBar.vue'
 import LoginForm from '@/components/forms/LoginForm.vue'
 import LoginLogo from '@/components/misc/LoginLogo.vue'
 import type { LoginCredentials } from '@/business/access'
-import { type LoginClient, SelfLoginClient, SsoLoginClient } from '@/business/clients'
-import { SameSignOnScope } from '@/business/clients/sameSignOn'
+import { type LoginClient, SelfLoginClient, SsoLoginClient } from '@/business/apps'
+import { SameSignOnScope } from '@/business/apps/sameSignOn'
 import { Problem } from '@/business/problem'
-import { Done, Indeterminate, type Progress } from '@/business/progress'
 import { useApi, useParams, useStore } from '@/composables'
+import { Done, Indeterminate, type Progress } from '@/helpers/progress'
 
 const router = useRouter()
 const api = useApi()
@@ -72,7 +72,7 @@ async function logIn(credentials: LoginCredentials) {
     }
   } catch (err) {
     progress.value = Done
-    // credentials.report(Problem.handle(err))
+    Problem.handle(err)
   }
 }
 

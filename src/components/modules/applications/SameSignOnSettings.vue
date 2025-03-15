@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue'
+import { computed, ref } from 'vue'
 import Checkbox from '@/components/basic/Checkbox.vue'
+import CopyToClipboardButton from '@/components/basic/CopyToClipboardButton.vue'
 import TextInput from '@/components/basic/TextInput.vue'
-import Tooltip from '@/components/basic/Tooltip.vue'
-import Zincon from '@/components/basic/Zincon.vue'
-import { Client } from '@/business/clients'
-import { exampleJWT } from '@/helpers'
+import RenewSecret, { type SecretToRenew } from '@/components/modules/applications/RenewSecret.vue'
+import { Client, SameSignOnScope } from '@/business/apps'
+import type { GeneratedSecret } from '@/business/apps/secrets.ts'
+import { useMessageBox, usePopUp } from '@/composables/popups.ts'
+import { exampleJWT, Choice } from '@/helpers'
 
 interface Props {
   client: Client
 }
 
 const props = defineProps<Props>()
+const newSecret = ref<GeneratedSecret | null>(null)
 
 const redirectUrlExample = computed(() => {
   if (props.client.sameSignOn === null) return null
@@ -26,26 +29,41 @@ const redirectUrlExample = computed(() => {
 
 const host = window.location.host
 const loginUrl = computed(() => 'https://' + host + '/login?app=' + props.client.apiKey)
-const loginUrlCopied = ref(false)
-const loginUrlCopyFailed = ref(false)
-const copyLoginUrlButton = useTemplateRef<HTMLButtonElement>('copy-login-url-button')
-let loginUrlCopiedTimeout: number | undefined
 
-async function copyLoginUrl() {
-  try {
-    await navigator.clipboard.writeText(loginUrl.value)
-    loginUrlCopied.value = true
-  } catch (error) {
-    console.error(error)
-    loginUrlCopyFailed.value = true
-  }
-  if (loginUrlCopiedTimeout) window.clearTimeout(loginUrlCopiedTimeout)
-  loginUrlCopiedTimeout = window.setTimeout(clearLoginUrlCopy, 5000)
+const Scope = SameSignOnScope
+
+function hasScope(scope: SameSignOnScope): boolean {
+  return props.client.sameSignOn !== null && scope.in(props.client.sameSignOn.scope)
 }
 
-function clearLoginUrlCopy() {
-  loginUrlCopied.value = false
-  loginUrlCopyFailed.value = false
+function updateScope(scope: SameSignOnScope, value: boolean): void {
+  if (props.client.sameSignOn !== null) {
+    if (value) {
+      props.client.sameSignOn.scope = scope.addTo(props.client.sameSignOn.scope)
+    } else {
+      props.client.sameSignOn.scope = scope.removeFrom(props.client.sameSignOn.scope)
+    }
+  }
+}
+
+async function renewSsoSecret() {
+  if (props.client.sameSignOn !== null) {
+    const data: SecretToRenew = {
+      type: 'sso-secret',
+      clientId: props.client.id,
+      signatureType: props.client.sameSignOn.signatureType
+    }
+    const popup = usePopUp(RenewSecret, {
+      title: 'Nouveau code secret',
+      size: 'small',
+      data
+    }).openModal()
+    try {
+      newSecret.value = await popup.getResult()
+    } catch {
+      /* ne rien faire si la modale a été fermée de force */
+    }
+  }
 }
 </script>
 
@@ -67,54 +85,28 @@ function clearLoginUrlCopy() {
             labelSize="wide"
             disabled
           />
-          <button
-            class="g-raised g-secondary"
-            ref="copy-login-url-button"
-            @click="copyLoginUrl()"
-            @blur="clearLoginUrlCopy()"
-          >
-            <Zincon :of="loginUrlCopied ? 'check' : 'copy'" />
-          </button>
-          <Tooltip
-            :message="
-              loginUrlCopyFailed
-                ? 'Le presse-papier n\'est pas accessible'
-                : 'Copié dans le presse-papier !'
-            "
-            :shown="loginUrlCopied || loginUrlCopyFailed"
-            :attached-to="copyLoginUrlButton"
-            placement="top"
-            :color="loginUrlCopyFailed ? 'error' : 'secondary'"
-          />
+          <CopyToClipboardButton :textToCopy="loginUrl" />
         </div>
         <div class="g-row g-small-gap">
           <TextInput
             class="signature-type"
             name="sso-signature-type"
-            :modelValue="client.sameSignOn?.signatureType"
+            :model-value="newSecret?.signatureType ?? client.sameSignOn?.signatureType"
             label="Algorithme et clé secrète"
-            labelSize="wide"
+            label-size="wide"
             disabled
           />
           <TextInput
             class="g-grow"
             name="sso-signature-secret"
-            modelValue="XXXXXXXX-XXXXXXXXXXXX-XXXXXXXX"
-            blurred="Masqué par sécurité"
+            :model-value="newSecret?.secret ?? 'XXXXXXXX-XXXXXXXXXXXX-XXXXXXXX'"
+            :blurred="newSecret === null ? 'Masqué par sécurité' : undefined"
             disabled
           />
-          <button class="g-raised g-secondary" @click="copyLoginUrl()">Renouveler</button>
-          <Tooltip
-            :message="
-              loginUrlCopyFailed
-                ? 'Le presse-papier n\'est pas accessible'
-                : 'Copié dans le presse-papier !'
-            "
-            :shown="loginUrlCopied || loginUrlCopyFailed"
-            :attached-to="copyLoginUrlButton"
-            placement="top"
-            :color="loginUrlCopyFailed ? 'error' : 'secondary'"
-          />
+          <button v-if="newSecret === null" class="g-raised g-secondary" @click="renewSsoSecret()">
+            Renouveler
+          </button>
+          <CopyToClipboardButton v-else :textToCopy="newSecret.secret" />
         </div>
         <div>
           <TextInput
@@ -136,13 +128,36 @@ function clearLoginUrlCopy() {
       </div>
       <div class="g-column">
         <h3 class="g-section-heading">Portée de la connexion</h3>
-        <div class="g-row">
-          <Checkbox name="sso-scope-identity" label="Nom et prénom" class="g-grow" />
-          <Checkbox name="sso-scope-email" label="Adresse électronique" class="g-grow" />
-          <Checkbox name="sso-scope-role" label="Rôle et permissions" class="g-grow" />
+        <div class="g-row g-even-size">
+          <Checkbox
+            name="sso-scope-identity"
+            label="Nom et prénom"
+            :modelValue="hasScope(Scope.Identity) || hasScope(Scope.Gallium)"
+            :disabled="hasScope(Scope.Gallium)"
+            @update:modelValue="updateScope(Scope.Identity, $event)"
+          />
+          <Checkbox
+            name="sso-scope-email"
+            label="Adresse électronique"
+            :modelValue="hasScope(Scope.Email) || hasScope(Scope.Gallium)"
+            :disabled="hasScope(Scope.Gallium)"
+            @update:modelValue="updateScope(Scope.Email, $event)"
+          />
+          <Checkbox
+            name="sso-scope-role"
+            label="Rôle et permissions"
+            :modelValue="hasScope(Scope.Role) || hasScope(Scope.Gallium)"
+            :disabled="hasScope(Scope.Gallium)"
+            @update:modelValue="updateScope(Scope.Role, $event)"
+          />
         </div>
         <div class="g-row">
-          <Checkbox name="sso-scope-gallium" label="Accès direct à Gallium" />
+          <Checkbox
+            name="sso-scope-gallium"
+            label="Accès direct à Gallium"
+            :modelValue="hasScope(Scope.Gallium)"
+            @update:modelValue="updateScope(Scope.Gallium, $event)"
+          />
         </div>
         <hr />
       </div>
@@ -164,7 +179,9 @@ function clearLoginUrlCopy() {
         />
         <hr />
       </div>
-      <button class="g-raised g-error">Retirer le Same Sign-On</button>
+      <button class="g-raised g-error" @click="client.removeSameSignOn()">
+        Retirer le Same Sign-On
+      </button>
     </template>
   </main>
 </template>

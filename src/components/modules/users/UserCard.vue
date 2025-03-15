@@ -24,10 +24,10 @@ watch(
   <Card>
     <h2>fiche utilisateur</h2>
     <hr />
-    <div v-if="user === undefined" class="g-em sheet-content">Aucun utilisateur sélectionné</div>
+    <div v-if="user === undefined" class="g-dim sheet-content">Aucun utilisateur sélectionné</div>
     <div v-else class="sheet-content">
       <p>
-        <span :class="{ 'g-em': !user.hasName }">{{
+        <span :class="{ 'g-dim': !user.hasName }">{{
           user.hasName ? user.longDisplayName : 'Nom inconnu'
         }}</span>
         ({{ user.id }})

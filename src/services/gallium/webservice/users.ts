@@ -26,7 +26,7 @@ export const role: ObjectDescriptor<Role> = object({
   permissions: number
 })
 
-export class GalliumUserService implements GalliumUsersApi {
+export class GalliumUsersService implements GalliumUsersApi {
   private _usersResource: CollectionResource<UserInit>
   private _service: Service
 

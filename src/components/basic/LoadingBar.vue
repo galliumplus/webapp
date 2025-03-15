@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Done, type Progress } from '@/business/progress'
+import { Done, type Progress } from '@/helpers/progress'
 
 interface Props {
   progress: Progress

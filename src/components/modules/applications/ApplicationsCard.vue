@@ -2,8 +2,9 @@
 import { onMounted, ref } from 'vue'
 import Card from '@/components/cards/Card.vue'
 import ApplicationDetails from '@/components/modules/applications/ApplicationDetails.vue'
-import type { ClientInit } from '@/business/clients'
+import type { ClientInit } from '@/business/apps'
 import { useApi, usePopUp } from '@/composables'
+import { deleteFirst, Reason, updateFirst } from '@/helpers'
 
 const api = useApi()
 
@@ -14,11 +15,23 @@ onMounted(async () => {
 })
 
 function openCreationHelper() {
-  usePopUp(ApplicationDetails, { title: `Nouvelle application` }).openModal()
+  // usePopUp(ApplicationCreationHelper, { title: `Ajouter une nouvelle application` }).openModal()
+  usePopUp(ApplicationDetails, { title: 'Nouvelle application' }).openModal().ignoreResult()
 }
 
-function openDetails(client: ClientInit) {
-  usePopUp(ApplicationDetails, { title: `Application ${client.name}`, data: client }).openModal()
+async function openDetails(client: ClientInit) {
+  const popup = usePopUp(ApplicationDetails, {
+    title: `Application ${client.name}`,
+    data: client
+  }).openModal()
+  try {
+    client = await popup.getResult()
+    updateFirst(clientList.value, (r) => r.id === client.id, client)
+  } catch (reason) {
+    if (reason === Reason.Deleted) {
+      deleteFirst(clientList.value, (r) => r.id === client.id)
+    }
+  }
 }
 </script>
 

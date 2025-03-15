@@ -38,13 +38,13 @@ export class SameSignOnScope extends NumberFlag {
 
   /**
    * Accès à l'API Gallium en tant que l'utilisateur connecté. Si cette portée est présente, toutes
-   * les informations des autres portées sont accessible via l'API.
+   * les informations des autres portées sont accessibles via l'API.
    */
   public static readonly Gallium: SameSignOnScope = NumberFlag.withValue(0x100)
 }
 
 export class SameSignOn implements SameSignOnInit {
-  private _signatureType: string
+  private readonly _signatureType: string
   private _scope: number
   private _displayName: string
   private _redirectUrl: string
@@ -64,6 +64,10 @@ export class SameSignOn implements SameSignOnInit {
 
   public get scope(): number {
     return this._scope
+  }
+
+  public set scope(value: number) {
+    this._scope = value
   }
 
   public get displayName(): string | null {
