@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import dashboardRoutes from '@/router/protected'
 
 const routes: RouteRecordRaw[] = [
   {

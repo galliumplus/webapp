@@ -27,7 +27,12 @@ const userDisplayName = store.session.userShortDisplayName
 
     <nav>
       <Tab link="/dashboard" label="Accueil" icon="home" />
-      <!--Tab link="/checkout" label="Caisse" icon="cart" /-->
+      <Tab
+        link="/checkout"
+        label="Caisse"
+        icon="cart"
+        v-if="$hasPermission(G.Permission.UseDeveloperTools)"
+      />
       <Tab link="/users" label="Utilisateurs" icon="user-group" />
       <Tab link="/admin" label="Administration" icon="settings" />
       <Tab

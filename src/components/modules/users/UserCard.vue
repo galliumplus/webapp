@@ -1,28 +1,29 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import Card from '@/components/cards/Card.vue'
-import { User } from '@/business/users'
+import { type Role, User } from '@/business/users'
 import { useCurrentSchoolYear } from '@/composables'
 
 interface Props {
-  user: User | undefined
+  user?: User
 }
 
-const props = defineProps<Props>()
-const emailShown = ref(false)
-const currentSchoolYear = useCurrentSchoolYear()
+const role = ref<Role | undefined>(undefined)
 
+const props = defineProps<Props>()
+const currentSchoolYear = useCurrentSchoolYear()
 watch(
   () => props.user,
-  () => {
-    emailShown.value = false
+  async () => {
+    role.value = undefined
+    role.value = await props.user?.role.get()
   }
 )
 </script>
 
 <template>
   <Card>
-    <h2>fiche utilisateur</h2>
+    <h2>Fiche utilisateur</h2>
     <hr />
     <div v-if="user === undefined" class="g-dim sheet-content">Aucun utilisateur sélectionné</div>
     <div v-else class="sheet-content">
@@ -35,10 +36,9 @@ watch(
       <p>Promotion: {{ user.year }}</p>
       <p>
         Adresse mail:
-        <a v-if="emailShown" :href="'mailto:' + user.email">{{ user.email }}</a>
-        <button v-else @click="emailShown = true" class="g-link">cliquez pour afficher</button>
+        <a :href="'mailto:' + user.email">{{ user.email }}</a>
       </p>
-      <p>Rôle: {{ user.role }}</p>
+      <p>Rôle: {{ role?.name }}</p>
       <p v-if="user.isMember">
         Adhérent pour l'année <span class="g-nowrap">{{ currentSchoolYear }}</span>
       </p>

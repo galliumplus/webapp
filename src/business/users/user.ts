@@ -1,3 +1,5 @@
+import type { Role } from './role.ts'
+import { Ref } from '@hokaze/core'
 import { titleCase } from '@/helpers'
 
 export interface UserInit {
@@ -5,7 +7,7 @@ export interface UserInit {
   firstName: string
   lastName: string
   email: string
-  role: number
+  role: Ref<Role>
   year: string
   deposit: number | null
   isMember: boolean
@@ -16,7 +18,7 @@ export class User {
   private readonly _firstName: string
   private readonly _lastName: string
   private readonly _email: string
-  private readonly _role: number
+  private readonly _role: Ref<Role>
   private readonly _year: string
   private readonly _deposit: number | null
   private readonly _isMember: boolean
@@ -48,7 +50,7 @@ export class User {
     return this._email
   }
 
-  public get role(): number {
+  public get role(): Ref<Role> {
     return this._role
   }
 

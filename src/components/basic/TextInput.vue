@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-import Zincon from '@/components/basic/Zincon.vue'
-import type { Problem } from '@/business/problem'
-import { messageOf } from '@/helpers'
+import { computed } from 'vue'
 
 interface Props {
   name: string

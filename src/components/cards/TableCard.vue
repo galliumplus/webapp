@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import Card from '@/components/cards/Card.vue'
 
-export type Columns = [string, string, string][]
-
 interface Props {
   title: string
-  columns: Columns
 }
 
 defineProps<Props>()
@@ -16,16 +13,16 @@ defineProps<Props>()
     <h2>{{ title }}</h2>
     <div class="scroll-box">
       <table>
-        <colgroup>
-          <col v-for="col in columns" />
-        </colgroup>
+        <!--<colgroup>
+          <col v-for="col in columns" :class="col[2]" />
+        </colgroup>-->
         <thead>
           <tr>
-            <th v-for="col in columns" :class="'g-' + col[1]">{{ col[0] }}</th>
+            <slot name="header" />
           </tr>
         </thead>
         <tbody>
-          <slot />
+          <slot name="rows" />
         </tbody>
       </table>
     </div>

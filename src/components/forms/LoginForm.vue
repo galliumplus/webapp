@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import FormInput from '../basic/FormInput.vue'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { LoginCredentials } from '@/business/access'
 
 interface Props {

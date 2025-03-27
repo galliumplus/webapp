@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import PopUpWindow from '@/components/popups/PopUpWindow.vue'
-import { Reason } from '@/helpers'
 import { PopUpService } from '@/services/popups/service'
 
 const openModals = PopUpService.instance.openModals

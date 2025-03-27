@@ -7,7 +7,7 @@ import {
   type ReferenceElement,
   useFloating
 } from '@floating-ui/vue'
-import { computed, type Ref, ref, type StyleValue, toRef, useTemplateRef } from 'vue'
+import { computed, type StyleValue, toRef, useTemplateRef } from 'vue'
 
 interface Props {
   attachedTo: MaybeElement<ReferenceElement>

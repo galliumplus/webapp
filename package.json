@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "@floating-ui/vue": "^1.1.6",
-    "@hokaze/core": "^0.2.3",
-    "@hokaze/dayjs": "^0.2.0",
+    "@hokaze/core": "^0.3.2",
+    "@hokaze/dayjs": "^0.3.0",
     "lodash": "^4.17.21",
     "multiflag": "^1.0.2",
     "vue": "^3.5.13",

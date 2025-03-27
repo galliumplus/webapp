@@ -1,5 +1,5 @@
 export * from './jwt'
-export * from './query'
+export * from './routes.ts'
 export * from './string'
 export * from './promise.ts'
 export * from './arrays'

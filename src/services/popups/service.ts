@@ -1,6 +1,6 @@
 import { ModalContext, type PopUpContext } from './context'
 import { PopUp } from './popup'
-import type { Component, ShallowReactive } from 'vue'
+import type { ShallowReactive } from 'vue'
 import { shallowReactive } from 'vue'
 
 export class PopUpService {

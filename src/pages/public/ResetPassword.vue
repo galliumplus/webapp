@@ -4,13 +4,13 @@ import { RouterLink, useRoute } from 'vue-router'
 import NavLink from '@/components/basic/NavLink.vue'
 import PasswordModificationForm from '@/components/forms/PasswordModificationForm.vue'
 import { useApi } from '@/composables/api'
-import { Query } from '@/helpers'
+import { firstOrDefault } from '@/helpers'
 
 const route = useRoute()
 const api = useApi()
 
-const user = Query.firstOrDefault(route.query.user, '')
-const pprt = Query.firstOrDefault(route.query.pprt, '')
+const user = firstOrDefault(route.query.user, '')
+const pprt = firstOrDefault(route.query.pprt, '')
 const done = ref(false)
 
 async function resetPassword(passwords: { newPassword: string }) {

@@ -1,6 +1,5 @@
 import type { GalliumApi, GalliumClientsApi, GalliumUsersApi } from '..'
-import { client, generateNewAppAccessSecret, generateNewSameSignOnSecret } from './clients'
-import { GalliumUsersService, role, user } from './users'
+import { GalliumRolesService, GalliumUsersService } from './users'
 import {
   BasicAuth,
   BearerToken,
@@ -14,22 +13,15 @@ import {
 import dayjs from '@hokaze/dayjs'
 import { type LoggedIn, LoginCredentials } from '@/business/access'
 import type { SsoClientPublicInfo } from '@/business/apps'
-import { User } from '@/business/users'
 import { useStore } from '@/composables/store'
 import type { GalliumRolesApi } from '@/services/gallium/users'
 import { GalliumErrorHandler } from '@/services/gallium/webservice/errors.ts'
+import { GalliumClientsService } from '@/services/gallium/webservice/clients.ts'
 
 const ssoCredentials = object({
   username: string,
   password: string,
   application: string
-})
-
-const loggedIn = object({
-  token: string,
-  expiration: dayjs,
-  user,
-  permissions: number
 })
 
 const loggedInThroughSso = object({
@@ -47,7 +39,10 @@ const ssoClientPublicInfo: ObjectDescriptor<SsoClientPublicInfo> = object({
 export class GalliumService implements GalliumApi {
   private readonly _loginService: Service
   private readonly _mainService: Service
-  private _apiKey: string
+  private readonly _rolesService: GalliumRolesService
+  private readonly _usersService: GalliumUsersService
+  private readonly _clientsService: GalliumClientsService
+  private readonly _apiKey: string
 
   public constructor(baseUrl: string, apiKey: string) {
     this._apiKey = apiKey
@@ -61,22 +56,26 @@ export class GalliumService implements GalliumApi {
     if (store.session.isLoggedIn) {
       this._mainService.useAuth(new BearerToken(store.session.token))
     }
+
+    this._rolesService = new GalliumRolesService(this._mainService)
+    this._usersService = new GalliumUsersService(this._mainService, this._rolesService)
+    this._clientsService = new GalliumClientsService(this._mainService)
   }
 
   public async logIn(credentials: LoginCredentials): Promise<LoggedIn> {
-    const dto = await this._loginService
-      .postRequest({ path: 'login', response: loggedIn })
-      .withHeaders({
-        'X-Api-Key': this._apiKey
+    return await this._loginService
+      .postRequest({
+        path: 'login',
+        response: object({
+          token: string,
+          expiration: dayjs,
+          user: this._usersService.descriptor,
+          permissions: number
+        })
       })
+      .withHeaders({ 'X-Api-Key': this._apiKey })
       .withAuth(new BasicAuth(credentials.username, credentials.password))
       .send()
-    return {
-      token: dto.token,
-      expiration: dto.expiration,
-      user: new User(dto.user),
-      permissions: dto.permissions
-    }
   }
 
   public async getSsoPublicInfo(apiKey: string): Promise<SsoClientPublicInfo> {
@@ -96,17 +95,14 @@ export class GalliumService implements GalliumApi {
   }
 
   public get users(): GalliumUsersApi {
-    return new GalliumUsersService(this._mainService)
+    return this._usersService
   }
 
   public get roles(): GalliumRolesApi {
-    return this._mainService.collection('roles', role)
+    return this._rolesService
   }
 
   public get clients(): GalliumClientsApi {
-    return Object.assign(this._mainService.collection('clients', client), {
-      generateNewAppAccessSecret: generateNewAppAccessSecret(this._mainService),
-      generateNewSameSignOnSecret: generateNewSameSignOnSecret(this._mainService)
-    })
+    return this._clientsService
   }
 }

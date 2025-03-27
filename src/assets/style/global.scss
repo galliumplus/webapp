@@ -214,10 +214,16 @@ table {
 thead th {
   border-bottom: 1px solid var(--on-surface);
   background-color: var(--surface);
+  text-align: left;
 }
 
 tbody td {
   border-bottom: 1px solid colors.$secondary;
+}
+
+tr.g-active {
+  color: var(--on-surface-container);
+  background-color: var(--surface-container);
 }
 
 td,
@@ -251,10 +257,6 @@ p.g-flush {
 
 .g-right {
   text-align: right;
-
-  &.g-row {
-    justify-content: flex-end;
-  }
 }
 
 .g-justify {
@@ -303,17 +305,16 @@ p.g-flush {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+
+  &.g-right {
+    text-align: unset;
+    justify-content: flex-end;
+  }
 }
 
 .g-dim {
   font-style: italic;
   color: var(--secondary-content);
-}
-
-@each $name, $value in (start: flex-start, center: center) {
-  .g-align-#{$name} {
-    align-items: $value;
-  }
 }
 
 @for $size from 0 through 20 {
@@ -375,6 +376,14 @@ p.g-flush {
     background-color: var(--error-container);
     color: var(--on-error-container);
   }
+}
+
+.g-width-full {
+  width: 100%;
+}
+
+.g-height-full {
+  height: 100%;
 }
 
 .g-min-height-0 {

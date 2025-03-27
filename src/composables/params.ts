@@ -1,4 +1,4 @@
-import type { RouteLocationNormalizedLoaded, LocationQueryValue, RouteParamValue } from 'vue-router'
+import type { RouteLocationNormalizedLoaded, LocationQueryValue } from 'vue-router'
 
 export class UrlSearchParam {
   private readonly _rawValues: Array<string | null>

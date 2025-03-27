@@ -1,55 +1,91 @@
-import type { GalliumUsersApi, PasswordModification } from '../users'
+import type { GalliumRolesApi, GalliumUsersApi, PasswordModification } from '../users'
 import { type CollectionResource, type ObjectDescriptor, service, type Service } from '@hokaze/core'
-import { object, string, number, boolean } from '@hokaze/core'
-import { type Role, User, type UserInit } from '@/business/users'
+import { object, string, number, boolean, ref } from '@hokaze/core'
+import { type Role, User } from '@/business/users'
 
-export const user: ObjectDescriptor<UserInit> = object({
-  id: string,
-  firstName: string,
-  lastName: string,
-  email: string,
-  role: number,
-  year: string,
-  deposit: number.nullable,
-  isMember: boolean
-})
-
-const passwordModification: ObjectDescriptor<PasswordModification> = object({
-  newPassword: string,
-  currentPassword: string.optional,
-  resetToken: string.optional
-})
-
-export const role: ObjectDescriptor<Role> = object({
-  id: number,
-  name: string,
-  permissions: number
-})
-
-export class GalliumUsersService implements GalliumUsersApi {
-  private _usersResource: CollectionResource<UserInit>
-  private _service: Service
+export class GalliumRolesService implements GalliumRolesApi {
+  private readonly _resource: CollectionResource<Role>
 
   public constructor(service: Service) {
-    this._usersResource = service.collection('users', user)
+    this._resource = service.collection(
+      'roles',
+      object({
+        id: number,
+        name: string,
+        permissions: number
+      })
+    )
+  }
+
+  public get asResource(): CollectionResource<Role> {
+    return this._resource
+  }
+
+  public getAll(): Promise<Role[]> {
+    return this._resource.getAll()
+  }
+
+  public create(): Role {
+    return this._resource.create()
+  }
+
+  public save(role: Role): Promise<void> {
+    return this._resource.save(role)
+  }
+
+  public delete(role: Role): Promise<void> {
+    return this._resource.delete(role)
+  }
+}
+
+export class GalliumUsersService implements GalliumUsersApi {
+  private readonly _resource: CollectionResource<User>
+  private _service: Service
+  private _descriptor: ObjectDescriptor<User>
+
+  public constructor(service: Service, roles: GalliumRolesService) {
+    this._descriptor = object({
+      id: string,
+      firstName: string,
+      lastName: string,
+      email: string,
+      role: ref(roles.asResource),
+      year: string,
+      deposit: number.nullable,
+      isMember: boolean
+    }).asInstanceOf(User)
+
+    this._resource = service.collection('users', this._descriptor)
+
     this._service = service
   }
 
-  async getAll(): Promise<User[]> {
-    return (await this._usersResource.getAll()).map((init: UserInit) => new User(init))
+  public get descriptor(): ObjectDescriptor<User> {
+    return this._descriptor
   }
 
-  public async getSelf(): Promise<User> {
-    throw new Error('Method not implemented.')
+  public getAll(): Promise<User[]> {
+    return this._resource.getAll()
   }
 
-  public async changePassword(userId: string, password: PasswordModification): Promise<void> {
+  public getSelf(): Promise<User> {
+    return this._resource.get('@me')
+  }
+
+  public changePassword(userId: string, password: PasswordModification): Promise<void> {
     return this._service
-      .putRequest({ path: `users/${userId}/password`, request: passwordModification })
+      .putRequest({
+        path: `users/${userId}/password`,
+        request: object({
+          newPassword: string,
+          currentPassword: string.optional,
+          resetToken: string.optional
+        }) as ObjectDescriptor<PasswordModification>
+      })
       .send(password)
   }
 
-  public async canResetPassword(userId: string): Promise<boolean> {
+  public canResetPassword(userId: string): Promise<boolean> {
     return this._service
       .getRequest({ path: `users/${userId}/reset-password`, response: boolean })
       .send()

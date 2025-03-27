@@ -7,7 +7,7 @@ import RenewSecret, { type SecretToRenew } from '@/components/modules/applicatio
 import { Client, SameSignOnScope } from '@/business/apps'
 import type { GeneratedSecret } from '@/business/apps/secrets'
 import { usePopUp } from '@/composables'
-import { exampleJWT, Choice } from '@/helpers'
+import { exampleJWT } from '@/helpers'
 
 interface Props {
   client: Client

@@ -23,12 +23,13 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
-    path: 'users',
+    path: 'users/:id?',
     name: 'users',
     component: () => import('@/pages/protected/Users.vue'),
     meta: {
       title: 'Utilisateurs'
-    }
+    },
+    props: true
   },
   {
     path: 'admin',
