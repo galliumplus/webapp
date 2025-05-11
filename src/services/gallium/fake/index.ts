@@ -3,10 +3,10 @@ import { FakeGalliumClientsService } from './clients'
 import { Fake } from './data'
 import { FakeGalliumUserService, FakeRolesService } from './users'
 import dayjs from 'dayjs'
-import type { LoggedIn } from '@/business/access'
-import { LoginCredentials } from '@/business/access'
+import type { LoggedIn, LoginCredentials } from '@/business/access'
 import type { SsoClientPublicInfo } from '@/business/apps'
 import { Problem } from '@/business/problem'
+import { GalliumPermission } from '@/business/users'
 
 export class FakeGalliumService implements GalliumApi {
   public async logIn(credentials: LoginCredentials): Promise<LoggedIn> {
@@ -17,7 +17,7 @@ export class FakeGalliumService implements GalliumApi {
         token: 'fake-session-token',
         expiration: dayjs().add(24, 'hour'),
         user: Fake.user(),
-        permissions: 0
+        permissions: 0xfff
       }
     } else {
       throw new Problem('Identifiant ou mot de passe invalide.')

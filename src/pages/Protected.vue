@@ -26,17 +26,23 @@ const userDisplayName = store.session.userShortDisplayName
     <HeaderLogo />
 
     <nav>
-      <Tab link="/dashboard" label="Accueil" icon="home" />
+      <Tab link="dashboard" label="Accueil" icon="home" />
       <Tab
-        link="/checkout"
+        link="checkout"
         label="Caisse"
         icon="cart"
         v-if="$hasPermission(G.Permission.UseDeveloperTools)"
       />
-      <Tab link="/users" label="Utilisateurs" icon="user-group" />
-      <Tab link="/admin" label="Administration" icon="settings" />
       <Tab
-        link="/dev"
+        link="payments"
+        label="Règlements"
+        icon="zn"
+        v-if="$hasPermission(G.Permission.UseDeveloperTools)"
+      />
+      <Tab link="users" label="Utilisateurs" icon="user-group" />
+      <Tab link="admin" label="Administration" icon="settings" />
+      <Tab
+        link="dev"
         label="Espace développeurs"
         icon="zn"
         v-if="$hasPermission(G.Permission.UseDeveloperTools)"

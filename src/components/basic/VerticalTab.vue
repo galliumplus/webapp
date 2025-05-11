@@ -12,7 +12,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <RouterLink :to="link">
+  <RouterLink :to="{ name: link }">
     <Zincon :of="icon" class="icon" />
     {{ label }}
   </RouterLink>
@@ -47,7 +47,7 @@ a {
     border-top: 4px solid var(--surface-shadow);
   }
 
-  &.router-link-exact-active {
+  &.router-link-active {
     padding-bottom: 2px;
     border-top: 4px solid var(--surface-shadow);
     background-color: var(--inverse-surface-container);

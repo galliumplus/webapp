@@ -23,6 +23,14 @@ const routes: RouteRecordRaw[] = [
     }
   },
   {
+    path: 'payments',
+    name: 'payments',
+    component: () => import('@/pages/protected/Payments.vue'),
+    meta: {
+      title: 'Règlements'
+    }
+  },
+  {
     path: 'users/:id?',
     name: 'users',
     component: () => import('@/pages/protected/Users.vue'),
