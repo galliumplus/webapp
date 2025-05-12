@@ -1,7 +1,7 @@
 @use 'sass:math';
 @use 'sass:list';
 
-@use './colors.scss';
+@use './colors';
 @use 'utils';
 
 //======= STYLES DE BASE POUR LES BALISES HTML ========================================================================/
@@ -361,6 +361,10 @@ p.g-flush {
 
 .g-text-error {
   color: var(--error-content);
+}
+
+.g-text-primary {
+  color: var(--primary-content);
 }
 
 .g-text-secondary {
